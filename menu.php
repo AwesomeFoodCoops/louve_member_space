@@ -3,7 +3,7 @@
 
   <div class="alert alert-success fade in">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Vous ètes à jour</strong>
+    <strong>Vous êtes à jour</strong>
   </div>
 
   <div class="alert alert-warning fade in">
