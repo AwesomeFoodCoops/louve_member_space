@@ -1,0 +1,47 @@
+body {
+    background-color: #f7f4f4;
+    font-family: raleway;
+    padding : 50px 0px 0px 0px;
+    z-index: 0;
+}
+
+
+.louve-status {
+    background-color: #ACDB9D;
+    text-align: center;
+    font-size: 2.5em;
+    padding:10px;
+    color: white;
+
+}
+
+.louve-creneau {
+    background-color: white;
+    margin-top: 1em;
+    padding : 20px;
+    text-align: center;
+    min-height:12em;
+    display:block;
+    overflow:auto;
+}
+.louve-box {
+    background-color: white;
+    margin-top: 1em;
+    padding : 20px;
+    text-align: center;
+    height: 100%;
+    display:block;
+    overflow:auto;
+}
+.louve-ag {
+    background-color: white;
+    margin-top: 1em;
+    text-align: center;
+    padding: 20px;
+}
+
+h3 {
+    text-align: center;
+}
+
+.img-center{display: block;margin-left: auto;margin-right: auto}
