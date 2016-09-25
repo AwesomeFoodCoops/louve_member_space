@@ -1,20 +1,19 @@
-<?php 
+ï»¿<?php 
 session_start();
 require("_php/connection.php");
 ?>
 
 <!DOCTYPE html>
-<!-- saved from url=(0077)https://d396qusza40orc.cloudfront.net/phoenixassets/web-frameworks/index.html -->
+
 <html lang="fr">
 
     <head>
     
-    <meta charset="iso-8859-15">
+  <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head 
-         content must come *after* these tags -->
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+
     <title>Membres - La Louve</title>
         <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -48,8 +47,8 @@ require("_php/connection.php");
                 <div class="col-xs-12 col-sm-8" >
                     <h2>Bienvenue dans l'Espace Membre de La Louve</h2>
                     <p style="padding:10px;"></p>
-                    <p>Nous n'étions pas satisfaits de l'offre alimentaire qui nous était proposée, 
-					alors nous avons décidé de créer notre propre supermarché.</p>
+                    <p>Nous n'&eacute;tions pas satisfaits de l'offre alimentaire qui nous &eacute;tait propos&eacute;e, 
+					alors nous avons d&eacute;cid&eacute; de cr&eacute;er notre propre supermarch&eacute;.</p>
                 </div>
                 <div class="col-xs-12 col-sm-4" >
                 </div>
@@ -72,10 +71,10 @@ require("_php/connection.php");
         <p></p>
         <label for="inputPassword" class="sr-only">Mot de passe</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required>
-        <p style="padding:10px;"><a href="forgetpwd.php">Mot de passe oublié?</a></p>
+        <p style="padding:10px;"><a href="forgetpwd.php">Mot de passe oubli&eacute;?</a></p>
         <button class="btn btn-danger btn-block " type="submit">Se connecter</button>
         <p style="padding:10px;"></p>
-        <p>Retrouvez la Louve sur <a href="#">www.lalouve.net</a></p>
+        <p>Retrouvez la Louve sur <a href="lalouve.net">www.lalouve.net</a></p>
       </form>
 
     </div> <!-- /container -->
