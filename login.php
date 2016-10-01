@@ -1,6 +1,6 @@
 ﻿<?php 
 session_start();
-require("_php/connection.php");
+require("_php/login.php");
 ?>
 
 <!DOCTYPE html>
