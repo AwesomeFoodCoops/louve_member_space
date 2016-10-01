@@ -5,6 +5,7 @@ require("_php/head.php");
 <?php
 require("menu.php");
 require("_php/base.php");
+require("_php/testsalarie.php");
 ?>
 
 <div class="container">

@@ -1,6 +1,7 @@
 <?php
 require("_php/session.php");
 require("_php/base.php");
+require("_php/testsalarie.php");
 $_SESSION['posted'] = 0;
 $req = $bdd->prepare('INSERT INTO urgences(titre, info, lien, date) VALUES(:titre, :info, :lien, :date)');
 $tab = "3084d9f7f1aebb522a3ce3624ea29132eeeb5b00";

@@ -41,7 +41,9 @@ require("_php/base.php");
                    <div class="louve-creneau">
                  <h3><strong>Contacter le bureau des membres</strong></h3>
                 <p> Un problème ? Une remarque ? Une question ou suggestion ? Le bureau des membres est là pour vous aider ! </p>
-                <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Prochainement ici.</button>
+				<a href="formbureau.php">
+           <button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Ecrire un message </button>
+			</a>
             </div>
         </div>
 		</div>
