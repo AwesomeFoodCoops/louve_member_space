@@ -55,6 +55,12 @@ require("_php/base.php");
         <label for="date" >Date de parution de l'Urgence :</label>
         <input type="date" id="date" name="date" class="form-control" required>
 		<p></p>
+		<label for="datefin" >Date de fin de parution de l'Urgence :</label>
+        <input type="date" id="datefin" name="datefin" class="form-control" required>
+		<p></p>
+		<label for="date" >niveau de l'urgence (1 peu urgent - 5 vraiment très urgent) :</label>
+        <input type="number" id="date" name="date" class="form-control" min="1" max="5" required>
+		<p></p>
 		<label for="verif" class="sr-only">verification</label>
         <input type="password" id="verif" name="verif" class="form-control" placeholder="Entrez le code de vérification" required >
         <p></p>

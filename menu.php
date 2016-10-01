@@ -26,8 +26,9 @@ elseif (isset($req['status']) AND $req['status'] == 3)
   </div>
 </div>');
 
-$basu = $bdd->query('SELECT * FROM urgences WHERE date = CURDATE() ORDER BY insertion DESC LIMIT 0, 1');
+$basu = $bdd->query('SELECT * FROM urgences WHERE date >= CURDATE() AND datefin <= CURDATE() ORDER BY niveau DESC LIMIT 0, 1');
 $ruq = $basu->fetch();
+$urgence=false;
 if (isset($ruq['info']))
 {
 	if (isset($ruq['lien']))
@@ -48,6 +49,7 @@ if (isset($ruq['info']))
 		</div>
 		</div>');
 	}
+    $urgence=true;
 }
 
 ?>
@@ -77,6 +79,13 @@ if (isset($ruq['info']))
 				if(isset($reqs['salarie']) AND $reqs['salarie'] == 1)
 					echo('<li><a href="salaries.php"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
 ?>			
+<?php	
+if($urgence){
+  ?>  
+	            <li><a href="urgences.php"><span class="glyphicon glyphicon-alert urgences" style="color:grey;"></span> URGENCES</a></li>
+ <?php	
+                            } 
+     ?>           
             </div>
 			<?php //-earphone ?>
             <ul class="nav navbar-inverse navbar-nav navbar-right">
