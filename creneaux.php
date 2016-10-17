@@ -2,18 +2,43 @@
             <h3  class="entete ui horizontal divider"><strong>Mon prochain créneau</strong></h3>
             <div class="louve-creneau">
 			<?php 
-				
-				$based = $bdd->query('SELECT * FROM creneaux WHERE (login =\'' . $_SESSION['login'] . '\' AND date >= CURDATE()) ORDER BY date ASC LIMIT 0, 1 ');
 	
-		$rcq = $based->fetch();
+				require ("forms/recuperation.php");
+	//			$based = $bdd->query('SELECT * FROM creneaux WHERE (login =\'' . $_SESSION['login'] . '\' AND date >= CURDATE()) ORDER BY date ASC LIMIT 0, 1 ');
 	
-			$basik = $bdd->query('SELECT * FROM infocreneau WHERE nom =\'' . $rcq['type'] . '\'');
-			$bqq = $basik->fetch();
-			list($year, $month, $day) = explode("-", $rcq['date']);
+	//	$rcq = $based->fetch();
+	
+	//		$basik = $bdd->query('SELECT * FROM infocreneau WHERE nom =\'' . $rcq['type'] . '\'');
+	//		$bqq = $basik->fetch();
+			if (isset ($result[0]))
+			{
+			$nexttime = $result[0]->me['struct']['date_begin']->me['string'];
+			list ($date, $time) = explode (" ", $nexttime);
+			list($year, $month, $day) = explode("-", $date);
+			list ($heure, $minutes, $secondes) = explode(":", $time);
+			$timestamp = mktime(0, 0, 0, $month, $day, $year);
+			$dd = date('D', $timestamp);
+			if ($dd == 'Mon')
+				$dd = 'Lundi';
+			elseif ($dd == 'Tue')
+				$dd = 'Mardi';
+			elseif ($dd == 'Wed')
+				$dd = 'Mercredi';
+			elseif ($dd == 'Thu')
+				$dd = 'Jeudi';
+			elseif ($dd == 'Fri')
+				$dd = 'Vendredi';
+			elseif ($dd == 'Sat')
+				$dd = 'Samedi';
+			elseif ($dd == 'Sun')
+				$dd = 'Dimanche';
 			$months = array("janvier", "février", "mars", "avril", "mai", "juin",
 			"juillet", "août", "septembre", "octobre", "novembre", "décembre");
-			   echo ('<h3>' . $bqq['jour'] . ' ' .$day . ' '.$months[$month-1].' '. $year . ' : ' . $bqq['heure'] . '</h3>');
-		
+			   echo ('<h3> '.$dd.' ' .$day . ' '.$months[$month-1].' '. $year . ' : ' . $heure . 'H'.$minutes.'</h3>');
+			}
+			else
+				echo ("<h3>Vous n'êtes inscrit a aucun créneau futur.</h3>");
+
 		//$raq->closecursor();
 //	$req->closecursor(); 
 	?>
@@ -27,14 +52,33 @@
             <h3  class="entete ui horizontal divider"><strong>Créneaux suivants</strong></h3>
             <div class="louve-creneau">
 			<?php 
-				$based = $bdd->query('SELECT * FROM creneaux WHERE (login =\'' . $_SESSION['login'] . '\' AND date >= CURDATE())ORDER BY date ASC LIMIT 0, 5 ');
-		while($rcq = $based->fetch())
-		{
-			$basik = $bdd->query('SELECT * FROM infocreneau WHERE nom =\'' . $rcq['type'] . '\'');
-			$bqq = $basik->fetch();
-			list($year, $month, $day) = explode("-", $rcq['date']);
-			   echo ('<h4>' . $bqq['jour'] . ' ' .$day . ' '.$months[$month-1].' '. $year . ' : ' . $bqq['heure'] . '</h4>');
-		}
+			 for($i = 0; $i < count($result) AND $i < 3; $i++)
+			{
+				$nexttime = $result[$i]->me['struct']['date_begin']->me['string'];
+			list ($date, $time) = explode (" ", $nexttime);
+			list($year, $month, $day) = explode("-", $date);
+			list ($heure, $minutes, $secondes) = explode(":", $time);
+			$timestamp = mktime(0, 0, 0, $month, $day, $year);
+			$dd = date('D', $timestamp);
+			if ($dd == 'Mon')
+				$dd = 'Lundi';
+			elseif ($dd == 'Tue')
+				$dd = 'Mardi';
+			elseif ($dd == 'Wed')
+				$dd = 'Mercredi';
+			elseif ($dd == 'Thu')
+				$dd = 'Jeudi';
+			elseif ($dd == 'Fri')
+				$dd = 'Vendredi';
+			elseif ($dd == 'Sat')
+				$dd = 'Samedi';
+			elseif ($dd == 'Sun')
+				$dd = 'Dimanche';
+			$months = array("janvier", "février", "mars", "avril", "mai", "juin",
+			"juillet", "août", "septembre", "octobre", "novembre", "décembre");
+			   echo ('<h3> '.$dd.' ' .$day . ' '.$months[$month-1].' '. $year . ' : ' . $heure . 'H'.$minutes.'</h3>');
+			}
+		
 		//$raq->closecursor();
 //	$req->closecursor(); 
 	?>    

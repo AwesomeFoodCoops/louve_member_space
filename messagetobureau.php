@@ -16,8 +16,16 @@
 
      $message = strip_tags($_POST['message']); 
 	 $sujet = strip_tags($_POST['sujet']); 
+	 
+	 $to      = 'timohr01@gmail.com';
+ $subject = $sujet;
+ $message = $message ;
+ $headers = 'From: timohr01@gmail.com' . "\r\n" .
+ 'Reply-To: timohr01@gmail.com' . "\r\n" .
+ 'X-Mailer: PHP/' . phpversion();
+	mail($to, $subject, $message, $headers);
 
-		if(mail('timohr01@gmail.com', $sujet, $message, $headers)) //faudra changer le mail sinon je vais tout reçevoir
+		if(mail($to, $subject, $message, $headers)) //faudra changer le mail sinon je vais tout reçevoir
 		{ 
 			$_SESSION['posted'] = 114; 
 		} 

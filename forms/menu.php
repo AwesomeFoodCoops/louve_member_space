@@ -6,13 +6,13 @@ include("baseinfo.php");
 <?php 
 $base = $bdd->query('SELECT status FROM members WHERE login =\'' . $_SESSION['login'] . '\'');
 $req = $base->fetch();
-if (isset($_SESSION['louvestatus']) AND $_SESSION['louvestatus'] === 'up_to_date')
+if (isset($req['status']) AND $req['status'] == 1)
 	echo ('
   <div class="alert alert-success fade in">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Vous êtes à jour</strong>
   </div>');
-  //alert suspended delay unpayed blocked unsuscribed
+  
 elseif (isset($req['status']) AND $req['status'] == 2)
 	echo ('
   <div class="alert alert-warning fade in">
@@ -71,8 +71,8 @@ if (isset($ruq['info']))
 
             <div class="nav navbar-nav collapse navbar-collapse" id="louvenav">
                 <li><a href="participation.php"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
-             <?php  // <li><a href="#"><span class="glyphicon glyphicon-calendar" style="color:grey"></span> VIE DE LA LOUVE</a></li> 
-              //  <li><a href="documents.php"><span class="glyphicon glyphicon-duplicate" style="color:grey"></span> DOCUMENTS</a></li> ?>
+                <li><a href="#"><span class="glyphicon glyphicon-calendar" style="color:grey"></span> VIE DE LA LOUVE</a></li> 
+                <li><a href="documents.php"><span class="glyphicon glyphicon-duplicate" style="color:grey"></span> DOCUMENTS</a></li>
 				<li><a href="services.php"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
                 <li><a href="http://vps247219.ovh.net:4567/"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
 <?php	

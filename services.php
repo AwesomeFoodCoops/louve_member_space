@@ -33,7 +33,9 @@ require("_php/base.php");
                    <div class="louve-creneau">
                  <h3><strong>Suggérer un produit</strong></h3>
                 <p> Lors de vos dernières courses un produit vous a manqué ? Suggérez le ici et votez pour les articles que vous souhaitez voir apparaître en rayons.</p>
-                <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Prochainement ici.</button>
+               <a href="produits.php">
+			   <button class="btn btn-default"><span class="glyphicon glyphicon-apple"></span> Proposer un produit</button>
+			   </a>
             </div>
         </div>
 

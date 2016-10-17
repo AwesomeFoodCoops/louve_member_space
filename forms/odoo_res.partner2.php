@@ -1,5 +1,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
+
+$odoo_table = "res.partner";   //"shift.registration";
+
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 echo '<h2>XML-RPC AVEC OPENERP/ODOO ET PHP</h2>';
@@ -10,9 +13,9 @@ $GLOBALS['xmlrpc_internalencoding']='UTF-8';
 
 $user = 'ESPACE_MEMBRES';
 $password = 'cooplalouv3';
-$dbname = 'cooplalouve';
+$dbname = 'lalouve-dev_bdd1';  //cooplalouve
 
-$server_url = 'http://erp-test.cooplalouve.fr:8069'; 
+$server_url = 'http://lalouve-dev.code-and-design.fr';  // TEST: http://erp-test.cooplalouve.fr:8069    Attention : ttp://lalouve-dev.code-and-design.fr
 $connexion = new xmlrpc_client($server_url . "/xmlrpc/common");
 $connexion->setSSLVerifyPeer(0);
 
@@ -31,9 +34,9 @@ else{
 
     $domain_filter = array ( 
         new xmlrpcval(
-            array(new xmlrpcval('membership_state' , "string"), 
+            array(new xmlrpcval('email' , "string"), 
                   new xmlrpcval('=',"string"), 
-                  new xmlrpcval('free',"string")
+                  new xmlrpcval('celine@hh.com',"string")
                   ),"array"             
             ),
         ); 
@@ -45,34 +48,52 @@ else{
     $msg->addParam(new xmlrpcval($dbname, "string")); 
     $msg->addParam(new xmlrpcval($uid, "int")); 
     $msg->addParam(new xmlrpcval($password, "string")); 
-    $msg->addParam(new xmlrpcval("res.partner", "string")); 
-    $msg->addParam(new xmlrpcval("search", "string")); 
+    $msg->addParam(new xmlrpcval($odoo_table, "string")); //shift.registration  res.partner
+    $msg->addParam(new xmlrpcval("search", "string")); 	
     $msg->addParam(new xmlrpcval($domain_filter, "array")); 
     $response = $client->send($msg);
-      
+
+	if(false){
+	 echo "<PRE>";
+	 var_dump($response); 
+	 echo "</PRE>";
+	 die("<HR>");
+	 }
+	
     $result = $response->value();
+	//var_dump($result);
+	//exit;
+	
     $ids = $result->scalarval();
    
     $id_list = array();
     
+	echo "<HR><pre>";
+	//var_dump($ids);
+	echo "</pre><HR>";
+	//die("</pre><HR>");
+	
     for($i = 0; $i < count($ids); $i++){
         $id_list[]= new xmlrpcval($ids[$i]->me['int'], 'int');
     }
 
     $field_list = array(
         new xmlrpcval("name", "string"),
+		new xmlrpcval("street", "string"),
+        new xmlrpcval("mobile", "string"),
         new xmlrpcval("email", "string"),
-        new xmlrpcval("street", "string"),
-        new xmlrpcval("city", "string"),
-        new xmlrpcval("zip", "string"),
-        new xmlrpcval("function", "string"),
+        new xmlrpcval("shift_type", "string"),
+        new xmlrpcval("cooperative_state", "string"),
+        new xmlrpcval("final_standard_point", "string"),
+        new xmlrpcval("final_ftop_point", "string"),
+
     ); 
      
     $msg = new xmlrpcmsg('execute');
     $msg->addParam(new xmlrpcval($dbname, "string"));
     $msg->addParam(new xmlrpcval($uid, "int"));
     $msg->addParam(new xmlrpcval($password, "string"));
-    $msg->addParam(new xmlrpcval("res.partner", "string"));
+    $msg->addParam(new xmlrpcval($odoo_table, "string"));
     $msg->addParam(new xmlrpcval("read", "string")); 
     $msg->addParam(new xmlrpcval($id_list, "array")); 
     $msg->addParam(new xmlrpcval($field_list, "array")); 
@@ -84,61 +105,25 @@ else{
     }
 
     $result = $resp->value()->scalarval();    
-    
-    echo '<h2>Resultat brut de la requête avec print_r($result) :</h2>';
-    print_r($result);
-    echo '<hr />';
-    echo '<h2>Liste des partners qui ne sont pas des sociétés:</h2>';
    
     for($i = 0; $i < count($result); $i++){
-        echo '<h1>' . $result[$i]->me['struct']['name']->me['string'] . '</h1>'
+        echo '<h1>' .( $result[$i]->me['struct']['name']->me['string']) . '</h1>'
            . '<ol>'
+           . '<li><strong>name</strong> : ' . $result[$i]->me['struct']['name']->me['string'] . '</li>'
+           . '<li><strong>street</strong> : ' . $result[$i]->me['struct']['street']->me['string'] . '</li>'
+           . '<li><strong>mobile</strong> : ' . $result[$i]->me['struct']['mobile']->me['string'] . '</li>'
            . '<li><strong>Email</strong> : ' . $result[$i]->me['struct']['email']->me['string'] . '</li>'
-           . '<li><strong>Street</strong> : ' . $result[$i]->me['struct']['street']->me['string'] . '</li>'
-           . '<li><strong>City</strong> : ' . $result[$i]->me['struct']['city']->me['string'] . '</li>'
-           . '<li><strong>Zip code</strong> : ' . $result[$i]->me['struct']['zip']->me['string'] . '</li>'
-           . '<li><strong>Fonction</strong> : ' . $result[$i]->me['struct']['function']->me['string'] . '</li>'
+           . '<li><strong>Shift type</strong> : ' . $result[$i]->me['struct']['shift_type']->me['string'] . '</li>'
+           . '<li><strong>Cooperative State</strong> : ' . $result[$i]->me['struct']['cooperative_state']->me['string'] . '</li>'
+           .'<li><strong>final standard point</strong> : ' . $result[$i]->me['struct']['final_standard_point']->me['int'] . '</li>'
+           . '<li><strong>final ftop point</strong> : ' . $result[$i]->me['struct']['final_ftop_point']->me['int'] . '</li>'
            . '</ol>'     
            . '<hr />';
     }
 
 }
 
+echo "<HR>TOTO";
 
-
-if ($c_response->errno != 0){
-    echo  '<p>error : ' . $c_response->faultString() . '</p>';
-}
-else{
-    
-    $uid = $c_response->value()->scalarval();
-    
-    $id_list = array();
-    $id_list[]= new xmlrpcval(7, 'int');
-
-    $values = array ( 
-        'street'=>new xmlrpcval('75 rue du Faubourg St Martin' , "string"),        
-        ); 
-    
-    $client = new xmlrpc_client($server_url . "/xmlrpc/object");
-    $client->setSSLVerifyPeer(0);
-
-    $msg = new xmlrpcmsg('execute'); 
-    $msg->addParam(new xmlrpcval($dbname, "string")); 
-    $msg->addParam(new xmlrpcval($uid, "int")); 
-    $msg->addParam(new xmlrpcval($password, "string")); 
-    $msg->addParam(new xmlrpcval("res.partner", "string")); 
-    $msg->addParam(new xmlrpcval("write", "string")); 
-    $msg->addParam(new xmlrpcval($id_list, "array"));
-    $msg->addParam(new xmlrpcval($values, "struct")); 
-    $response = $client->send($msg);
-    print_r($response);
-    if ($response->faultCode()){
-        echo $response->faultString();
-    }    
-    
-    echo '<h2>Mise à jour effectuée</h2>';
-
-}
 
 ?>

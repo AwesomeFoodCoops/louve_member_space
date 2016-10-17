@@ -10,17 +10,16 @@ require("_php/base.php");
 <div class="container">
  <div class="row">
    
- 
+   
          <div class="col-lg-12">
             <h3 class="entete"><strong>Mes infos</strong></h3> 
             <div class="louve-box"> 
 			
 						<?php 
-						
 				$base = $bdd->query('SELECT * FROM members WHERE login =\'' . $_SESSION['login'] . '\'');
 				$req = $base->fetch();
 				//if isset...
-				echo ('<p> Bonjour '. $_SESSION['name'] .'.<p>');
+				echo ('<p> Bonjour '. $req['prenom'] .' '. $req['nom'] .'. <p>');
 				echo ('<p> Votre numéro de téléphone est '. $_SESSION['mobile'] .' . <p>');
 				echo ('<p> Votre e-mail est '. $_SESSION['mail'] .'. <p>');
 				echo ('<p> Votre LouveID est '. $req['login'] .'. <p>');

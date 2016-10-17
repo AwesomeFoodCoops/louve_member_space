@@ -1,4 +1,4 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -46,10 +46,15 @@ else{
     $msg->addParam(new xmlrpcval($uid, "int")); 
     $msg->addParam(new xmlrpcval($password, "string")); 
     $msg->addParam(new xmlrpcval("res.partner", "string")); 
-    $msg->addParam(new xmlrpcval("search", "string")); 
+    $msg->addParam(new xmlrpcval("search", "string")); 	
     $msg->addParam(new xmlrpcval($domain_filter, "array")); 
     $response = $client->send($msg);
       
+	 echo "<PRE>";
+	 var_dump($response); 
+	 echo "</PRE>";
+	 die("<HR>");
+	  
     $result = $response->value();
     $ids = $result->scalarval();
    
@@ -85,15 +90,15 @@ else{
 
     $result = $resp->value()->scalarval();    
     
-    echo '<h2>Resultat brut de la requête avec print_r($result) :</h2>';
+    echo '<h2>Resultat brut de la requete avec print_r($result) :</h2>';
     print_r($result);
     echo '<hr />';
-    echo '<h2>Liste des partners qui ne sont pas des sociétés:</h2>';
+    echo '<h2>Liste des partners qui ne sont pas des societes:</h2>';
    
     for($i = 0; $i < count($result); $i++){
         echo '<h1>' . $result[$i]->me['struct']['name']->me['string'] . '</h1>'
            . '<ol>'
-           . '<li><strong>Email</strong> : ' . $result[$i]->me['struct']['email']->me['string'] . '</li>'
+           . '<li><strong>Email</strong> : ' . @$result[$i]->me['struct']['email']->me['string'] . '</li>'
            . '<li><strong>Street</strong> : ' . $result[$i]->me['struct']['street']->me['string'] . '</li>'
            . '<li><strong>City</strong> : ' . $result[$i]->me['struct']['city']->me['string'] . '</li>'
            . '<li><strong>Zip code</strong> : ' . $result[$i]->me['struct']['zip']->me['string'] . '</li>'
@@ -137,7 +142,7 @@ else{
         echo $response->faultString();
     }    
     
-    echo '<h2>Mise à jour effectuée</h2>';
+    echo '<h2>Mise a jour effectuee</h2>';
 
 }
 
