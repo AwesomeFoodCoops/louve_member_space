@@ -1,6 +1,6 @@
 ﻿
 <?php require("_php/base.php");
-    include("baseinfo.php");
+    include("_php/baseinfo.php");
 ?>     
 
 <div class="container">
