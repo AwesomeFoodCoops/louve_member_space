@@ -1,7 +1,8 @@
 ﻿
 <?php require("_php/base.php");
-include("baseinfo.php");
- ?>     
+    include("baseinfo.php");
+?>     
+
 <div class="container">
 <?php 
 $base = $bdd->query('SELECT status FROM members WHERE login =\'' . $_SESSION['login'] . '\'');

@@ -16,7 +16,7 @@ $GLOBALS['xmlrpc_internalencoding']='UTF-8';
 
 $user = 'ESPACE_MEMBRES';
 $password = 'cooplalouv3';
-$dbname = 'lalouve-dev_bdd1';  //cooplalouve
+$dbname = 'lalouve-dev_20161022';  //cooplalouve
 
 $server_url = 'http://lalouve-dev.code-and-design.fr';  // TEST: http://erp-test.cooplalouve.fr:8069    Attention : http://lalouve-dev.code-and-design.fr
 $connexion = new xmlrpc_client($server_url . "/xmlrpc/common");
