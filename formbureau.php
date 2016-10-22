@@ -30,7 +30,8 @@ require("_php/base.php");
        </select>
         <p></p>
         <label for="title" class="sr-only">Message</label>
-        <input type="textarea" rows="6" id="title" name="message" class="form-control" placeholder="Entrez votre message ici" autofocus>
+        <textarea rows="6" id="title" name="message" class="form-control" autofocus>Entrez votre message ici
+		</textarea>
         <p></p>
         <button class="btn btn-danger btn-block " type="submit">Envoyer le message</button>
       </form>

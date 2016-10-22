@@ -14,42 +14,38 @@ $_SESSION['falseid'] = FALSE;
 if ((isset($_POST['login'])) AND (isset($_POST['password']))) // vérifier que les données sont bien présentes
 {
 
+	// on teste : le serveur LDAP est-il trouvé
+	try
+	{
+		$conn=ldap_connect($ldapServer);
 
+        if ($conn) {
 
+            $postlogin  = strip_tags($_POST['login']);     // DN ou RDN LDAP
+            $postpwd = strip_tags($_POST['password']);  // empecher les failles d'injonction sql
+            ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3);
+            // Connexion au serveur LDAP
+            $ldapbind = ldap_bind($conn, "uid=".$postlogin.",ou=users,dc=ovh,dc=net", $postpwd);
 
-// on teste : le serveur LDAP est-il trouvé 
-try
-{
-	$conn=ldap_connect($ldapServer);
+            // Vérification de l'authentification
+            if ($ldapbind) {
+                //connexion réussie
+                $_SESSION['login'] = $postlogin ;
+                $_SESSION['logged'] = TRUE;
+                $_SESSION['falseid'] = FALSE;
+                header('Location: index.php');
+            }
+            else {
+                //connexion ratée
+                $_SESSION['falseid'] = TRUE;
+            }
+       }
 
-if ($conn) {
-
-	$postlogin  = strip_tags($_POST['login']);     // DN ou RDN LDAP
-	$postpwd = strip_tags($_POST['password']);  // empecher les failles d'injonction sql
-    ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3);
-    // Connexion au serveur LDAP
-    $ldapbind = ldap_bind($conn, "uid=".$postlogin.",ou=users,dc=ovh,dc=net", $postpwd);
-
-    // Vérification de l'authentification
-    if ($ldapbind) {
-    //connexion réussie
-		$_SESSION['login'] = $postlogin ;
-		$_SESSION['logged'] = TRUE;
-		$_SESSION['falseid'] = FALSE;
-		header('Location: index.php');
-    }
-	else {
-	//connexion ratée
-	$_SESSION['falseid'] = TRUE;
-		}
 	}
-
-
-}
-catch (Exception $e)
-{
-        die('Erreur : ' . $e->getMessage());
-}
+	catch (Exception $e)
+	{
+		die('Erreur : ' . $e->getMessage());
+	}
 }
 
 ?>

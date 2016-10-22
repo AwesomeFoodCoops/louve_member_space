@@ -24,14 +24,22 @@ echo ('
 
 while ($req = $base->fetch())
 {
-	$pos = $bdd->query('count(*) FROM products WHERE type=0 AND positive=1 AND content="$req[id]"');
+	$reqo = $req['id'];
+     $result = $bdd->prepare('SELECT count(*) AS posi FROM products WHERE positive=1 AND content=:content');
+                $result->execute(array('content' => $reqo));
+	$posvalue = $result->fetch();
+	$posval = $posvalue['posi'] + 1;
+	//$reqo = $req['id']
+	//$neg = $bdd->query('count(*) FROM products WHERE positive=1 AND content="$reqo"');
+	//$tot = $pos - $neg;
 	echo ('
 <div class="col-xs-12 col-sm-12">
                    <div style="background-color:white; padding:5px; margin:4px; text-align:center;">
 				  <form method="post" action="vote.php">
                  <h4><strong>'.$req['content'].'</strong></h4>
-                <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> 68 personnes interessées par ce produit</button>
-				 <button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> 12 personnes ne pensent pas acheter ce produit</button>
+				 <h5><strong>'.$posval.' personne(s) interessées par ce produit</strong></h5>
+                <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Je souhaite aussi pouvoir acheter ce produit</button>
+				 <button class="btn btn-default"></span> signaler </button>
 				</form>
             </div>
 			</div>

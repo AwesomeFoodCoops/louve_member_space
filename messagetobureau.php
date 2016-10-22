@@ -6,8 +6,9 @@
 	ini_set('display_errors', '1');
 	session_start();
 	$_SESSION['posted'] = 0;
-     $headers ='From: "nom"<adresse@fai.fr>'."\n"; 
-     $headers .='Reply-To: adresse_de_reponse@fai.fr'."\n"; 
+
+     $headers ="From: 'LA LOUVE ESPACE MEMBRES'<support@cooplalouve.fr>"."\n"; 
+     $headers .='Reply-To: support@cooplalouve.fr'."\n"; 
      $headers .='Content-Type: text/html; charset="iso-8859-1"'."\n"; 
      $headers .='Content-Transfer-Encoding: 8bit'; 
 
@@ -17,12 +18,12 @@
      $message = strip_tags($_POST['message']); 
 	 $sujet = strip_tags($_POST['sujet']); 
 	 
-	 $to      = 'timohr01@gmail.com';
+	 $to      = 'mic.roche@gmail.com';
  $subject = $sujet;
  $message = $message ;
- $headers = 'From: timohr01@gmail.com' . "\r\n" .
- 'Reply-To: timohr01@gmail.com' . "\r\n" .
- 'X-Mailer: PHP/' . phpversion();
+ //$headers = 'From: support@cooplalouve.fr' . "\r\n" .
+ //'Reply-To: support@cooplalouve.fr' . "\r\n" .
+ //'X-Mailer: PHP/' . phpversion();
 	mail($to, $subject, $message, $headers);
 
 		if(mail($to, $subject, $message, $headers)) //faudra changer le mail sinon je vais tout reçevoir

@@ -7,9 +7,8 @@ require("_php/login.php");
 
 <html lang="fr">
 
-    <head>
-    
-  <meta charset="UTF-8">
+<head>    
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,17 +24,14 @@ require("_php/login.php");
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	
-
+    <![endif]-->	
+</head>
     
-    </head>
-    
-    <body style="background-color: #FFF0EB;">
+<body style="background-color: #FFF0EB;">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
                 <a class="navbar-brand" href="#">La Louve</a> 
-            </div>
+        </div>
     </nav>
 
     <header class="jumbotron" style="background-color: #ff4200">
@@ -58,30 +54,30 @@ require("_php/login.php");
 
     <div class="container-fluid">
 
-      <form class="form-signin" method="post" action="login.php">
-        <h3 class="form-signin-heading">Identifiant Louve</h3>
-        <label for="inputID" class="sr-only">Identifiant Membre</label>
-		<p><?php
-		if ($_SESSION['falseid'] == TRUE)
-		{
-		 echo 'ERREUR : Identifiants incorrects';
-		}
-		?></p>
-        <input type="text" id="inputID" name="login" class="form-control" placeholder="Entrez votre identifiant Louve" required autofocus>
-        <p></p>
-        <label for="inputPassword" class="sr-only">Mot de passe</label>
-        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required>
-        <p style="padding:10px;"><a href="forgetpwd.php">Mot de passe oubli&eacute;?</a></p>
-        <button class="btn btn-danger btn-block " type="submit">Se connecter</button>
-        <p style="padding:10px;"></p>
-        <p>Retrouvez la Louve sur <a href="lalouve.net">www.lalouve.net</a></p>
-      </form>
+        <form class="form-signin" method="post" action="login.php">
+            <h3 class="form-signin-heading">Identifiant Louve</h3>
+            <label for="inputID" class="sr-only">Identifiant Membre</label>
+            <p><?php
+            if ($_SESSION['falseid'] == TRUE)
+            {
+             echo 'ERREUR : Identifiants incorrects';
+            }
+            ?></p>
+            <input type="text" id="inputID" name="login" class="form-control" placeholder="Entrez votre identifiant Louve" required autofocus>
+            <p></p>
+            <label for="inputPassword" class="sr-only">Mot de passe</label>
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required>
+            <p style="padding:10px;"><a href="forgetpwd.php">Mot de passe oubli&eacute;?</a></p>
+            <button class="btn btn-danger btn-block " type="submit">Se connecter</button>
+            <p style="padding:10px;"></p>
+            <p>Retrouvez la Louve sur <a href="lalouve.net">www.lalouve.net</a></p>
+        </form>
 
     </div> <!-- /container -->
-
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-</body></html>
+</body>
+</html>
