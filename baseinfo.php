@@ -8,8 +8,7 @@ $_SESSION['mail'] = "celine@hh.com"; //PENSER A ENLEVER CETTE LIGNE AU PLUS VITE
 
 $odoo_table = "res.partner";   //"shift.registration";
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ 
 
 include("forms/xmlrpc/lib/xmlrpc.inc");
 include("forms/xmlrpc/lib/xmlrpcs.inc");
@@ -30,7 +29,7 @@ $c_msg->addParam(new xmlrpcval($password, "string"));
 $c_response = $connexion->send($c_msg);
 
 if ($c_response->errno != 0){
-    echo  '<p>error : ' . $c_response->faultString() . '</p>';
+   // echo  '<p>error : ' . $c_response->faultString() . '</p>';
 }
 else{
     
@@ -59,7 +58,7 @@ else{
 
 	if(false){
 	 echo "<PRE>";
-	 var_dump($response); 
+	 //var_dump($response); 
 	 echo "</PRE>";
 	 die("<HR>");
 	 }

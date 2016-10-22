@@ -29,7 +29,7 @@ $c_msg->addParam(new xmlrpcval($password, "string"));
 $c_response = $connexion->send($c_msg);
 
 if ($c_response->errno != 0){
-    echo  '<p>error : ' . $c_response->faultString() . '</p>';
+    //echo  '<p>error : ' . $c_response->faultString() . '</p>';
 }
 else{
     
@@ -70,7 +70,7 @@ else{
 
 	if(false){
 	 echo "<PRE>";
-	 var_dump($response); 
+	 //var_dump($response); 
 	 echo "</PRE>";
 	 die("<HR>");
 	 }
@@ -117,9 +117,9 @@ else{
     $result = $resp->value()->scalarval();    
 	
 	if(FALSE){
-		echo '<h2>Resultat brut de la requete avec print_r($result) :</h2><PRE>';
-		var_dump($result);
-		echo "</PRE>";
+		//echo '<h2>Resultat brut de la requete avec print_r($result) :</h2><PRE>';
+		//var_dump($result);
+		//echo "</PRE>";
 	}
 	
   //  echo '<hr />';

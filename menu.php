@@ -6,28 +6,7 @@ include("baseinfo.php");
 <?php 
 $base = $bdd->query('SELECT status FROM members WHERE login =\'' . $_SESSION['login'] . '\'');
 $req = $base->fetch();
-if (isset($_SESSION['louvestatus']) AND $_SESSION['louvestatus'] === 'up_to_date')
-	echo ('
-  <div class="alert alert-success fade in">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Vous êtes à jour</strong>
-  </div>');
-  //alert suspended delay unpayed blocked unsuscribed
-elseif (isset($req['status']) AND $req['status'] == 2)
-	echo ('
-  <div class="alert alert-warning fade in">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Attention</strong> Vous avez des services en retard.
-  </div>');
- 
-elseif (isset($req['status']) AND $req['status'] == 3)
-	echo ('
-  <div class="alert alert-danger fade in">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Alerte</strong> Vous avez été désinscrit, merci de contacter le bureau des membres.
-  </div>
-</div>');
-
+include("_php/alertestatus.php");
 $basu = $bdd->query('SELECT * FROM urgences WHERE date >= CURDATE() AND datefin <= CURDATE() ORDER BY niveau DESC LIMIT 0, 1');
 $ruq = $basu->fetch();
 $urgence=false;
