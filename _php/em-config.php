@@ -13,6 +13,9 @@ class EmConfig
 	 * chemins.
 	 * Il n'y a pas de '/' final pour qu'elle se comporte comme __DIR__
 	 */
-	const ROOT = "";
+	const ROOT = '';
+	const LdapBaseDn = 'dc=ovh,dc=net';
+	const LdapServer = 'ldap://vps247219.ovh.net';
+	const LdapServerPort = 389;
 }
 ?>
