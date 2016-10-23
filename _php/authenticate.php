@@ -1,6 +1,4 @@
-<?php
-session_start();
-$included = TRUE;
+<?php $included ? : die('Ohhh nooooo!'); 
 require(__DIR__.'/em-config.php');
 
 $_SESSION['falseid'] = FALSE;

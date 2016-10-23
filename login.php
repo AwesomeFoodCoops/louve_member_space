@@ -1,6 +1,7 @@
 ﻿<?php 
 	session_start();
-	require("_php/login.php");
+    $included = TRUE;
+	require_once '_php/authenticate.php';
 ?>
 
 <!DOCTYPE html>
