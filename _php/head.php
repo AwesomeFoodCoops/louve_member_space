@@ -8,12 +8,8 @@
  * require_once '_php/head.php' 
  * 
  * */
-session_start();
-if ($_SESSION['logged'] != TRUE)
-    header('Location: ./login.php');
-
 $included = TRUE;
-include '_php/em-config.php';
+require_once '_php/session.php'; // gestion de la session
 ?>
 
 <!DOCTYPE html>

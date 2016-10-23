@@ -1,12 +1,15 @@
 <?php
-require("_php/head.php");
+/* *
+ *  Cette page présente ses infos au membre de la Louve.
+ * 
+ *  La classe utilisée pour le membre est dans cl_LouveUser.php.
+ *  L'objet est conservé dans la session.
+ * */
+require '_php/head.php';
+require 'menu.php';
+require '_php/base.php';
 ?>
-<body>
 
-<?php
-require("menu.php");
-require("_php/base.php");
-?>
 <div class="container">
  <div class="row">
    
@@ -20,11 +23,11 @@ require("_php/base.php");
 				$base = $bdd->query('SELECT * FROM members WHERE login =\'' . $_SESSION['login'] . '\'');
 				$req = $base->fetch();
 				
+				if( !isset($_SESSION['name']) )
+				    $_SESSION['name'] = 'Nemo';
+
 				if( !isset($req) ) {
 				    echo ('<p>Données temporairement indisponible (0x1) </p>');
-				} else if( !isset($_SESSION['name']) ){
-				    $_SESSION['name'] = 'Nemo';
-				    echo ('<p>Données temporairement indisponible (0x2) </p>');
 				} else {
 					
 					echo ('<p> Bonjour '. $_SESSION['name'] .'.<p>');
@@ -46,9 +49,7 @@ require("_php/base.php");
 			    }
 			?>
 			</div>
-			</div>
-			</div>
         </div>
-<?php require("_php/footer.php"); ?>
-</body>
-</html>
+    </div>
+</div>
+<?php require '_php/footer.php'; ?>
