@@ -1,4 +1,4 @@
-<?php
+<?php $included ? : die('Ohhh nooooo!'); 
 /* Class contenant les constantes pour le site web de l'espace membre 
  * de la Louve.
  */

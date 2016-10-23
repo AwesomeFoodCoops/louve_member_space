@@ -1,9 +1,5 @@
 <?php
 require("_php/head.php");
-?>
-<body>
-
-<?php
 require("menu.php");
 require("_php/base.php");
 ?>
@@ -58,5 +54,3 @@ require("_php/base.php");
     </div>
 </div>
 <?php require("_php/footer.php"); ?>
-</body>
-</html>
