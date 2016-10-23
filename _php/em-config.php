@@ -1,6 +1,6 @@
 <?php
-/* Constantes pour l'espace membre 
- * prefix LEM (Louve Espace Membres) 
+/* Class contenant les constantes pour le site web de l'espace membre 
+ * de la Louve.
  */
 class EmConfig
 {
@@ -13,9 +13,9 @@ class EmConfig
 	 * chemins.
 	 * Il n'y a pas de '/' final pour qu'elle se comporte comme __DIR__
 	 */
-	const ROOT = '';
+	const ROOT = ''; //	actuellement à la racine de: http://vps314661.ovh.net
 	const LdapBaseDn = 'dc=ovh,dc=net';
 	const LdapServer = 'ldap://vps247219.ovh.net';
-	const LdapServerPort = 389;
+	const LdapServerPort = 389; // not used in _php/login.php
 }
 ?>

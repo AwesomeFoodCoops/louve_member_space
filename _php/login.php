@@ -17,8 +17,10 @@ if ((isset($_POST['login'])) AND (isset($_POST['password']))) // vérifier que l
 		$conn=ldap_connect(EmConfig::LdapServer);
 
         if ($conn) {
+            // On dit qu'on utilise LDAP V3, sinon la V2 par défaut est utilisé
+			// et le bind ne passe pas.
             ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3);
-            
+
             // Authentification sur le serveur LDAP
             $ldapbind = ldap_bind($conn, "uid=".$postlogin.",ou=users,".EmConfig::LdapBaseDn, $postpwd);
 
@@ -34,6 +36,7 @@ if ((isset($_POST['login'])) AND (isset($_POST['password']))) // vérifier que l
                 //connexion ratée
                 $_SESSION['falseid'] = TRUE;
             }
+            ldap_close($conn);
        }
 	}
 	catch (Exception $e)
