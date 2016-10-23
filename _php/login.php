@@ -1,5 +1,6 @@
 <?php
 session_start();
+$included = TRUE;
 require(__DIR__.'/em-config.php');
 
 $_SESSION['falseid'] = FALSE;
