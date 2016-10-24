@@ -58,9 +58,7 @@
 			<li><a href="services.php"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
             <li><a href="http://vps247219.ovh.net:4567/"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
             <?php	
-				$bases = $bdd->query('SELECT salarie FROM members WHERE login =\'' . $_SESSION['login'] . '\'');
-				$reqs = $bases->fetch();
-				if(isset($reqs['salarie']) AND $reqs['salarie'] == 1)
+				if($em_user->isEmploye())
 					echo('<li><a href="salaries.php"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
             ?>			
             <?php if($urgence){?>  
@@ -71,7 +69,7 @@
         <ul class="nav navbar-inverse navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonjour, 
-                    <?php echo ($_SESSION['prenom']); ?> 
+                    <?php echo $em_user->getFirstName(); ?> 
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="mesinfos.php">Mes informations</a></li>

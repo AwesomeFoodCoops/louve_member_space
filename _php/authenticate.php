@@ -1,5 +1,4 @@
 <?php $included ? : die('Ohhh nooooo!'); 
-require(__DIR__.'/em-config.php');
 
 $_SESSION['falseid'] = FALSE;
 
@@ -29,6 +28,8 @@ if ((isset($_POST['login'])) AND (isset($_POST['password']))) // vérifier que l
                 $_SESSION['login'] = $postlogin ;
                 $_SESSION['logged'] = TRUE;
                 $_SESSION['falseid'] = FALSE;
+                $em_user = new LouveUser($postlogin);
+                $_SESSION['em_user'] = serialize($em_user);
                 header('Location: index.php');
             }
             else {

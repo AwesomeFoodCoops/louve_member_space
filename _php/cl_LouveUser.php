@@ -9,8 +9,6 @@
  * aux données, celles-ci sont à nouveau récupérées du serveur distant.
  */
 
-require '_php/base.php';
- 
 class LouveUser
 {
     var $id = 'bad_id';
@@ -21,22 +19,16 @@ class LouveUser
     var $email = 'john.doe@lalouve.fr';
     var $shift = 'no';
     var $status = 0;
-    var $isLeader = FALSE;
-    
-    //~ int $timestamp = time();
+    var $leader = FALSE;
+    var $employe = FALSE;
     var $timestamp;
     
-    function __construct()
+    function __construct($login)
     {
+        $this->login = $login;
+        $this->getInfo();
         $this->timestamp = time();
     }
-
-    //~ function __construct($login)
-    //~ {
-        //~ $this->login = $login;
-        //~ $this->timestamp = time();
-        //~ $this->getInfo();
-    //~ }
     
     function refresh()
     {
@@ -63,6 +55,16 @@ class LouveUser
         return $this->phone;
     }
     
+    function isLeader()
+    {
+        return $this->leader;
+    }
+    
+    function isEmploye()
+    {
+        return $this->employe;
+    }
+    
     function getInfo()
     {
         /* @Todo: à compléter avec la base de donnée de l'espace membre ou odoo */
@@ -78,7 +80,8 @@ class LouveUser
             $this->email =  $req['mail'];
             $this->shift = $req['creneau'];
             $this->status = $req['status'];
-            $this->isLeader = ($req['coordinateur'] == 1);
+            $this->leader = ($req['coordinateur'] == 1);
+            $this->employe = ($req['salarie'] == 1);
         }
         catch (Exception $e)
         {

@@ -1,6 +1,13 @@
 ﻿<?php 
+    // restore session
 	session_start();
+
+    /*
+     * On inclut les ressources.
+     */
     $included = TRUE;
+    require_once '_php/em-config.php';
+    require_once '_php/cl_LouveUser.php';
 	require_once '_php/authenticate.php';
 ?>
 
