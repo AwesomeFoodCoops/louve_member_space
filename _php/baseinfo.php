@@ -13,7 +13,7 @@ if (!(isset($_SESSION['needinfo'])) OR $_SESSION['needinfo'] !==42)
 
     $user = 'ESPACE_MEMBRES';
     $password = 'cooplalouv3';
-    $dbname = 'lalouve-dev_20161022';  //cooplalouve
+    $dbname = 'lalouve-dev_20161023_b';  //cooplalouve
 
     $server_url = 'http://lalouve-dev.code-and-design.fr';  // TEST: http://erp-test.cooplalouve.fr:8069    Attention : ttp://lalouve-dev.code-and-design.fr
     $connexion = new xmlrpc_client($server_url . "/xmlrpc/common");
