@@ -1,4 +1,5 @@
 <?php
+require '_php/head.php';
 require("_php/session.php");
 
 ?>
@@ -50,6 +51,7 @@ require("_php/testsalarie.php");
 				<th field="titre" width="50" editor="{type:'validatebox',options:{required:true}}">Titre</th>
 				<th field="info" width="50" editor="{type:'validatebox',options:{required:true}}">Message</th>
 				<th field="lien" width="50" editor="{type:'validatebox',options:{required:false}}">Lien</th>
+				<th field="date" width="50" editor="{type:'validatebox',options:{required:true}}">Affiché dès le</th>
 				<th field="datefin" width="50" editor="{type:'validatebox',options:{required:true}}">Affiché jusqu'au</th>
 			</tr>
 		</thead>

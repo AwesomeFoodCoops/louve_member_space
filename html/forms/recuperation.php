@@ -1,5 +1,5 @@
 <?php
-$_SESSION['mail'] = 'mathilde.virard@gmail.com'; // ATTENTION a supprimer quand ldap est effectif !!!!!
+$_SESSION['mail'] = 'zied.kheriji@gmail.com'; // ATTENTION a supprimer quand ldap est effectif !!!!!
 ?>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,7 +16,7 @@ $GLOBALS['xmlrpc_internalencoding']='UTF-8';
 
 $user = 'ESPACE_MEMBRES';
 $password = 'cooplalouv3';
-$dbname = 'lalouve-dev_20161022';  //cooplalouve
+$dbname = 'lalouve-dev_20161023_b';  //cooplalouve
 
 $server_url = 'http://lalouve-dev.code-and-design.fr';  // TEST: http://erp-test.cooplalouve.fr:8069    Attention : http://lalouve-dev.code-and-design.fr
 $connexion = new xmlrpc_client($server_url . "/xmlrpc/common");

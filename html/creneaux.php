@@ -13,7 +13,12 @@
 			if (isset($result[0]))
 			{
 				$nexttime = $result[0]->me['struct']['date_begin']->me['string'];
-				list ($date, $time) = explode (" ", $nexttime);
+
+				$nexttime_Paris = new DateTime($nexttime.' +00');
+            	$nexttime_Paris->setTimezone(new DateTimeZone('Europe/Paris')); 
+            	$nexttime_string = $nexttime_Paris->format('Y-m-d H:i:s');
+
+				list ($date, $time) = explode (" ", $nexttime_string);
 				list($year, $month, $day) = explode("-", $date);
 				list ($heure, $minutes, $secondes) = explode(":", $time);
 				$timestamp = mktime(0, 0, 0, $month, $day, $year);
@@ -58,8 +63,13 @@
 			{
 				 for($i = 0; $i < count($result) AND $i < 3; $i++)
 				{
-						$nexttime = $result[$i]->me['struct']['date_begin']->me['string'];
-					list ($date, $time) = explode (" ", $nexttime);
+					$nexttime = $result[$i]->me['struct']['date_begin']->me['string'];
+					
+					$nexttime_Paris = new DateTime($nexttime.' +00');
+            		$nexttime_Paris->setTimezone(new DateTimeZone('Europe/Paris')); 
+            		$nexttime_string = $nexttime_Paris->format('Y-m-d H:i:s');
+
+					list ($date, $time) = explode (" ", $nexttime_string);
 					list($year, $month, $day) = explode("-", $date);
 					list ($heure, $minutes, $secondes) = explode(":", $time);
 					$timestamp = mktime(0, 0, 0, $month, $day, $year);

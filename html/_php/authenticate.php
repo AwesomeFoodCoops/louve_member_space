@@ -1,5 +1,5 @@
 <?php $included ? : die('Ohhh nooooo!'); 
-
+require 'base.php';
 $_SESSION['falseid'] = FALSE;
 
 //pour les tests : admin/admin user1/pwd1 user2/pwd2
@@ -30,6 +30,23 @@ if ((isset($_POST['login'])) AND (isset($_POST['password']))) // vérifier que l
                 $_SESSION['falseid'] = FALSE;
                 $em_user = new LouveUser($postlogin);
                 $_SESSION['em_user'] = serialize($em_user);
+
+ $_SESSION['urgence']=TRUE;
+   /*
+    $basu = $bdd->query('SELECT top 1* FROM urgences WHERE date <= CURDATE() AND datefin >= CURDATE() ORDER BY niveau DESC');
+
+    while($ruq = $basu->fetch())
+    {
+          if (isset($ruq['info']))
+            {
+       $_SESSION['urgence']=TRUE;
+    
+        }
+    }
+*/
+
+
+
                 header('Location: index.php');
             }
             else {

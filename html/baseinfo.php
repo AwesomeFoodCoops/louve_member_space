@@ -1,14 +1,14 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
 
 $_SESSION['needinfo'] = 1; // ATTENTION A ENLEVER EN PROD
 if (!(isset($_SESSION['needinfo'])) OR $_SESSION['needinfo'] !==42)
 {
-$_SESSION['mail'] = "zied.kheriji@gmail.com"; //PENSER A ENLEVER CETTE LIGNE AU PLUS VITE
+$_SESSION['mail'] = "celine@hh.com"; //PENSER A ENLEVER CETTE LIGNE AU PLUS VITE
 
 $odoo_table = "res.partner";   //"shift.registration";
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ 
 
 include("forms/xmlrpc/lib/xmlrpc.inc");
 include("forms/xmlrpc/lib/xmlrpcs.inc");
@@ -29,7 +29,7 @@ $c_msg->addParam(new xmlrpcval($password, "string"));
 $c_response = $connexion->send($c_msg);
 
 if ($c_response->errno != 0){
-    echo  '<p>error : ' . $c_response->faultString() . '</p>';
+   // echo  '<p>error : ' . $c_response->faultString() . '</p>';
 }
 else{
     
@@ -58,7 +58,7 @@ else{
 
 	if(false){
 	 echo "<PRE>";
-	 var_dump($response); 
+	 //var_dump($response); 
 	 echo "</PRE>";
 	 die("<HR>");
 	 }
@@ -78,13 +78,12 @@ else{
     $field_list = array(
         new xmlrpcval("name", "string"),
 		new xmlrpcval("street", "string"),
-        new xmlrpcval("phone", "string"),
+        new xmlrpcval("mobile", "string"),
         new xmlrpcval("email", "string"),
         new xmlrpcval("shift_type", "string"),
         new xmlrpcval("cooperative_state", "string"),
         new xmlrpcval("final_standard_point", "string"),
         new xmlrpcval("final_ftop_point", "string"),
-		new xmlrpcval("barcode_base", "string"),
 
     ); 
      
@@ -111,22 +110,14 @@ else{
 	$_SESSION['street'] = $result[$i]->me['struct']['street']->me['string'];
 //	echo 'ici'.$result[$i]->me['struct']['mobile']->me['string'];
 //	echo $_SESSION['needinfo'];
-	$_SESSION['mobile'] = $result[$i]->me['struct']['phone']->me['string'];
+	$_SESSION['mobile'] = $result[$i]->me['struct']['mobile']->me['string'];
 	$_SESSION['shift type'] = $result[$i]->me['struct']['shift_type']->me['string'];
 	$_SESSION['mail'] = $result[$i]->me['struct']['email']->me['string'];
 	$_SESSION['street'] = $result[$i]->me['struct']['street']->me['string'];
-	try
-	{
-		$_SESSION['louvestatus'] = $result[$i]->me['struct']['cooperative_state']->me['string'];
-	}
-	catch (Exception $e)
-	{
-		$_SESSION['louvestatus'] = $e;
-	}
+	//$_SESSION['louvestatus'] = $result[$i]->me['struct']['cooperative_state']->me['string'];
 	$_SESSION['standard point'] =  $result[$i]->me['struct']['final_standard_point']->me['int'];
 	$_SESSION['volant point'] = $result[$i]->me['struct']['final_ftop_point']->me['int'];
 	$_SESSION['prenom'] = $result[$i]->me['struct']['name']->me['string'];
-	$_SESSION['member_number'] = $result[$i]->me['struct']['barcode_base']->me['string'];
 //	echo 'la'.$_SESSION['mobile'];
  }
 

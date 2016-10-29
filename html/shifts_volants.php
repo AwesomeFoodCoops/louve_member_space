@@ -106,6 +106,7 @@ else{
     }
 
     $result = $resp->value()->scalarval();
+    print_r ($result);
 }
 ?>
 
@@ -119,11 +120,17 @@ else{
             $shift_type = $result[$i]->me['struct']['shift_type_id'][0]->me['int'];
             $available_seats = $result[$i]->me['struct']['seats_max']->me['int'] - $result[$i]->me['struct']['seats_reserved']->me['int'];
             // List only shifts which are kind 'volant' (id=2) and for which there are more than 1 available seats
-            if ($shift_type != 2 || $available_seats < 1) {
+            if (/*$shift_type != 2 || */$available_seats < 1) {
                 continue;
             }
             $datetime = $result[$i]->me['struct']['date_begin']->me['string'];
-            list ($date, $time) = explode (" ", $datetime);
+            
+           
+            $datetime_Paris = new DateTime($datetime.' +00');
+            $datetime_Paris->setTimezone(new DateTimeZone('Europe/Paris')); 
+            $date_string = $datetime_Paris->format('Y-m-d H:i:s');
+            
+            list ($date, $time) = explode (" ", $date_string);
             list($year, $month, $day) = explode("-", $date);
             list ($heure, $minutes, $secondes) = explode(":", $time);
             $timestamp = mktime(0, 0, 0, $month, $day, $year);

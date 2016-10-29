@@ -1,40 +1,10 @@
 ﻿<?php 
     require("_php/base.php");
     include("_php/baseinfo.php");
+
 ?>     
 
 <div class="container">
-
-<?php 
-    $base = $bdd->query('SELECT status FROM members WHERE login =\'' . $_SESSION['login'] . '\'');
-    $req = $base->fetch();
-    include("_php/alertestatus.php");
-    $basu = $bdd->query('SELECT * FROM urgences WHERE date >= CURDATE() AND datefin <= CURDATE() ORDER BY niveau DESC LIMIT 0, 1');
-    $ruq = $basu->fetch();
-    $urgence=false;
-    if (isset($ruq['info']))
-    {
-        if (isset($ruq['lien']))
-        {
-            echo ('
-            <div class="alert alert-info fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong> '.$ruq['titre'] .' : </strong> <a href="'. $ruq['lien'].'"> '. $ruq['info'].' </a>
-            </div>
-            </div>');
-        }
-        else
-        {
-            echo ('
-            <div class="alert alert-info fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>'.$ruq[titre].' : </strong> '. $ruq['info'].'
-            </div>
-            </div>');
-        }
-        $urgence=true;
-    }
-?>
 
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
@@ -61,8 +31,8 @@
 				if($em_user->isEmploye())
 					echo('<li><a href="salaries.php"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
             ?>			
-            <?php if($urgence){?>  
-                <li><a href="urgences.php"><span class="glyphicon glyphicon-alert urgences" style="color:grey;"></span> URGENCES</a></li>
+            <?php if(isset( $_SESSION['urgence'])){?>  
+                <li><a href="urgences.php"  style="color:lightcoral;"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>
             <?php } ?>           
         </div>
 		<?php //-earphone ?>
