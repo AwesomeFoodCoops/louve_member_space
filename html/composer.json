@@ -1,0 +1,15 @@
+{
+    "name": "shewolfparis",
+    "description": "Louve member site. Inspired from Mini 3",
+    "require": {
+        "phpxmlrpc/phpxmlrpc": "4.1"
+    },
+    "autoload":
+    {
+        "psr-4":
+        {
+            "Mini\\" : "application/",
+            "Vendor\\PhpXmlRpc\\" : "application/"
+        }
+    }
+}
