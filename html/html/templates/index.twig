@@ -1,0 +1,1 @@
+Vous venez de créer votre premier template avec {{ moteur_name }} !

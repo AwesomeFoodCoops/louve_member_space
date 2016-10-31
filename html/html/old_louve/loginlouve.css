@@ -1,0 +1,74 @@
+body {
+  padding-top: 10px;
+  background-color : white
+}
+
+[class*="col-"], footer {
+  //background-color: lightgreen;
+ // border: 2px solid black;
+ // border-radius: 6px;
+  //line-height: 40px;
+  text-align: center;
+}
+
+.toptop
+{
+	background-color : #ff491e;
+	color : white;
+	min-height : 45px;
+}
+
+.footfoot
+{
+	background-color : grey;
+	color : black;
+	position:absolute;
+	bottom:0px;
+}
+
+.guru {
+	max-width : 80px;
+}
+
+#container {
+} 
+
+#nav, #nav ul {
+   padding: 0;
+   margin: 0;
+   list-style: none; 
+   background: green;     
+} 
+
+#nav a {
+   display: block;
+   width: 120px; 
+   text-decoration: none;
+   color: #000;
+   font: normal 14px/1.4 arial, serif;
+   padding: 0 15px;
+} 
+
+#nav a:hover {
+   background: #ff8;
+} 
+
+#nav li {
+   float: left;
+   width: 120px;
+   background: red;      
+}
+
+#nav li ul {
+   position: absolute;
+   width: 120px;
+   left: -999em; 
+} 
+
+#nav li:hover ul {
+   left: auto; 
+}
+
+#nav li:hover ul, #nav li.sfhover ul {
+   left: auto; 
+} 
