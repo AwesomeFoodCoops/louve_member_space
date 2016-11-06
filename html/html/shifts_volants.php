@@ -33,7 +33,7 @@ $c_msg->addParam(new xmlrpcval($password, "string"));
 $c_response = $connexion->send($c_msg);
 
 if ($c_response->errno != 0){
-    echo  '<p>Connection error : ' . $c_response->faultString() . '</p>';
+    echo  '<p>error : ' . $c_response->faultString() . '</p>';
 }
 else{
 
@@ -86,6 +86,7 @@ else{
         new xmlrpcval("seats_max", "string"),
         new xmlrpcval("seats_reserved", "string"),
         new xmlrpcval("date_begin", "string"),
+        new xmlrpcval("shift_ticket_id", "string"),
         new xmlrpcval("shift_type_id", "string"),
     );
 
@@ -105,7 +106,7 @@ else{
     }
 
     $result = $resp->value()->scalarval();
-
+    print_r ($result);
 }
 ?>
 
@@ -114,31 +115,14 @@ else{
 <div class="row">
     <h3  class="entete ui horizontal divider"><strong>Créneaux volants disponibles</strong></h3>
     <div class="louve-creneau">
-    <div class = "table-responsive">
-    <table class = "table">
-      <thead>
-         <tr>
-            <th>Créneau</th>
-            <th>Date</th>
-            <th>Heure de début</th>
-            <th>Places disponibles</th>
-         </tr>
-      </thead>
-      <tbody>
     <?php
         for($i = 0; $i < count($result); $i++) {
             $shift_type = $result[$i]->me['struct']['shift_type_id'][0]->me['int'];
-            
             $available_seats = $result[$i]->me['struct']['seats_max']->me['int'] - $result[$i]->me['struct']['seats_reserved']->me['int'];
-            // // List only shifts which are kind 'volant' (id=2) and for which there are more than 1 available seats
-            if ($available_seats <= 0) {
+            // List only shifts which are kind 'volant' (id=2) and for which there are more than 1 available seats
+            if (/*$shift_type != 2 || */$available_seats < 1) {
                 continue;
-             }
-
-            if ($shift_type != 2 /*&& $available_seats < 0*/) {
-                continue;
-             }
-
+            }
             $datetime = $result[$i]->me['struct']['date_begin']->me['string'];
             
            
@@ -168,17 +152,10 @@ else{
                 $dd = 'Dimanche';
             $months = array("janvier", "février", "mars", "avril", "mai", "juin",
             "juillet", "août", "septembre", "octobre", "novembre", "décembre");
-            echo ('<tr> <td>'.$name.'</td> <td>'.$dd.' ' .$day . ' '.$months[$month-1].' '. $year . '</td> <td>' . $heure . 'H'.$minutes.'</td> <td>'.$available_seats.'</td> </tr>');
-#            echo ('<h3>'.$name.' ('.$available_seats.' places): '.$dd.' ' .$day . ' '.$months[$month-1].' '. $year . ' : ' . $heure . 'H'.$minutes);
+            echo ('<h3>'.$name.' ('.$available_seats.' places): '.$dd.' ' .$day . ' '.$months[$month-1].' '. $year . ' : ' . $heure . 'H'.$minutes);
         };
     ?>
-    </tbody>
-    </table>
     </div>
-
-
-    </div>
-
 
 </div>
 </div>
