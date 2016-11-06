@@ -10,22 +10,27 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
     <div class="container">
         <div class="navbar-header">
+        <a class="navbar-brand" href="index.php"><img alt="La Louve" src="img/Louve_logo.png" width="27px"/></a>-->
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#louvenav" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="index.php" class="navbar-brand"><span class="glyphicon glyphicon-heart" style="color:grey"></span></a>
+			
+          <!--  <a href="index.php" class="navbar-brand"><span class="glyphicon glyphicon-heart" style="color:grey"></span></a>-->
+        
+			
         </div>
 
         <div class="nav navbar-nav collapse navbar-collapse" id="louvenav">
+		<img href="http://www.pathwaylighting.com/webroot/img/pw_images/twitter2.png" />
             <li><a href="participation.php"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
             <?php  
                 // <li><a href="#"><span class="glyphicon glyphicon-calendar" style="color:grey"></span> VIE DE LA LOUVE</a></li> 
                 //  <li><a href="documents.php"><span class="glyphicon glyphicon-duplicate" style="color:grey"></span> DOCUMENTS</a></li> 
             ?>
-			<li><a href="services.php"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
+		<!-- -->	<li><a href="services.php"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
             <li><a href="http://vps247219.ovh.net:4567/"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
             <?php	
 				if($em_user->isEmploye())
