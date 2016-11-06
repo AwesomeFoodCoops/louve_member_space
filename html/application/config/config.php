@@ -20,7 +20,7 @@ if (php_sapi_name() === 'cli-server') {
 else {
     define('ENVIRONMENT', 'prod');
     error_reporting(E_ALL);
-    // TODO_PRD: à désactiver à la mise en prod !!
+    // TODO_PRD: à désactiver à la mise en prod !! (et mettre la bonne valeur à trouver)
     ini_set('display_errors', '1');
  }
 
@@ -60,7 +60,7 @@ define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
  * Configuration for: Database
  * This is the place where you define your database credentials, database type etc.
  */
-// TODO_PRD(mettre les mots de passe dans un fichier de conf mis dans gitignore)
+// TODO_PRD: (mettre les mots de passe dans un fichier de conf mis dans gitignore)
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'louve');

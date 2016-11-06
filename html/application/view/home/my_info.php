@@ -32,7 +32,7 @@
     </div>
 </div>
 
-
+<!-- TODO_NOW: utiliser les bonnes infos ci dessous eet virer code -->
 //echo ('<p> Bonjour '. $_SESSION['name'] .'.<p>');
 //echo ('<p> Votre numéro de téléphone est '. $_SESSION['mobile'] .' . <p>');
 //echo ('<p> Votre e-mail est '. $_SESSION['mail'] .'. <p>');

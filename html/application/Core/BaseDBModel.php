@@ -10,6 +10,7 @@ class BaseDBModel
      * @var null Database Connection
      */
     public $db = null;
+    // ajout de cet attribut permettant de bosser en local sans base mySql
     public $fake = false;
 
     /**
@@ -25,6 +26,7 @@ class BaseDBModel
                 exit('Database connection could not be established.');
             }
         }
+        // En environnement de dév local, on active le flag 'fake' pour proposer des valeurs bidons
         else {
             // En dev on affiche des données bidons
             $this->fake = true;

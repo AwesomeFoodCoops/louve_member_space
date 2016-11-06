@@ -16,6 +16,7 @@ namespace Mini\Controller;
 // Donc on met les fonctions dans un fichier à part eton importe avec un require à l'ancienne
 require APP . 'helpers/ldap_connection.php';
 
+
 class LoginController
 {
     /**

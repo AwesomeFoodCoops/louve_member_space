@@ -4,9 +4,12 @@ namespace Mini\Model;
 
 use Mini\Core\BaseDBModel;
 
+
+/**
+ * Modèle d'"urgences": permet de solliciter les membres en cas de besoin urgent
+ **/
 class Emergency extends BaseDBModel
 {
-
     public function getRecent()
     {
         if (!$this->fake) {
@@ -16,6 +19,7 @@ class Emergency extends BaseDBModel
             $result = $query->fetch();
             return $result;
         }
+        // Valeur bidon en local
         return (object) [
             "titre" => "AAAaarrg!",
             "info" => "Y'a le feu de partout",

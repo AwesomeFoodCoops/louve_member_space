@@ -1,11 +1,12 @@
 <?php
 
 // Objets "mock" (=bidon) pour avoir des données en dev local
-// Ici deux créneaux et juste leurs dates
 namespace Mini\Testing;
+
 
 class FakeOdoo
 {
+    // Ici deux créneaux et juste leurs dates
     public function nextShifts()
     {
         return [
@@ -35,6 +36,8 @@ class FakeOdoo
         ];
     }
 
+    // Les infos de Zied, parce qu'on l'aime bien
+    // TODO_LATER: pouvoir changer ces valeurs pour faire des tests différents en local
     public function userInfo()
     {
         return [

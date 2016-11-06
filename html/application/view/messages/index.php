@@ -1,3 +1,4 @@
+<!-- TODO_NOW: porter code de l'ancien site dupliqué ci dessous -->
 //<div class="container">
 //	<?php if (isset($_SESSION['posted']) and $_SESSION['posted'] == 114)
 //        echo ('<p><strong> Votre message a bien été envoyé. </strong></p>');?>

@@ -21,14 +21,15 @@ class HomeController
      * PAGE: index
      * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
      */
+    // Page principale
     public function index()
     {
         // Nécessaire pour la pastille "prochaine AG": accès au modèle d'assemblée générale
         $meeting = new Meeting();
-        // Nécessaire pour la pastille "Urgences": accès au modèle d'assemblée générale
+        // Nécessaire pour la pastille "Urgences": accès au modèle d'urgence
         $emergency = new Emergency();
 
-        // load views
+        // Require des différents templates nécessaires à l'affichage de la page d'accueil
         require APP . 'view/_templates/header.php';
         // Pour éviter les 'require' de templates imbriqués, la classe container est ajoutée directement
         echo "<div class=container>";
@@ -37,10 +38,12 @@ class HomeController
         require APP . 'view/_includes/shifts.php';
         require APP . 'view/home/_includes/next_meeting.php';
         require APP . 'view/_includes/documents.php';
+        // fermeture du container initial
         echo "</div>";
         require APP . 'view/_templates/footer.php';
     }
 
+    // Page "Mes informations" qui liste les infos personnelles de l'utilisateur
     public function myInfo()
     {
         require APP . 'view/_templates/header.php';
@@ -48,6 +51,7 @@ class HomeController
         require APP . 'view/_templates/footer.php';
     }
 
+    // Page de listing des "services" offert par l'espace membre: créneaux, contacts, co-voiturage, etc...
     public function services()
     {
         require APP . 'view/_templates/header.php';
@@ -55,6 +59,7 @@ class HomeController
         require APP . 'view/_templates/footer.php';
     }
 
+    // Page de détail sur la situation du membre vis-à-vis de la Louve: statut, retard c'éneauc, etc...
     public function participation()
     {
         require APP . 'view/_templates/header.php';

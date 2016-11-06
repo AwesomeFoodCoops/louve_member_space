@@ -26,47 +26,50 @@ class OdooProxy
     // return true si la connexion réussit, false sinon
     public function connect()
     {
-        if (ENVIRONMENT !== 'dev')
-        {
-            $client = new Client(ODOO_SERVER_URL . "/xmlrpc/common");
-            $client->request_charset_encoding = 'UTF-8';
-            $client->setSSLVerifyPeer(0);
-
-            $msg = new Request(
-                'login', array(
-                    new Value(ODOO_DB_NAME, 'string'),
-                    new Value(ODOO_DB_USER, 'string'),
-                    new Value(ODOO_DB_PASSWORD, 'string')
-                )
-            );
-            $response = $client->send($msg);
-
-            if( $response->faultCode() ) {
-                error_log("Erreur Odoo #1: " . var_dump($response));
-                return false;
-            } else {
-                $this->userUid = $response->value()->scalarval();
-                return true;
-            }
+        // Si on est en dév local, on n'utilise pas odoo et on considère qu'on arrive à se connecter
+        if (ENVIRONMENT === 'dev'){
+            return true;
         }
-        else
-        {
+
+        $client = new Client(ODOO_SERVER_URL . "/xmlrpc/common");
+        $client->request_charset_encoding = 'UTF-8';
+        $client->setSSLVerifyPeer(0);
+
+        $msg = new Request(
+            'login', array(
+                new Value(ODOO_DB_NAME, 'string'),
+                new Value(ODOO_DB_USER, 'string'),
+                new Value(ODOO_DB_PASSWORD, 'string')
+            )
+        );
+        $response = $client->send($msg);
+
+        if( $response->faultCode() ) {
+            error_log("Erreur Odoo #1: " . var_dump($response));
+            return false;
+        } else {
+            $this->userUid = $response->value()->scalarval();
             return true;
         }
     }
 
+    // Récupération des prochains créneaux de l'utilsateur (basé sur son email)
     public function getNextShifts()
     {
+        // En dév local on renvoie des valeurs bidons
         if (ENVIRONMENT === 'dev') {
             return (new FakeOdoo())->nextShifts();
         }
+
         $odoo_table = "shift.registration";
         $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
         $client->request_charset_encoding = 'UTF-8';
         $client->setSSLVerifyPeer(0);
 
+        // On récupère les références des lignes qui nous intéressent dans la table "shift.registration"
         $user_entries = self::getUserEntriesInTable($client, $odoo_table);
 
+        // Définition des champs qu'on va vouloir récupérer dans ces lignes
         $field_list = array(
             new Value("name", "string"),
             new Value("state", "string"),
@@ -74,24 +77,30 @@ class OdooProxy
             new Value("email", "string"),
         );
 
+        // Requête des champs
         $raw_values = self::getEntriesValues($client, $odoo_table, $user_entries, $field_list);
 
         $result = $raw_values->value()->scalarval();
         return $result;
     }
 
+    // Récupération des infos personnelles de l'utilisateur
     public function getUserInfo()
     {
+        // En dév local on renvoie des infos bidons
         if (ENVIRONMENT === 'dev') {
             return (new FakeOdoo())->userInfo()[0];
         }
+
         $odoo_table = "res.partner";
         $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
         $client->request_charset_encoding = 'UTF-8';
         $client->setSSLVerifyPeer(0);
 
+        // On récupère les références des lignes qui nous intéressent dans la table "res.partner"
         $user_entries = self::getUserEntriesInTable($client, $odoo_table);
 
+        // Définition des champs qu'on va vouloir récupérer dans ces lignes
         $field_list = array(
             new Value("name", "string"),
             new Value("street", "string"),
@@ -103,6 +112,7 @@ class OdooProxy
             new Value("final_ftop_point", "string"),
         );
 
+        // Requête de ces champs sur les lignes sélectionnées
         $raw_values = self::getEntriesValues($client, $odoo_table, $user_entries, $field_list);
 
         $result = $raw_values->value()->scalarval();
@@ -113,7 +123,8 @@ class OdooProxy
 
     }
 
-    // Return uids of lines matching user in given database
+    // Permet de trouver les lignes correspondant à un utilisateur dans une table Odoo via son email
+    // TODO_LATER: On doit surement pouvoir faire une requête directe (et pas lecture ids puis requête de champs)
     private function getUserEntriesInTable($client, $odoo_table)
     {
         $domain_filter = array (
@@ -144,6 +155,8 @@ class OdooProxy
         for($i = 0; $i < count($uids); $i++){
             $uids_list[]= new Value($uids[$i]->me['int'], 'int');
         }
+        // Liste des IDs de ligne pour lesquelles le mail de l'utilisateur courant
+        // matche celui de la ligne
         return $uids_list;
     }
 
@@ -172,7 +185,8 @@ class OdooProxy
     }
 }
 
-// TODO_LATER: à intégrer ?
+// TODO_LATER: à intégrer ? fonctions développées par JZ pour tester une connexion Odoo
+// Attention copiées en "brut", à adapter
 
 //    function getVersion()
 //    {

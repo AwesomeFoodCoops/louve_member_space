@@ -1,5 +1,6 @@
 <?php
 
+// Fonction de connexion au LDAP et de vérification de l'identité de l'utilisateur
 function checkCredentials($login, $password)
 {
     try

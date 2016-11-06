@@ -21,6 +21,7 @@ class ErrorController
     {
         // load views
         require APP . 'view/_templates/header.php';
+        // TODO_NOW: personnaliser le message d'erreur (mettre mailing liste de devs ?)
         require APP . 'view/error/index.php';
         require APP . 'view/_templates/footer.php';
     }

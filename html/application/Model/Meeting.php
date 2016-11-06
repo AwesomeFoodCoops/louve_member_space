@@ -4,6 +4,10 @@ namespace Mini\Model;
 
 use Mini\Core\BaseDBModel;
 
+
+/**
+ * Modèle d'assemblée générale. Permet de grouper les infos sur les AGs passées et à venir
+ **/
 class Meeting extends BaseDBModel
 {
 
@@ -16,6 +20,7 @@ class Meeting extends BaseDBModel
             $result = $query->fetch();
             return $result;
         }
+        // valeur bidon en local
         return (object) [
             "infos" => "Pas d'AG le 20/10! On se fait une grosse bouffe!",
             "lien" => 'https://facebook.com',
