@@ -11,7 +11,7 @@ require("_php/base.php");
 
 <?php
 
-$odoo_table = "shift.shift";   //"shift.registration";
+$odoo_table = "shift.ticket";   //"shift.registration";
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -41,9 +41,9 @@ else{
 
     $domain_filter = array (
         new xmlrpcval(
-            array(new xmlrpcval('user_id' , "string"),
-                  new xmlrpcval('!=',"string"),
-                  new xmlrpcval('',"string")
+            array(new xmlrpcval('name' , "string"),
+                  new xmlrpcval('=',"string"),
+                  new xmlrpcval('Volant',"string")
                   ),"array"
             ),
         );
@@ -83,10 +83,11 @@ else{
     $field_list = array(
         new xmlrpcval("id", "string"),
         new xmlrpcval("name", "string"),
-        new xmlrpcval("seats_max", "string"),
-        new xmlrpcval("seats_reserved", "string"),
+        // new xmlrpcval("seats_max", "string"),
+        // new xmlrpcval("seats_reserved", "string"),
+        new xmlrpcval("seats_available", "string"),
         new xmlrpcval("date_begin", "string"),
-        new xmlrpcval("shift_type_id", "string"),
+        new xmlrpcval("shift_type", "string"),
     );
 
     $msg = new xmlrpcmsg('execute');
@@ -110,6 +111,7 @@ else{
 ?>
 
 
+
 <div class="container">
 <div class="row">
     <h3  class="entete ui horizontal divider"><strong>Créneaux volants disponibles</strong></h3>
@@ -127,18 +129,23 @@ else{
       <tbody>
     <?php
         for($i = 0; $i < count($result); $i++) {
-            $shift_type = $result[$i]->me['struct']['shift_type_id'][0]->me['int'];
-            
-            $available_seats = $result[$i]->me['struct']['seats_max']->me['int'] - $result[$i]->me['struct']['seats_reserved']->me['int'];
-            // // List only shifts which are kind 'volant' (id=2) and for which there are more than 1 available seats
-            if ($available_seats <= 0) {
-                continue;
-             }
+            $shift_type = $result[$i]->me['struct']['shift_type']->me['string'];
 
-            if ($shift_type != 2 /*&& $available_seats < 0*/) {
-                continue;
-             }
+           // $available_seats = $result[$i]->me['struct']['seats_max']->me['int'] - $result[$i]->me['struct']['seats_reserved']->me['int'];
+            $available_seats = $result[$i]->me['struct']['seats_available']->me['int'];
+            $name = $result[$i]->me['struct']['name']->me['string'];
+             // List only shifts which are kind 'volant' (id=2) and for which there are more than 1 available seats
+             if ($available_seats <= 0) {
+                 continue;
+              }
+            // !!! Clarify with ERP team which value should be used : "name" or "shift_type"!!!
+              // if ($shift_type != "ftop" && $available_seats < 0) {
+              //     continue;
+              //  }
 
+            if ($name != "Volant") {
+                 continue;
+              }
             $datetime = $result[$i]->me['struct']['date_begin']->me['string'];
             
            
@@ -150,7 +157,7 @@ else{
             list($year, $month, $day) = explode("-", $date);
             list ($heure, $minutes, $secondes) = explode(":", $time);
             $timestamp = mktime(0, 0, 0, $month, $day, $year);
-            $name = $result[$i]->me['struct']['name']->me['string'];
+            
             $dd = date('D', $timestamp);
             if ($dd == 'Mon')
                 $dd = 'Lundi';

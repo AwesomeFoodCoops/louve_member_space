@@ -23,6 +23,11 @@ body {
     min-height:12em;
     display:block;
     overflow:auto;
+	-moz-box-shadow: 2px 2px 7px 4px #656565;
+-webkit-box-shadow: 2px 2px 7px 4px #656565;
+-o-box-shadow: 2px 2px 7px 4px #656565;
+box-shadow: 2px 2px 7px 4px #656565;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=7);
 }
 .louve-box {
     background-color: white;
