@@ -59,6 +59,20 @@ h3 {
     text-align: center;
 }
 
+.done:hover
+{
+	background-color : #FF491E;
+}
+
+a{
+	color : black ;	
+}
+
+a:hover{
+	color : black ;	
+}
+
+
 .img-center{display: block;margin-left: auto;margin-right: auto}
 
 .ui.horizontal.divider {

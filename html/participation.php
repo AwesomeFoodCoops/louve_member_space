@@ -18,8 +18,9 @@ require("_php/base.php");
             <h3  class="entete ui horizontal divider"><strong>Bureau des membres</strong></h3>
             <div class="louve-creneau">
                 <h3>116 rue des poissonniers</h3>
-                <p>de 14h00 à 18h00</p>
-                <p>01 00 00 00</p>
+				<p>Du Mardi au Samedi</p>
+                <p>de 13h00 à 20h00</p>
+                <p>et prochainement aussi par téléphone.</p>
               </div>
         </div>
         <div class="col-xs-12">

@@ -18,36 +18,65 @@ body {
 .louve-creneau {
     background-color: white;
     margin-top: 1em;
+    margin-bottom: 2em;
     padding : 20px;
     text-align: center;
     min-height:12em;
     display:block;
+    -moz-box-shadow: 1px 1px 3px 0px #656565;
+    -webkit-box-shadow: 1px 1px 3px 0px #656565;
+    -o-box-shadow: 1px 1px 3px 0px #656565;
+    box-shadow: 1px 1px 3px 0px #656565;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=3);
     overflow:auto;
-	-moz-box-shadow: 2px 2px 7px 4px #656565;
--webkit-box-shadow: 2px 2px 7px 4px #656565;
--o-box-shadow: 2px 2px 7px 4px #656565;
-box-shadow: 2px 2px 7px 4px #656565;
-filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=7);
 }
 .louve-box {
     background-color: white;
     margin-top: 1em;
+    margin-bottom: 2em;
     padding : 20px;
     text-align: center;
     height: 100%;
     display:block;
+    -moz-box-shadow: 1px 1px 3px 0px #656565;
+    -webkit-box-shadow: 1px 1px 3px 0px #656565;
+    -o-box-shadow: 1px 1px 3px 0px #656565;
+    box-shadow: 1px 1px 3px 0px #656565;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=134, Strength=3);
     overflow:auto;
 }
 .louve-ag {
     background-color: white;
     margin-top: 1em;
+    margin-bottom: 2em;
     text-align: center;
     padding: 20px;
+
+    
 }
 
 h3 {
     text-align: center;
 }
+
+.done
+{
+	
+}
+
+.done:hover
+{
+	background-color : #FF491E;
+}
+
+a{
+	color : black ;	
+}
+
+a:hover{
+	color : black ;	
+}
+
 
 .img-center{display: block;margin-left: auto;margin-right: auto}
 

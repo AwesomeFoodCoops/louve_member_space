@@ -50,7 +50,13 @@
         <ul class="nav navbar-inverse navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonjour, 
-                    <?php echo $em_user->getFirstName(); ?> 
+                      <?php 
+                    if (!(isset($_SESSION['prenom'])))
+				    {
+                      echo $_SESSION['prenom'] ; 
+                    }
+                      ?>
+                       
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="mesinfos.php">Mes informations</a></li>

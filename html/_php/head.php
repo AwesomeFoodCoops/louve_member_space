@@ -1,17 +1,20 @@
 <?php
-/* C'est l'entête de toutes les pages protégées du site (il faut être 
+/* C'est l'entête de toutes les pages protégées du site (il faut être
  * loggé pour y accéder).
- * 
- * A part login.php et logout.php, toutes les pages doivent donc commencer 
+ *
+ * A part login.php et logout.php, toutes les pages doivent donc commencer
  * par la ligne qui suit sans rien avant:
- * 
- * require_once '_php/head.php' 
- * 
+ *
+ * require_once '_php/head.php'
+ *
  * */
+
+//~ error_reporting(E_ALL);
+//~ ini_set('display_errors', '1');
+
 $included = TRUE;
 require_once '_php/session.php'; // gestion de la session
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +28,7 @@ require_once '_php/session.php'; // gestion de la session
                 font-family: 'Glyphicons Halflings';
                 src: url('fonts/glyphicons-halflings-regular.eot');
             }
-            
+
         </style>
     </head>
-<body> 
+<body>

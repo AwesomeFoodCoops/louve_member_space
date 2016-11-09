@@ -7,8 +7,8 @@
      */
     $included = TRUE;
     require_once '_php/em-config.php';
-    require_once '_php/cl_LouveUser.php';
-	require_once '_php/authenticate.php';
+    require_once '_php/cl_louve_user.php';
+    require_once '_php/authenticate.php';
 ?>
 
 <!DOCTYPE html>
