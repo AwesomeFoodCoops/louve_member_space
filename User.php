@@ -18,36 +18,27 @@ require APP . 'helpers/odoo_formatting.php';
 class User
 {
     // TODO_NOW: définition et valeurs possibles pour les champs en dessou à vérifier
-    public $login = null;
     public $mail = null;
-    public $nextShifts = null;              // Prochains créneaux
-    public $firstname = 'John';
-    public $name = 'Doe';
+    public $nextShifts = null;              // Prochains créneaux  
+    public $name = null;
     public $street = null;
     public $mobile = null;
     public $shift_type = null;
     public $cooperative_state = null;       // Statut coopérateur: à jour ? retard, etc...
-    public $final_standard_point = null;
+    public $final_standard_point = null;    
     public $final_ftop_point = null;
 
     // Quand on instancie l'objet, on récupère les infos d'Odoo
-    public function __construct($login)
+    public function __construct($mail)
     {
-        $this->login = $login;
-    }
-
-    public function getOdooInfo()
-    {
-        if(!isset($this->mail))
-            return null;
-
+        $this->mail = $mail;
         $proxy = new OdooProxy($this->mail);
         $connectionStatus = $proxy->connect();
         if ($connectionStatus === true)
         {
-            // Si la connexion réussit, on récupère les prochains shifts de l'utilisateur
+            // Si la connexion réussit, on récupère les prochains shifts de l'utilisateur 
             $this->nextShifts = formatShifts($proxy->getNextShifts());
-            // TODO_LATER: gérer les erreurs qui peuvent survenir
+            // TODO_LATER: gérer les erreurs qui peuvent survenir 
             $infos = formatUserInfo($proxy->getUserInfo());
             // On recopie simplement les infos récupérées dans les attributs de User
             $this->name = $infos['name'];
@@ -56,7 +47,7 @@ class User
             $this->shift_type = $infos['shift_type'];
             $this->cooperative_state = $infos['cooperative_state'];
             $this->final_standard_point = $infos['final_standard_point'];
-            $this->final_ftop_point = $infos['final_ftop_point'];
+            $this->final_ftop_point = $infos['final_ftop_point'];            
         }
         else
         {
@@ -126,88 +117,4 @@ class User
         }
         return $display;
     }
-
-
-    public function checkPass($pass)
-    {
-        $pass = strip_tags($pass);
-        $ldap = ldap_connect(LDAP_SERVER);
-
-        if( $ldap )
-        {
-            //~ echo '<p>Ldap connexion OK</p>';
-            // On dit qu'on utilise LDAP V3, sinon la V2 par défaut est utilisé
-            // et le bind ne passe pas.
-            ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
-
-            $ldapbind = ldap_bind($ldap, "uid=".$this->login.",ou=users,".LDAP_BASE_DN, $pass);
-            //~ $ldapbind = ldap_bind($ldap, "mail=".$login.",ou=users,".$ldap_basedn, $ldap_pass);
-
-            if( $ldapbind )
-            {
-                //~ echo '<p>Ldap bind OK</p>';
-
-                $filter="uid=$this->login";
-                $justthese = array("employeeNumber", "sn", "givenName", "mail", "userPassword");
-
-                $sr = ldap_search($ldap, LDAP_BASE_DN, $filter, $justthese);
-
-                $info = ldap_get_entries($ldap, $sr);
-                $nb_results = $info['count'];
-
-                //~ echo '<pre>';
-                //~ var_dump($info[0]);
-                //~ echo '</pre>';
-
-                if( $nb_results != 1 )
-                {
-                    //~ echo '<p>Info KO, user not found ('. $nb_results . ')</p>';
-                    $r = false;
-                }
-                else
-                {
-                    //~ if( !isset($info[0]['employeenumber'][0]) )
-                    if( !isset($info[0]['mail'][0]) )
-                    {
-                        // pas de n° louve!
-                        $r = false;
-                    }
-                    else
-                    {
-                        $this->firstname = isset( $info[0]['givenname'][0] ) ? $info[0]['givenname'][0] : 'unknown';
-                        $this->name = isset( $info[0]['sn'][0] ) ? $info[0]['sn'][0] : 'unkonwn';
-                        $this->id = isset( $info[0]['employeenumber'][0] ) ? $info[0]['employeenumber'][0] : 0;
-                        $this->mail = isset( $info[0]['mail'][0] ) ? $info[0]['mail'][0] : 'nomail';
-                        //~ $pass = $info[0]['userpassword'][0];
-
-                        //~ echo '<p>First name: '.$firstname.'</p>';
-                        //~ echo '<p>Name: '.$name.'</p>';
-                        //~ echo '<p>Employee Number: '.$uid.'</p>';
-                        //~ echo '<p>Mail: '.$mail.'</p>';
-                        //~ echo '<p>Password: '.$pass.'</p>';
-
-                        // l'utilisateur est authentifié et ses infos sont enregistrées.
-                        $r = true;
-                    }
-                }
-
-                ldap_close($ldap);
-            }
-            else
-            {
-                //~ echo '<p>Ldap bind KO</p>';
-                $r = false;
-            }
-        }
-        else
-        {
-            //~ echo '<p>Ldap connection KO</p>';
-            $r = false;
-        }
-
-        return $r;
-    }
-
-
-
 }

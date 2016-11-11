@@ -31,7 +31,7 @@ class Application
         session_start();
 
         // L'utilisateur est-il loggué ? Si non on le redirige vers la page de login
-        if (!isset($_SESSION['logged_in']) OR $_SESSION['logged_in'] === false)
+        if (!isset($_SESSION['logged_in']) OR $_SESSION['logged_in'] === false )
         {
             $page = new \Mini\Controller\LoginController();
 
@@ -48,9 +48,9 @@ class Application
             // On sérialize l'user pendant une session pour ne pas avoir à récupérer les infos d'Odoo à chaque
             // changement de page
             if (!isset($_SESSION['SerializedUser'])) {
-                // TODO_NOW: remplacer mail de zied par $_SESSION['loggin'] à créer lors du login réussi
-                $GLOBALS['User'] = new User('zied.kheriji@gmail.com');
-                $_SESSION['SerializedUser'] = serialize($GLOBALS['User']);
+                // TODO_NOW: redirect to login page (if SerializedUser does not exist it shouldn't be logged_in)
+                //~ $GLOBALS['User'] = new User('zied.kheriji@gmail.com');
+                //~ $_SESSION['SerializedUser'] = serialize($GLOBALS['User']);
             }
             else {
                 $GLOBALS['User'] = unserialize($_SESSION['SerializedUser']);

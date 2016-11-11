@@ -16,6 +16,7 @@ namespace Mini\Controller;
 // Donc on met les fonctions dans un fichier à part eton importe avec un require à l'ancienne
 require APP . 'helpers/ldap_connection.php';
 
+use Mini\Model\User;
 
 class LoginController
 {
@@ -44,16 +45,34 @@ class LoginController
     // L'utilisateur envoi ses login/mdp
     public function postCredentials($rawLogin, $rawPassword)
     {
-        $login = strip_tags($_POST['login']);   // DN ou RDN LDAP
-        $password = strip_tags($_POST['password']);  // empecher les failles d'injection sql
+        $login = strip_tags($rawLogin);   // DN ou RDN LDAP
+        $password = strip_tags($rawPassword);  // empecher les failles d'injection sql
         $credentialsValid = false;
+
         // En dev, on utilise les credentials login='login' / password='password'
         if (ENVIRONMENT === 'dev' AND $login === 'login' AND $password === 'password') {
             $credentialsValid = true;
         }
-        else {
-            $credentialsValid = checkCredentials($login, $password);
+        else
+        {
+            $GLOBALS['User'] = new User($login);
+
+            if( $GLOBALS['User']->checkPass($password) )
+            {
+                $_SESSION['logged'] = TRUE;
+                $_SESSION['falseid'] = FALSE;
+                $_SESSION['SerializedUser'] = serialize($GLOBALS['User']);
+                $_SESSION['urgence']=TRUE;
+                $credentialsValid = true;
+            }
+            else
+            {
+                //connexion ratée
+                $_SESSION['falseid'] = TRUE;
+                $credentialsValid = false;
+            }
         }
+
         // Si les credentials sont corrects, on active le flag de session
         if ($credentialsValid) {
             $_SESSION['logged_in'] = true;
@@ -64,6 +83,7 @@ class LoginController
             $_SESSION['logged_in'] = false;
             $_SESSION['bad_credentials'] = true;
         }
+
         // Dans tous les cas on redirige vers le point d'entrée de l'app
         header('location: ' . URL);
     }

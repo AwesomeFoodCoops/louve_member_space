@@ -40,11 +40,11 @@
         <?php
             if ($GLOBALS['hasEmergency']) {
                 $emergencyStyle = "color:lightcoral";
+				 echo '<li><a href="' . URL . 'home/emergencies/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
             }
             else {
                 $emergencyStyle = "color:grey";
             }
-            echo '<li><a href="' . URL . 'urgences/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
         ?>
         </div>
         <ul class="nav navbar-inverse navbar-nav navbar-right">

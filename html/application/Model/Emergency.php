@@ -47,7 +47,7 @@ class Emergency extends BaseDBModel
     public function getAll()
     {
         if (!$this->fake) {
-            $sql = 'SELECT * FROM urgences order by id desc';
+            $sql = 'SELECT * FROM urgences WHERE date <= CURDATE() AND datefin >= CURDATE() ORDER BY niveau DESC LIMIT 0, 15';
             $query = $this->db->prepare($sql);
             $query->execute();
             $result = $query->fetchAll(PDO::FETCH_ASSOC);

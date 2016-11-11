@@ -54,7 +54,7 @@ class OdooProxy
     }
 
     // Récupération des prochains créneaux de l'utilsateur (basé sur son email)
-    public function getNextShifts()
+    public function getUserNextShifts()
     {
         // En dév local on renvoie des valeurs bidons
         if (ENVIRONMENT === 'dev') {
@@ -120,6 +120,69 @@ class OdooProxy
         // On a une liste mais logiquement on est juste censé avoir une et une seule ligne
         // pour l'utilisateur
         return $result[0];
+
+    }
+
+    // Récupération des shifts volants
+    public function ftopShifts()
+    {
+        // TODO_NOW En dév local renvoyer des infos bidons
+        if (ENVIRONMENT === 'dev') {
+            return ;
+        }
+        $odoo_table = "shift.ticket";
+        $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
+        $client->request_charset_encoding = 'UTF-8';
+        $client->setSSLVerifyPeer(0);
+
+        $domain_filter = array (
+            new Value(
+                array(new Value('name' , "string"),
+                      new Value('=',"string"),
+                      new Value('Volant',"string")
+                ),"array"
+            ),
+        );
+
+        $msg = new Request(
+            'execute', array(
+                new Value(ODOO_DB_NAME, 'string'),
+                new Value($this->userUid, 'int'),
+                new Value(ODOO_DB_PASSWORD, 'string'),
+                new Value($odoo_table, 'string'),
+                new Value('search', 'string'),
+                new Value($domain_filter, 'array')
+            )
+        );
+
+        $response = $client->send($msg);
+
+        $uids = $response->value()->scalarval();
+        $uids_list = array();
+
+        // Liste des IDs de shift volant
+        for($i = 0; $i < count($uids); $i++){
+            $uids_list[]= new Value($uids[$i]->me['int'], 'int');
+        }
+
+
+
+        // Requête des champs
+        $raw_values = self::getEntriesValues($client, $odoo_table, $uids_list, $field_list);
+
+        $result = $raw_values->value()->scalarval();
+        return $result;
+
+
+    $field_list = array(
+        new xmlrpcval("id", "string"),
+        new xmlrpcval("name", "string"),
+        new xmlrpcval("seats_available", "string"),
+        new xmlrpcval("date_begin", "string"),
+        new xmlrpcval("shift_type", "string"),
+    );
+
+
 
     }
 
