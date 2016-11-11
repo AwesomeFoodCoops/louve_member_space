@@ -123,7 +123,7 @@ class OdooProxy
     }
 
     // Récupération des shifts volants
-    public function ftopShifts()
+    public function getFtopShifts()
     {
         // TODO_NOW En dév local renvoyer des infos bidons
         if (ENVIRONMENT === 'dev') {

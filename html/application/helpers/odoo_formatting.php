@@ -16,6 +16,38 @@ function formatUserInfo($userInfo)
     //~ TODO replace by return xml_decode($userInfo);
 }
 
+function formatDate($date)
+{
+    // Mise dans la bonne timezone
+    $localizedDate = new DateTime($date.' +00');
+    $localizedDate->setTimezone(new DateTimeZone('Europe/Paris'));
+    $localizedDate = $localizedDate->format('Y-m-d H:i:s');
+    list ($date, $time) = explode (" ", $localizedDate);
+    list($year, $month, $day) = explode("-", $date);
+    list ($hour, $minutes, $secondes) = explode(":", $time);
+    $timestamp = mktime(0, 0, 0, $month, $day, $year);
+    $dd = date('D', $timestamp);
+    if ($dd == 'Mon')
+        $dd = 'Lundi';
+    elseif ($dd == 'Tue')
+        $dd = 'Mardi';
+    elseif ($dd == 'Wed')
+        $dd = 'Mercredi';
+    elseif ($dd == 'Thu')
+        $dd = 'Jeudi';
+    elseif ($dd == 'Fri')
+        $dd = 'Vendredi';
+    elseif ($dd == 'Sat')
+        $dd = 'Samedi';
+    elseif ($dd == 'Sun')
+        $dd = 'Dimanche';
+    $months = array("janvier", "février", "mars", "avril", "mai", "juin",
+    "juillet", "août", "septembre", "octobre", "novembre", "décembre");
+    $month = $months[$month - 1];
+    return list($dd, $day, $month, $year, $hour, $minutes)
+}
+
+
 // Transforme un résultat de l'api Odoo dans un format moins dégueu :)
 // TODO_LATER: beaucoup de choses à améliorer ici
 function formatShifts($shifts)
@@ -24,32 +56,34 @@ function formatShifts($shifts)
     for($i = 0; $i < count($shifts) AND $i < 3; $i++)
     {
         $nextTime = $shifts[$i]->me['struct']['date_begin']->me['string'];
-        // Mise dans la bonne timezone
-        $localizedNextTime = new DateTime($nextTime.' +00');
-        $localizedNextTime->setTimezone(new DateTimeZone('Europe/Paris'));
-        $localizedNextTime = $localizedNextTime->format('Y-m-d H:i:s');
-        list ($date, $time) = explode (" ", $localizedNextTime);
-        list($year, $month, $day) = explode("-", $date);
-        list ($heure, $minutes, $secondes) = explode(":", $time);
-        $timestamp = mktime(0, 0, 0, $month, $day, $year);
-        $dd = date('D', $timestamp);
-        if ($dd == 'Mon')
-            $dd = 'Lundi';
-        elseif ($dd == 'Tue')
-            $dd = 'Mardi';
-        elseif ($dd == 'Wed')
-            $dd = 'Mercredi';
-        elseif ($dd == 'Thu')
-            $dd = 'Jeudi';
-        elseif ($dd == 'Fri')
-            $dd = 'Vendredi';
-        elseif ($dd == 'Sat')
-            $dd = 'Samedi';
-        elseif ($dd == 'Sun')
-            $dd = 'Dimanche';
-        $months = array("janvier", "février", "mars", "avril", "mai", "juin",
-        "juillet", "août", "septembre", "octobre", "novembre", "décembre");
-        $result[$i] = $dd.' ' .$day . ' '.$months[$month-1].' '. $year . ' : ' . $heure . 'H' . $minutes;
+        list($dd, $day, $month, $year, $hour, $minutes) = formatDate($nextTime);
+        $result[$i] = $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
+    }
+    return $result;
+}
+
+// Formattage des shifts volants
+// TODO: à refactoriser avec la fonction au dessus
+function formatFtopShifts($shifts)
+{
+    $result = array();
+    for($i = 0; $i < count($shifts); $i++) {
+        $shift_type = $shifts[$i]->me['struct']['shift_type']->me['string'];
+        $available_seats = $shifts[$i]->me['struct']['seats_available']->me['int'];
+        $name = $shifts[$i]->me['struct']['name']->me['string'];
+
+        // List only shifts which are kind 'volant' (id=2) and for which there are more than 1 available seats
+        // TODO_NOW: !!! Clarify with ERP team which value should be used : "name" or "shift_type"!!!
+        if ($available_seats <= 0 OR $name != "Volant") {
+            continue;
+        }
+        $time = $result[$i]->me['struct']['date_begin']->me['string'];
+        list($dd, $day, $month, $year, $hour, $minutes) = formatDate($time);
+        $result[$i] = (
+            '<tr><td>' . $name . '</td><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' . $heure . 'H' . $minutes . '</td><td>'
+            . $available_seats . '</td> </tr>' . '<h3>' . $name . ' (' . $available_seats . ' places): ' . $dd . ' ' . $day . ' '
+            . $month . ' ' . $year . ' : ' . $heure . 'H' . $minutes
+        );
     }
     return $result;
 }

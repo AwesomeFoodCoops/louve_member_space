@@ -11,6 +11,8 @@ use PDO;
  **/
 class Emergency extends BaseDBModel
 {
+    // TODO: Zied et Julien => 11€ chacun pour Osé
+
     public function getCurrent()
     {
         if (!$this->fake) {

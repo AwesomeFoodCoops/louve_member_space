@@ -148,7 +148,7 @@ class User
                 $display['alert_msg'] = 'Alerte';
                 $display['full_msg'] = 'Vous avez un paiement en retard, vous êtes momentanément suspendu, merci de contacter le bureau des membres.';
             }
-            else if ($cooperative_state === 'unpayed') {
+            else if ($cooperative_state === 'blocked') {
                 $display['class'] = 'alert-danger';
                 $display['alert_msg'] = 'Alerte';
                 $display['full_msg'] = 'Vous avez été bloqué, merci de contacter le bureau des membres.';
