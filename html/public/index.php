@@ -10,6 +10,10 @@
 // server de PHP. Il faut donc dupliquer ses fonctionnalités
 $filename = __DIR__.preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
 if (php_sapi_name() === 'cli-server') {
+    // TODO_NOW: à virer ou faire un helper: permet de logguer dans la console du serveur PHP
+//    ob_start();
+//    var_dump($filename . ' ' . is_file($filename));
+//    error_log(ob_get_clean(), 4);
     // On sert les fichiers statiques directement
     if (is_file($filename)) {
         return false;

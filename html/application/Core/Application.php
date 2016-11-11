@@ -59,6 +59,9 @@ class Application
             // TODO_NOW: à mettre ailleurs et pas en dur ! => et calculer au début ici
             $GLOBALS['hasEmergency'] = true;
 
+            // TODO_NOW: ajouter un check pour savoir si l'utilisateur est admin et peut donc accéder aux pages
+            // de management. Ajouter donc un champ admin sur $GLOBALS['User'] (récupéré du LDAP ou de Odoo ?)
+
             // check for controller: no controller given ? then load start-page
             if (!$this->url_controller) {
 

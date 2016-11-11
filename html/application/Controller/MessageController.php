@@ -1,6 +1,6 @@
 <?php
 
-// TODO_LATER: tout est à (re) faire ici. Le code brut de l'ancienne version du site a été collée en brut
+// TODO_LATER: tout est à (re) faire ici. Le code brut de l'ancienne version du site a été copié/collé
 
 namespace Mini\Controller;
 

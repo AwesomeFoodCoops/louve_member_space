@@ -4,8 +4,12 @@
         <title>La louve - mon espace</title>
         <link href="<?php echo URL; ?>css/bootstrap.min.css" rel="stylesheet" type='text/css'>
         <link href="<?php echo URL; ?>css/bootgrid.css" rel="stylesheet" type='text/css'>
-        <link rel="stylesheet" type="text/css" rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,900,300' rel='stylesheet' type='text/css'>
+        <!-- TODO_NOW: pour les deux feuilles de style suivantes, elles ne servent que pour les pages d'ajout d'urgence
+         +> faire un import uniquement pour ces pages -->
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>css/easyui.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>css/icon.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <meta charset="UTF-8">
         <style type="text/css">
             @font-face {
@@ -32,7 +36,7 @@
             <li><a href="<?php echo URL . 'home/participation/'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
 			<li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
             <li><a href=""><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
-            <li><a href="<?php echo URL . 'salaries/'; ?>"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>
+            <li><a href="<?php echo URL . 'management/'; ?>"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>
         <?php
             if ($GLOBALS['hasEmergency']) {
                 $emergencyStyle = "color:lightcoral";
