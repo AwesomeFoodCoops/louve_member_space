@@ -14,7 +14,7 @@
                 </thead>
                 <tbody>
                 <?php
-                for($i = 0; $i < count($ftopShiftDisplays) AND $i < 3; $i++)
+                for($i = 0; $i < count($ftopShiftDisplays); $i++)
                 {
                     $shiftDisplay = $ftopShiftDisplays[$i];
                     echo ($shiftDisplay);

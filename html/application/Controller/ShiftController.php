@@ -41,7 +41,7 @@ class ShiftController
         }
 
         require APP . 'view/_templates/header.php';
-        require APP . 'view/view/shift/ftop.php';
+        require APP . 'view/shift/ftop.php';
         require APP . 'view/_templates/footer.php';
     }
 }

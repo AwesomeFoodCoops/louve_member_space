@@ -67,6 +67,7 @@ function formatShifts($shifts)
 function formatFtopShifts($shifts)
 {
     $result = array();
+    $ftopIndex = 0;
     for($i = 0; $i < count($shifts); $i++) {
         $shift_type = $shifts[$i]->me['struct']['shift_type']->me['string'];
         $available_seats = $shifts[$i]->me['struct']['seats_available']->me['int'];
@@ -79,11 +80,11 @@ function formatFtopShifts($shifts)
         }
         $time = $shifts[$i]->me['struct']['date_begin']->me['string'];
         list($dd, $day, $month, $year, $hour, $minutes) = formatDate($time);
-        $result[$i] = (
-            '<tr><td>' . $name . '</td><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' . $heure . 'H' . $minutes . '</td><td>'
-            . $available_seats . '</td> </tr>' . '<h3>' . $name . ' (' . $available_seats . ' places): ' . $dd . ' ' . $day . ' '
-            . $month . ' ' . $year . ' : ' . $heure . 'H' . $minutes
+        $result[$ftopIndex] = (
+            '<tr><td>' . $name . '</td><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' .
+            $hour . 'H' . $minutes . '</td><td>' . $available_seats . '</td></tr>'
         );
+        $ftopIndex++;
     }
     return $result;
 }
