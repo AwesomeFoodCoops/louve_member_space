@@ -36,15 +36,17 @@
             <li><a href="<?php echo URL . 'home/participation/'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
             <li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
             <li><a href=""><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
-            <li><a href="<?php echo URL . 'management/'; ?>"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>
-        <?php
+			
+			<?php 
+				if($GLOBALS['User']->admin)
+					echo(' <li><a href="<?php echo URL . \'management/\'; ?>"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
+			
+           /* <li><a href="<?php echo URL . 'manaement/'; ?>"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li> */
             if ($GLOBALS['hasEmergency']) {
                 $emergencyStyle = "color:lightcoral";
+				echo '<li><a href="' . URL . 'urgences/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
             }
-            else {
-                $emergencyStyle = "color:grey";
-            }
-            echo '<li><a href="' . URL . 'urgences/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
+          
         ?>
         </div>
         <ul class="nav navbar-inverse navbar-nav navbar-right">

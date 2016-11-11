@@ -4,9 +4,9 @@
             <div class="louve-creneau">
                 <h3><strong>Consulter les crénaux volants</strong></h3>
                 <p> Vous êtes en équipe volante et souhaitez savoir quels sont les crénaux disponibles pour vous inscrire ? Consultez les ici avant de contacter le bureau des membres. </p>
-                <a href="shifts_volants_ticket.php">
+                <a href="<?php echo URL . 'shift/ftopshifts/'; ?>">
                 <button class="btn btn-default" style="border-color : green; color: green;" ><span class="glyphicon glyphicon-ok"></span>Je regarde les crénaux.</button>
-+               </a>
+                </a>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6">

@@ -84,3 +84,7 @@ h3 {
 .ui.horizontal.divider:after {
 	background-position:left 1em top 50%
 }
+.alert span{
+text-align: center;
+font-size : 2em;
+}

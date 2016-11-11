@@ -3,5 +3,5 @@
 ?>
 <div class="alert <?php echo $display['class']; ?> fade in">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong><?php echo $display['alert_msg']; ?></strong> <?php echo $display['full_msg']; ?>
+    <span ><strong><?php echo $display['alert_msg']; ?></strong> <?php echo $display['full_msg']; ?></span>
 </div>

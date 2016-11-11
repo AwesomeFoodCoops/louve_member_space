@@ -3,6 +3,11 @@
 namespace Mini\Model;
 
 use Mini\Core\OdooProxy;
+use Mini\Core\BaseDBModel;
+use PDO;
+
+
+
 
 // Un import 'use function Mini\Core\formatShifts;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!
@@ -15,7 +20,7 @@ require APP . 'helpers/odoo_formatting.php';
  * AUCUNE DONNEE UTILISATEUR N'EST STOCKEE DANS LA BDD LOCALE MYSQL
  * Utilisation de XMLRPC via la classe OdooProxy
  */
-class User
+class User extends BaseDBModel
 {
     // TODO_NOW: définition et valeurs possibles pour les champs en dessou à vérifier
     public $login = null;
@@ -23,6 +28,7 @@ class User
     public $nextShifts = null;              // Prochains créneaux
     public $firstname = 'John';
     public $name = 'Doe';
+    public $admin = false;
     public $id = 0;
     public $leader = true;
     public $street = null;
@@ -68,6 +74,20 @@ class User
     public function isLeader()
     {
         return $this->leader;
+    }
+
+    public function isAdmin()
+    {
+        if (!$this->fake) {
+            $sql = 'SELECT * FROM admins WHERE mail =\'' . $this->mail . '\' LIMIT 0, 1';
+            $query = $this->db->prepare($sql);
+            $query->execute();
+            $result = $query->fetch();
+           if (isset($result))
+               return(true);
+        }
+
+        return (true);
     }
 
     /**
@@ -126,7 +146,7 @@ class User
             else if ($cooperative_state === 'up_to_date') {
                 $display['class'] = 'alert-success';
                 $display['alert_msg'] = 'Vous êtes à jour';
-                $display['full_msg'] = "Vous êtes à jour. Bravo!";
+                $display['full_msg'] = 'Bravo!';
             }
             else if ($cooperative_state === 'alert') {
                 $display['class'] = 'alert-warning';

@@ -44,7 +44,7 @@ function formatDate($date)
     $months = array("janvier", "février", "mars", "avril", "mai", "juin",
     "juillet", "août", "septembre", "octobre", "novembre", "décembre");
     $month = $months[$month - 1];
-    return list($dd, $day, $month, $year, $hour, $minutes)
+    return array($dd, $day, $month, $year, $hour, $minutes);
 }
 
 
@@ -77,7 +77,7 @@ function formatFtopShifts($shifts)
         if ($available_seats <= 0 OR $name != "Volant") {
             continue;
         }
-        $time = $result[$i]->me['struct']['date_begin']->me['string'];
+        $time = $shifts[$i]->me['struct']['date_begin']->me['string'];
         list($dd, $day, $month, $year, $hour, $minutes) = formatDate($time);
         $result[$i] = (
             '<tr><td>' . $name . '</td><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' . $heure . 'H' . $minutes . '</td><td>'

@@ -1,6 +1,7 @@
 <?php
 
 $user = $GLOBALS['User'];
+$display = $user->getStatusDisplay();
 
 ?>
 <div class="container">
@@ -19,7 +20,7 @@ $user = $GLOBALS['User'];
                 //~ if ($user->isLeader())
                     //~ echo ('<p> <strong>Vous êtes coordinateur.</strong> <p>');
 
-                echo ('<p>'.$user->getStatusDisplay()['full_msg'].'</p>');
+                echo ('<p><strong>'.$display['alert_msg'].'</strong> '.$display['full_msg'].'</p>');
 
                 if( !$user->connected )
                     echo('<p>NOT CONNECTED TO ODOO</p>');
