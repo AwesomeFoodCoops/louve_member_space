@@ -50,7 +50,7 @@ class User
             // TODO_LATER: gérer les erreurs qui peuvent survenir
             $infos = formatUserInfo($proxy->getUserInfo());
             // On recopie simplement les infos récupérées dans les attributs de User
-            $this->name = $infos['name'];
+            //~ $this->name = $infos['name']; -- now from ldap
             $this->street = $infos['street'];
             $this->mobile = $infos['mobile'];
             $this->shift_type = $infos['shift_type'];
@@ -135,13 +135,11 @@ class User
 
         if( $ldap )
         {
-            //~ echo '<p>Ldap connexion OK</p>';
             // On dit qu'on utilise LDAP V3, sinon la V2 par défaut est utilisé
             // et le bind ne passe pas.
             ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
 
             $ldapbind = ldap_bind($ldap, "uid=".$this->login.",ou=users,".LDAP_BASE_DN, $pass);
-            //~ $ldapbind = ldap_bind($ldap, "mail=".$login.",ou=users,".$ldap_basedn, $ldap_pass);
 
             if( $ldapbind )
             {
@@ -154,10 +152,6 @@ class User
 
                 $info = ldap_get_entries($ldap, $sr);
                 $nb_results = $info['count'];
-
-                //~ echo '<pre>';
-                //~ var_dump($info[0]);
-                //~ echo '</pre>';
 
                 if( $nb_results != 1 )
                 {
@@ -179,12 +173,6 @@ class User
                         $this->id = isset( $info[0]['employeenumber'][0] ) ? $info[0]['employeenumber'][0] : 0;
                         $this->mail = isset( $info[0]['mail'][0] ) ? $info[0]['mail'][0] : 'nomail';
                         //~ $pass = $info[0]['userpassword'][0];
-
-                        //~ echo '<p>First name: '.$firstname.'</p>';
-                        //~ echo '<p>Name: '.$name.'</p>';
-                        //~ echo '<p>Employee Number: '.$uid.'</p>';
-                        //~ echo '<p>Mail: '.$mail.'</p>';
-                        //~ echo '<p>Password: '.$pass.'</p>';
 
                         // l'utilisateur est authentifié et ses infos sont enregistrées.
                         $r = true;
