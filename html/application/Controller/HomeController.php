@@ -11,7 +11,7 @@
 
 namespace Mini\Controller;
 
-use Mini\Model\Meeting;
+use Mini\Model\Event;
 use Mini\Model\Emergency;
 
 
@@ -25,7 +25,7 @@ class HomeController
     public function index()
     {
         // Nécessaire pour la pastille "prochaine AG": accès au modèle d'assemblée générale
-        $meeting = new Meeting();
+        $event = new Event();
         // Nécessaire pour la pastille "Urgences": accès au modèle d'urgence
         $emergency = new Emergency();
 
@@ -58,14 +58,6 @@ class HomeController
         require APP . 'view/home/services.php';
         require APP . 'view/_templates/footer.php';
     }
-	
-	//afficher les urgences
-	public function emergencies()
-	{
-		require APP . 'view/_templates/header.php';
-        require APP . 'view/home/emergencies.php';
-        require APP . 'view/_templates/footer.php';
-	}
 
     // Page de détail sur la situation du membre vis-à-vis de la Louve: statut, retard c'éneauc, etc...
     public function participation()

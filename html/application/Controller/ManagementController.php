@@ -12,6 +12,7 @@
 namespace Mini\Controller;
 
 use Mini\Model\Emergency;
+use Mini\Model\Event;
 
 
 class ManagementController
@@ -39,6 +40,8 @@ class ManagementController
         require APP . 'view/management/emergencies.php';
         require APP . 'view/_templates/footer.php';
     }
+
+
 
     /**
      * Endpoints / urls faisant office plus ou moins d'API REST pour la page des urgences
@@ -83,10 +86,49 @@ class ManagementController
         require APP . 'view/_templates/footer.php';
     }
 
-    // Page d'ajout d'évènement
-    public function addEvent()
+   // Page de gestion des evenement
+    public function manageEvents()
     {
         require APP . 'view/_templates/header.php';
+        require APP . 'view/management/event.php';
         require APP . 'view/_templates/footer.php';
     }
+
+    /**
+     * Endpoints / urls faisant office plus ou moins d'API REST pour la page des evenements
+     **/
+    public function getEvents()
+    {
+        $event = new Event();
+        $results = $event->getAll();
+        echo json_encode($results);
+    }
+
+    public function postEvent()
+    {
+        $event = new Event();
+        $result = $event->save(
+            $_REQUEST['info'], $_REQUEST['lien'], $_REQUEST['titre'], $_REQUEST['date'], $_REQUEST['type']
+        );
+        echo json_encode($result);
+    }
+
+    public function updateEvent()
+    {
+        $event = new Event();
+        $result = $event->update(
+            $_REQUEST['id'], $_REQUEST['info'], $_REQUEST['lien'], $_REQUEST['titre'], $_REQUEST['date'], $_REQUEST['type']
+        );
+        echo json_encode($result);
+    }
+
+    public function destroyEvent()
+    {
+        $event = new Event();
+        // TODO_LATER: l'id est ou devrait être pasé en argument de la fonction par le routeur d'url de l'application
+        $emergency->destroy(intval($_REQUEST['id']));
+        echo json_encode(array('success'=>true));
+    }
+
+   
 }

@@ -23,12 +23,16 @@ class User
     public $nextShifts = null;              // Prochains créneaux
     public $firstname = 'John';
     public $name = 'Doe';
+    public $id = 0;
+    public $leader = true;
     public $street = null;
-    public $mobile = null;
+    public $phone = '+33(0)1 00 00 00 00';
     public $shift_type = null;
     public $cooperative_state = null;       // Statut coopérateur: à jour ? retard, etc...
     public $final_standard_point = null;
     public $final_ftop_point = null;
+
+    public $connected = false;
 
     // Quand on instancie l'objet, on récupère les infos d'Odoo
     public function __construct($login)
@@ -36,31 +40,61 @@ class User
         $this->login = $login;
     }
 
+    public function getFirstName()
+    {
+        return $this->firstname;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getEmail()
+    {
+        return $this->mail;
+    }
+
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function isLeader()
+    {
+        return $this->leader;
+    }
+
+    /**
+     *  Get user info from Odoo
+     * */
     public function getOdooInfo()
     {
         if(!isset($this->mail))
             return null;
 
+        // TODO: remove email from OdooProxy constructor
         $proxy = new OdooProxy($this->mail);
-        $connectionStatus = $proxy->connect();
-        if ($connectionStatus === true)
+        $this->connected = $proxy->connect();
+        if ($this->connected === true)
         {
             // Si la connexion réussit, on récupère les prochains shifts de l'utilisateur
-            $this->nextShifts = formatShifts($proxy->getNextShifts());
+            $this->nextShifts = formatShifts($proxy->getUserNextShifts());
             // TODO_LATER: gérer les erreurs qui peuvent survenir
             $infos = formatUserInfo($proxy->getUserInfo());
             // On recopie simplement les infos récupérées dans les attributs de User
             //~ $this->name = $infos['name']; -- now from ldap
             $this->street = $infos['street'];
-            $this->mobile = $infos['mobile'];
+            $this->phone = isset($infos['mobile']) ? $infos['mobile'] : '-undefined-';
             $this->shift_type = $infos['shift_type'];
-            $this->cooperative_state = $infos['cooperative_state'];
-            $this->final_standard_point = $infos['final_standard_point'];
-            $this->final_ftop_point = $infos['final_ftop_point'];
-        }
-        else
-        {
-            // TODO_LATER: gérer les erreurs !
+            $this->cooperative_state = isset($infos['cooperative_state']) ? $infos['cooperative_state'] : '';
+            //~ $this->final_standard_point = $infos['final_standard_point'];
+            //~ $this->final_ftop_point = $infos['final_ftop_point'];
         }
     }
 
@@ -82,6 +116,7 @@ class User
         }
         // Sinon on se base sur 'cooperative_state'
         else {
+            $cooperative_state = $this->cooperative_state;
             if (!isset($cooperative_state)) {
                 $display['class'] = 'alert-warning';
                 $display['alert_msg'] = 'Erreur';
@@ -91,7 +126,7 @@ class User
             else if ($cooperative_state === 'up_to_date') {
                 $display['class'] = 'alert-success';
                 $display['alert_msg'] = 'Vous êtes à jour';
-                $display['full_msg'] = '';
+                $display['full_msg'] = "Vous êtes à jour. Bravo!";
             }
             else if ($cooperative_state === 'alert') {
                 $display['class'] = 'alert-warning';
@@ -174,6 +209,8 @@ class User
                         $this->mail = isset( $info[0]['mail'][0] ) ? $info[0]['mail'][0] : 'nomail';
                         //~ $pass = $info[0]['userpassword'][0];
 
+                        $this->getOdooInfo();
+
                         // l'utilisateur est authentifié et ses infos sont enregistrées.
                         $r = true;
                     }
@@ -195,7 +232,5 @@ class User
 
         return $r;
     }
-
-
 
 }

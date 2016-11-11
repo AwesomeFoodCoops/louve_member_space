@@ -37,7 +37,7 @@
         <div class="louve-creneau">
             <h3><strong>Ajouter un évènement </strong></h3>
             <p> Ajoutez des évènements à venir dans l'agenda </p>
-            <a href="<?php echo URL . 'management/addevent'; ?>">
+            <a href="<?php echo URL . 'management/manageevents'; ?>">
                 <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Ajouter </button>
 			</a>
         </div>

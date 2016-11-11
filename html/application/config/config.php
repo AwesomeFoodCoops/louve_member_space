@@ -72,9 +72,9 @@ define('DB_CHARSET', 'utf8');
  * Configuration for: Odoo
  */
 define('ODOO_DB_USER', 'ESPACE_MEMBRES');
-define('ODOO_DB_PASSWORD', 'cooplalouv3');
-define('ODOO_DB_NAME', 'lalouve-dev_20161023_b');
-define('ODOO_SERVER_URL', 'http://lalouve-dev.code-and-design.fr');
+define('ODOO_DB_PASSWORD', 'bBuzWHjSr5ZYN1Br');
+define('ODOO_DB_NAME', 'louve-erp-test_20161111');
+define('ODOO_SERVER_URL', 'http://gestion-test.cooplalouve.fr');
 
 /**
  * Configuration for: LDAP

@@ -120,7 +120,6 @@ class OdooProxy
         // On a une liste mais logiquement on est juste censé avoir une et une seule ligne
         // pour l'utilisateur
         return $result[0];
-
     }
 
     // Récupération des shifts volants
@@ -128,7 +127,7 @@ class OdooProxy
     {
         // TODO_NOW En dév local renvoyer des infos bidons
         if (ENVIRONMENT === 'dev') {
-            return ;
+            return;
         }
         $odoo_table = "shift.ticket";
         $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
@@ -165,25 +164,20 @@ class OdooProxy
             $uids_list[]= new Value($uids[$i]->me['int'], 'int');
         }
 
-
+        // Définition des champs qu'on va vouloir récupérer dans ces lignes
+        $field_list = array(
+            new Value("id", "string"),
+            new Value("name", "string"),
+            new Value("seats_available", "string"),
+            new Value("date_begin", "string"),
+            new Value("shift_type", "string"),
+        );
 
         // Requête des champs
         $raw_values = self::getEntriesValues($client, $odoo_table, $uids_list, $field_list);
 
         $result = $raw_values->value()->scalarval();
         return $result;
-
-
-    $field_list = array(
-        new xmlrpcval("id", "string"),
-        new xmlrpcval("name", "string"),
-        new xmlrpcval("seats_available", "string"),
-        new xmlrpcval("date_begin", "string"),
-        new xmlrpcval("shift_type", "string"),
-    );
-
-
-
     }
 
     // Permet de trouver les lignes correspondant à un utilisateur dans une table Odoo via son email

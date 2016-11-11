@@ -34,23 +34,23 @@
 
         <div class="nav navbar-nav collapse navbar-collapse" id="louvenav">
             <li><a href="<?php echo URL . 'home/participation/'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
-			<li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
+            <li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
             <li><a href=""><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
             <li><a href="<?php echo URL . 'management/'; ?>"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>
         <?php
             if ($GLOBALS['hasEmergency']) {
                 $emergencyStyle = "color:lightcoral";
-				 echo '<li><a href="' . URL . 'home/emergencies/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
             }
             else {
                 $emergencyStyle = "color:grey";
             }
+            echo '<li><a href="' . URL . 'urgences/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
         ?>
         </div>
         <ul class="nav navbar-inverse navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonjour,
-                    <?php echo $GLOBALS['User']->name ?>
+                    <?php echo $GLOBALS['User']->getFirstName(); ?>
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo URL . 'home/myinfo/'; ?>">Mes informations</a></li>
