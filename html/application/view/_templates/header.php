@@ -35,7 +35,8 @@
         <div class="nav navbar-nav collapse navbar-collapse" id="louvenav">
             <li><a href="<?php echo URL . 'home/participation/'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
             <li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
-            <li><a href=""><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
+            <!-- TODO_NOW: url à mettre dans la config -->
+            <li><a href="http://vps247219.ovh.net:4567"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
 			
 			<?php 
 				if($GLOBALS['User']->admin)

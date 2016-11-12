@@ -7,7 +7,7 @@ use Mini\Core\BaseDBModel;
 use PDO;
 
 
-
+ 
 
 // Un import 'use function Mini\Core\formatShifts;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!
@@ -28,7 +28,7 @@ class User extends BaseDBModel
     public $nextShifts = null;              // Prochains créneaux
     public $firstname = 'John';
     public $name = 'Doe';
-    public $admin = false;
+	public $admin = false;
     public $id = 0;
     public $leader = true;
     public $street = null;
@@ -75,29 +75,45 @@ class User extends BaseDBModel
     {
         return $this->leader;
     }
-
-    public function isAdmin()
+	
+	public function isAdmin()
     {
-        if (!$this->fake) {
-            $sql = 'SELECT * FROM admins WHERE mail =\'' . $this->mail . '\' LIMIT 0, 1';
-            $query = $this->db->prepare($sql);
-            $query->execute();
-            $result = $query->fetch();
-           if (isset($result))
-               return(true);
-        }
 
-        return (true);
+        return (true); 
     }
 
     /**
      *  Get user info from Odoo
      * */
+     /*
+     TODO : a renomer en initialize
+     */
     public function getOdooInfo()
     {
         if(!isset($this->mail))
             return null;
 
+
+
+        $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);
+
+        // generate a database connection, using the PDO connector
+        // @see http://net.tutsplus.com/tutorials/php/why-you-should-be-using-phps-pdo-for-database-access/
+        $db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET, DB_USER, DB_PASS, $options);
+        //test si l user est Admin
+        /*if (!$this->fake) {
+            $sql = "SELECT mail FROM admins where mail=':mail'";
+
+            $query = $db->prepare($sql);
+            $query->bindParam(':mail', $this->mail);
+            $query->execute();
+         
+            if ($query->rowCount() > 0)
+			   $this->admin=true;
+         
+            die($this->admin);
+        }
+        */
         // TODO: remove email from OdooProxy constructor
         $proxy = new OdooProxy($this->mail);
         $this->connected = $proxy->connect();
@@ -145,8 +161,8 @@ class User extends BaseDBModel
             // TODO_LATER: faire plus élégant que cette suite de conditions moches ?
             else if ($cooperative_state === 'up_to_date') {
                 $display['class'] = 'alert-success';
-                $display['alert_msg'] = 'Vous êtes à jour';
-                $display['full_msg'] = 'Bravo!';
+                $display['alert_msg'] = 'Bravo!';
+                $display['full_msg'] = "Vous êtes à jour";
             }
             else if ($cooperative_state === 'alert') {
                 $display['class'] = 'alert-warning';

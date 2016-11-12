@@ -73,8 +73,16 @@ class Application
 
                 // if so, then load this file and create this controller
                 // like \Mini\Controller\CarController
-                $controller = "\\Mini\\Controller\\" . ucfirst($this->url_controller) . 'Controller';
+				$shortcontroller = ucfirst($this->url_controller);
+				$controller = "\\Mini\\Controller\\" . $shortcontroller . 'Controller';
                 $this->url_controller = new $controller();
+
+				// Cas particulier: les pages de Gestion ne sont accessibles que par les admin
+				if ($shortcontroller == 'Management' AND $GLOBALS['User']->admin != true)
+				{
+				    // TODO_LATER: fournir un message d'erreur
+					header('location: ' . URL . 'error');
+				}
 
                 // check for method: does such a method exist in the controller ?
                 if (method_exists($this->url_controller, $this->url_action)) {
