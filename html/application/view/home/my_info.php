@@ -23,9 +23,13 @@ $display = $user->getStatusDisplay();
                 echo ('<p><strong>'.$display['alert_msg'].'</strong> '.$display['full_msg'].'</p>');
 
                 if( !$user->connected )
-                    echo('<p>NOT CONNECTED TO ODOO</p>');
-                else
-                    echo('<p>CONNECTED TO ODOO</p>');
+                    echo('<p><b>(Non connecté à Odoo)</b></p>');
+                //~ else
+                    //~ echo('<p>CONNECTED TO ODOO</p>');
+
+                if( $user->isAdmin() )
+                    echo("<p><b>Vous êtes admininistrateur:</b> Le menu GESTION de l'espace membres est disponible.</p>");
+
                 //~ if ($user->status == 1)
                     //~ echo ('<p> <br/><strong>Vous êtes à jour !</strong> <p>');
                 //~ else if ($user->status == 2)

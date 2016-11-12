@@ -20,7 +20,7 @@ include_once(APP . 'helpers/odoo_formatting.php');
  * AUCUNE DONNEE UTILISATEUR N'EST STOCKEE DANS LA BDD LOCALE MYSQL
  * Utilisation de XMLRPC via la classe OdooProxy
  */
-class User extends BaseDBModel
+class User
 {
     // TODO_NOW: définition et valeurs possibles pour les champs en dessou à vérifier
     public $login = null;
@@ -78,16 +78,23 @@ class User extends BaseDBModel
 
     public function isAdmin()
     {
-        if (!$this->fake) {
-            $sql = 'SELECT * FROM admins WHERE mail =\'' . $this->mail . '\' LIMIT 0, 1';
-            $query = $this->db->prepare($sql);
-            $query->execute();
-            $result = $query->fetch();
-           if (isset($result))
-               return(true);
+        return $this->admin;
+    }
+
+    public function getAdminStatus()
+    {
+        $db = new BaseDBModel();
+        $r = false;
+
+        if (!$db->fake && isset($this->mail) )
+        {
+            $sql = "SELECT COUNT(mail) AS FoundAsAdmin FROM admins WHERE mail=\"$this->mail\"";
+            $query = $db->db->query($sql);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $r = boolval($query->fetch()['FoundAsAdmin']);
         }
 
-        return (true);
+        return $r;
     }
 
     /**
@@ -230,6 +237,7 @@ class User extends BaseDBModel
                         //~ $pass = $info[0]['userpassword'][0];
 
                         $this->getOdooInfo();
+                        $this->admin = $this->getAdminStatus();
 
                         // l'utilisateur est authentifié et ses infos sont enregistrées.
                         $r = true;
