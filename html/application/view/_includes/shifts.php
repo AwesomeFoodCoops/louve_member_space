@@ -2,10 +2,10 @@
     <div class="col-xs-12 col-sm-6">
     <h3  class="entete ui horizontal divider"><strong>Mon prochain créneau</strong></h3>
     <div class="louve-creneau">
-	<?php
+    <?php
 
     $shifts = $GLOBALS['User']->getNextShifts();
-    if (null !== $shifts[0])
+    if ( isset($shifts[0]) && null !== $shifts[0])
     {
         $nexttime = $shifts[0];
         echo ('<h3> '. $nexttime .'</h3>');
@@ -13,7 +13,7 @@
     else {
         echo ("<h3>Vous n'êtes inscrit a aucun créneau futur.</h3>");
     }
-	?>
+    ?>
 
     <p> Une absence prévue? </p>
     <button class="btn btn-default"><span class="glyphicon glyphicon-earphone"></span> Contactez vos coordinateurs</button>
@@ -34,7 +34,7 @@
             echo ('<h3> '. $shift . '</h3>');
         }
     }
-	?>
+    ?>
     </div>
 </div>
 </div>
