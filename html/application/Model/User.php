@@ -79,26 +79,7 @@ class User extends BaseDBModel
 	public function getAdminStatus()
     {
         // TODO_NOW: lire le statut admin dans LDAP ?
-        $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);
 
-        // generate a database connection, using the PDO connector
-        // @see http://net.tutsplus.com/tutorials/php/why-you-should-be-using-phps-pdo-for-database-access/
-        $db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET, DB_USER, DB_PASS, $options);
-        //test si l user est Admin
-        /*if (!$this->fake) {
-            $sql = "SELECT mail FROM admins where mail=':mail'";
-
-            $query = $db->prepare($sql);
-            $query->bindParam(':mail', $this->mail);
-            $query->execute();
-
-            if ($query->rowCount() > 0)
-			   $this->admin=true;
-
-            die($this->admin);
-        }
-        */
-        $this->admin = true;
     }
     
     public function hasData() { return $this->hasData; }
