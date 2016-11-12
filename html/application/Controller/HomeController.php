@@ -9,10 +9,10 @@
  *
  */
 
-namespace Mini\Controller;
+namespace Louve\Controller;
 
-use Mini\Model\Event;
-use Mini\Model\Emergency;
+use Louve\Model\Event;
+use Louve\Model\Emergency;
 
 
 class HomeController

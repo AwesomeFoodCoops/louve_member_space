@@ -1,9 +1,9 @@
 <?php
 /** For more info about namespaces plase @see http://php.net/manual/en/language.namespaces.importing.php */
-namespace Mini\Core;
+namespace Louve\Core;
 
-use Mini\Model\User;
-use Mini\Model\Meeting;
+use Louve\Model\User;
+use Louve\Model\Meeting;
 
 
 class Application
@@ -33,7 +33,7 @@ class Application
         // L'utilisateur est-il loggué ? (loggué = on a sérialisé son user dans la session)
         if (!isset($_SESSION['SerializedUser']))
         {
-            $page = new \Mini\Controller\LoginController();
+            $page = new \Louve\Controller\LoginController();
 
             // Est-ce qu'il s'agit d'un POST pour essayer de se connecter ?
             if ((isset($_POST['login'])) AND (isset($_POST['password']))) {
@@ -49,8 +49,8 @@ class Application
             $user = unserialize($_SESSION['SerializedUser']);
             // Si les données d'Odoo / de la BDD n'ont pas été récupérées, le faire
             // TODO_LATER: remplacer 'hasData' par 'hasRecentData' (par ex rafraichir toutes les 5min)
-            if (!$user.hasData()) {
-                $user.getData();
+            if (!$user->hasData()) {
+                $user->getData();
             }
             // L'utilisateur est accessible depuis le scope global car on en a besoin dans toute l'app
             $GLOBALS['User'] = $user;
@@ -61,16 +61,16 @@ class Application
             // check for controller: no controller given ? then load start-page
             if (!$this->url_controller) {
 
-                $page = new \Mini\Controller\HomeController();
+                $page = new \Louve\Controller\HomeController();
                 $page->index();
 
             } elseif (file_exists(APP . 'Controller/' . ucfirst($this->url_controller) . 'Controller.php')) {
                 // here we did check for controller: does such a controller exist ?
 
                 // if so, then load this file and create this controller
-                // like \Mini\Controller\CarController
+                // like \Louve\Controller\CarController
 				$shortcontroller = ucfirst($this->url_controller);
-				$controller = "\\Mini\\Controller\\" . $shortcontroller . 'Controller';
+				$controller = "\\Louve\\Controller\\" . $shortcontroller . 'Controller';
                 $this->url_controller = new $controller();
 
 				// Cas particulier: les pages de Gestion ne sont accessibles que par les admin

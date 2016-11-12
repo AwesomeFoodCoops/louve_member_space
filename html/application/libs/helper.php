@@ -1,6 +1,6 @@
 <?php
 
-namespace Mini\Libs;
+namespace Louve\Libs;
 
 class Helper
 {

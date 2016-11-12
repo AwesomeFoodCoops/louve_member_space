@@ -9,10 +9,10 @@
  *
  */
 
-namespace Mini\Controller;
+namespace Louve\Controller;
 
-use Mini\Model\Emergency;
-use Mini\Model\Event;
+use Louve\Model\Emergency;
+use Louve\Model\Event;
 
 
 class ManagementController
@@ -40,8 +40,6 @@ class ManagementController
         require APP . 'view/management/emergencies.php';
         require APP . 'view/_templates/footer.php';
     }
-
-
 
     /**
      * Endpoints / urls faisant office plus ou moins d'API REST pour la page des urgences

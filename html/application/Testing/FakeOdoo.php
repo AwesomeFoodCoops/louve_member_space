@@ -1,7 +1,7 @@
 <?php
 
 // Objets "mock" (=bidon) pour avoir des données en dev local
-namespace Mini\Testing;
+namespace Louve\Testing;
 
 
 class FakeOdoo

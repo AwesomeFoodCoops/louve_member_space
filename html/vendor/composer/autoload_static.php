@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5175a60d0923ae48e924237e047c229c
+class ComposerStaticInit62e5e7d8fc12cd477b9ab6aa788bb497
 {
     public static $prefixLengthsPsr4 = array (
         'V' => 
@@ -15,9 +15,9 @@ class ComposerStaticInit5175a60d0923ae48e924237e047c229c
         array (
             'PhpXmlRpc\\' => 10,
         ),
-        'M' => 
+        'L' => 
         array (
-            'Mini\\' => 5,
+            'Louve\\' => 6,
         ),
     );
 
@@ -30,7 +30,7 @@ class ComposerStaticInit5175a60d0923ae48e924237e047c229c
         array (
             0 => __DIR__ . '/..' . '/phpxmlrpc/phpxmlrpc/src',
         ),
-        'Mini\\' => 
+        'Louve\\' => 
         array (
             0 => __DIR__ . '/../..' . '/application',
         ),
@@ -39,8 +39,8 @@ class ComposerStaticInit5175a60d0923ae48e924237e047c229c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5175a60d0923ae48e924237e047c229c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5175a60d0923ae48e924237e047c229c::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit62e5e7d8fc12cd477b9ab6aa788bb497::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit62e5e7d8fc12cd477b9ab6aa788bb497::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

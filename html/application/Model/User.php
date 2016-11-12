@@ -1,9 +1,9 @@
 <?php
 
-namespace Mini\Model;
+namespace Louve\Model;
 
-use Mini\Core\OdooProxy;
-use Mini\Core\BaseDBModel;
+use Louve\Core\OdooProxy;
+use Louve\Core\BaseDBModel;
 use PDO;
 
 
@@ -34,14 +34,14 @@ class User extends BaseDBModel
     
     // Est-ce que les données depuis Odoo / BDD locale ont été récupérées ?
     // TODO_LATER: remplacer par un timestamp et rafraichir les données si timestamp trop vieux
-    private $hasData = false:
+    private $hasData = false;
 
     public function __construct($login) { $this->login = $login; }
 
     // Essaie de se connecter au LDAP et de récupérer des infos sur l'utilisateur
     public function bindLdap($password)
     {
-        $ldapResult = bindLdapUser($password, $this->login);
+        $ldapResult = bindLdapUser($this->login, $password);
         if (isset($ldapResult)) {
             list($this->firstname, $this->lastname, $this->id, $this->mail) = $ldapResult;
             return true;
@@ -66,7 +66,7 @@ class User extends BaseDBModel
             // On recopie simplement les infos récupérées dans les attributs de User
             $this->street = isset($infos['street']) ? $infos['street'] : null;
             $this->phone = isset($infos['mobile']) ? $infos['mobile'] : null;
-            $this->shift_type = isset($infos['shift_type']) ; $infos['shift_type'] : null;
+            $this->shift_type = isset($infos['shift_type']) ? $infos['shift_type'] : null;
             $this->cooperative_state = isset($infos['cooperative_state']) ? $infos['cooperative_state'] : null;
             $hasData = true;
         }
@@ -103,9 +103,7 @@ class User extends BaseDBModel
     
     public function hasData() { return $this->hasData; }
     public function isAdmin() { return $this->admin; }
-    
-     * Display helpers / Getters sur les attributs
-    **/ 
+
     // TODO_NOW: faire un helper commun qui renvoie une chaîne "info non dispo" si élément pas setté
     public function getFirstName() { return $this->firstname; }
     public function getLastname() { return $this->lastname; }

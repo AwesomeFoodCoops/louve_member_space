@@ -8,5 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'Vendor\\PhpXmlRpc\\' => array($baseDir . '/application'),
     'PhpXmlRpc\\' => array($vendorDir . '/phpxmlrpc/phpxmlrpc/src'),
-    'Mini\\' => array($baseDir . '/application'),
+    'Louve\\' => array($baseDir . '/application'),
 );

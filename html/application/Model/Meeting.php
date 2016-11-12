@@ -1,8 +1,8 @@
 <?php
 
-namespace Mini\Model;
+namespace Louve\Model;
 
-use Mini\Core\BaseDBModel;
+use Louve\Core\BaseDBModel;
 
 
 /**

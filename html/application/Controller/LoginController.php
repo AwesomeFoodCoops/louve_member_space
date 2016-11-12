@@ -9,9 +9,9 @@
  *
  */
 
-namespace Mini\Controller;
+namespace Louve\Controller;
 
-use Mini\Model\User;
+use Louve\Model\User;
 
 // Un import 'use function Mini\Core\checkCredentials;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!
@@ -57,13 +57,13 @@ class LoginController
         if (ENVIRONMENT === 'dev' AND $login === 'login' AND $password === 'password') {
             $logginSuccesful = true;
         }
-        elseif ($user->bindLdap($password))
+        elseif ($user->bindLdap($password)) {
             $logginSuccesful = true;
         }
 
         // Si les credentials sont corrects, on sérialise l'utilisateur
         // Ce qui est équivalent à dire qu'il est loggué
-        if ($logginSuccesful) {
+        if ($logginSuccesful === true) {
             $_SESSION['SerializedUser'] = serialize($user);
         }
         // Sinon on garde l'info en session pour afficher une erreur

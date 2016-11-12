@@ -1,13 +1,13 @@
 <?php
 
-namespace Mini\Core;
+namespace Louve\Core;
 
 use PhpXmlRpc\Value;
 use PhpXmlRpc\Request;
 use PhpXmlRpc\Client;
 
 // En développement on ne va pas chercher les infos sur Odoo, on retourne des valeurs bidons
-use Mini\Testing\FakeOdoo;
+use Louve\Testing\FakeOdoo;
 
 
 class OdooProxy

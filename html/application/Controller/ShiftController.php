@@ -9,10 +9,10 @@
  *
  */
 
-namespace Mini\Controller;
+namespace Louve\Controller;
 
 
-use Mini\Core\OdooProxy;
+use Louve\Core\OdooProxy;
 
 // Un import 'use function Mini\Core\formatFtopShifts;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!

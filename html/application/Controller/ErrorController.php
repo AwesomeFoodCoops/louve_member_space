@@ -9,7 +9,7 @@
  *
  */
 
-namespace Mini\Controller;
+namespace Louve\Controller;
 
 class ErrorController
 {
