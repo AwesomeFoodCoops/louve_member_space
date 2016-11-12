@@ -4,13 +4,10 @@
 function formatUserInfo($userInfo)
 {
     return [
-        "name" => $userInfo->me['struct']['name']->me['string'],
         "street" => $userInfo->me['struct']['street']->me['string'],
         "mobile" => $userInfo->me['struct']['mobile']->me['string'],
         "shift_type" => $userInfo->me['struct']['shift_type']->me['string'],
         "cooperative_state" => $userInfo->me['struct']['cooperative_state']->me['string'],
-        //~ TODO? "final_standard_point" => $userInfo->me['struct']['final_standard_point']->me['string'],
-        //~ TODO? "final_ftop_point" => $userInfo->me['struct']['final_ftop_point']->me['string'],
     ];
 
     //~ TODO replace by return xml_decode($userInfo);

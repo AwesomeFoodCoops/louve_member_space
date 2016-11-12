@@ -44,11 +44,6 @@ class FakeOdoo
             0 => (object) [
                 "me" => [
                     "struct" => [
-                        "name" => (object) [
-                            "me" => [
-                                "string" => 'Zied'
-                            ]
-                        ],
                         "street" => (object) [
                             "me" => [
                                 "string" => 'Quelque part dans Paris 750xx'
@@ -67,16 +62,6 @@ class FakeOdoo
                         "cooperative_state" => (object) [
                             "me" => [
                                 "string" => 'coop state' // /!\ valeur au hasard, existe pas forcément
-                            ]
-                        ],
-                        "final_standard_point" => (object) [
-                            "me" => [
-                                "string" => 'final standard point' // /!\ valeur au hasard, existe pas forcément
-                            ]
-                        ],
-                        "final_ftop_point" => (object) [
-                            "me" => [
-                                "string" => 'final ftop point' // /!\ valeur au hasard, existe pas forcément
                             ]
                         ],
                     ]

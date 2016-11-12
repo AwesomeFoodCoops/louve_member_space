@@ -11,12 +11,13 @@
 
 namespace Mini\Controller;
 
+use Mini\Model\User;
+
 // Un import 'use function Mini\Core\checkCredentials;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!
 // Donc on met les fonctions dans un fichier à part eton importe avec un require à l'ancienne
 require APP . 'helpers/ldap_connection.php';
 
-use Mini\Model\User;
 
 class LoginController
 {
@@ -42,45 +43,31 @@ class LoginController
         require APP . 'view/_templates/public_footer.php';
     }
 
+    // TODO_NOW: On a absolument besoin d'obliger HTTPS pour le post des MDP !!
     // L'utilisateur envoi ses login/mdp
     public function postCredentials($rawLogin, $rawPassword)
     {
         $login = strip_tags($rawLogin);   // DN ou RDN LDAP
         $password = strip_tags($rawPassword);  // empecher les failles d'injection sql
-        $credentialsValid = false;
+        $logginSuccesful = false;
+
+        $user = new User($login);
 
         // En dev, on utilise les credentials login='login' / password='password'
         if (ENVIRONMENT === 'dev' AND $login === 'login' AND $password === 'password') {
-            $credentialsValid = true;
+            $logginSuccesful = true;
         }
-        else
-        {
-            $GLOBALS['User'] = new User($login);
-
-            if( $GLOBALS['User']->checkPass($password) )
-            {
-                $_SESSION['logged'] = TRUE;
-                $_SESSION['falseid'] = FALSE;
-                $_SESSION['SerializedUser'] = serialize($GLOBALS['User']);
-                $_SESSION['urgence']=TRUE;
-                $credentialsValid = true;
-            }
-            else
-            {
-                //connexion ratée
-                $_SESSION['falseid'] = TRUE;
-                $credentialsValid = false;
-            }
+        elseif ($user->bindLdap($password))
+            $logginSuccesful = true;
         }
 
-        // Si les credentials sont corrects, on active le flag de session
-        if ($credentialsValid) {
-            $_SESSION['logged_in'] = true;
-            $_SESSION['login'] = $login;
+        // Si les credentials sont corrects, on sérialise l'utilisateur
+        // Ce qui est équivalent à dire qu'il est loggué
+        if ($logginSuccesful) {
+            $_SESSION['SerializedUser'] = serialize($user);
         }
         // Sinon on garde l'info en session pour afficher une erreur
         else {
-            $_SESSION['logged_in'] = false;
             $_SESSION['bad_credentials'] = true;
         }
 

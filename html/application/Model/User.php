@@ -7,8 +7,6 @@ use Mini\Core\BaseDBModel;
 use PDO;
 
 
- 
-
 // Un import 'use function Mini\Core\formatShifts;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!
 // Donc on met les fonctions dans un fichier à part eton importe avec un require à l'ancienne
@@ -22,79 +20,65 @@ include_once(APP . 'helpers/odoo_formatting.php');
  */
 class User extends BaseDBModel
 {
-    // TODO_NOW: définition et valeurs possibles pour les champs en dessou à vérifier
-    public $login = null;
-    public $mail = null;
-    public $nextShifts = null;              // Prochains créneaux
-    public $firstname = 'John';
-    public $name = 'Doe';
-	public $admin = false;
-    public $id = 0;
-    public $leader = true;
-    public $street = null;
-    public $phone = '+33(0)1 00 00 00 00';
-    public $shift_type = null;
-    public $cooperative_state = null;       // Statut coopérateur: à jour ? retard, etc...
-    public $final_standard_point = null;
-    public $final_ftop_point = null;
+    private $login = null;
+    private $mail = null;
+    private $nextShifts = null;              // Prochains créneaux
+    private $firstname = null;
+    private $lastname = null;
+    private $admin = false;
+    private $id = 0;
+    private $street = null;
+    private $phone = null;
+    private $shift_type = null;
+    private $cooperative_state = null;       // Statut coopérateur: à jour ? retard, etc...
+    
+    // Est-ce que les données depuis Odoo / BDD locale ont été récupérées ?
+    // TODO_LATER: remplacer par un timestamp et rafraichir les données si timestamp trop vieux
+    private $hasData = false:
 
-    public $connected = false;
+    public function __construct($login) { $this->login = $login; }
 
-    // Quand on instancie l'objet, on récupère les infos d'Odoo
-    public function __construct($login)
+    // Essaie de se connecter au LDAP et de récupérer des infos sur l'utilisateur
+    public function bindLdap($password)
     {
-        $this->login = $login;
+        $ldapResult = bindLdapUser($password, $this->login);
+        if (isset($ldapResult)) {
+            list($this->firstname, $this->lastname, $this->id, $this->mail) = $ldapResult;
+            return true;
+        }
+        return false;
     }
 
-    public function getFirstName()
+    // Récupération des données du membre depuis Odoo et la base locale 
+    public function getData()
     {
-        return $this->firstname;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getEmail()
-    {
-        return $this->mail;
-    }
-
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    public function isLeader()
-    {
-        return $this->leader;
+        if(!isset($this->mail)){
+            error_log("Mail not set while trying to connect Odoo!" . $this->login);
+            return;
+        }
+        $proxy = new OdooProxy();
+        if ($proxy->connect() === true)
+        {
+            // Si la connexion réussit, on récupère les prochains shifts de l'utilisateur
+            $this->nextShifts = formatShifts($proxy->getUserNextShifts($this->mail));
+            // TODO_LATER: gérer les erreurs qui peuvent survenir
+            $infos = formatUserInfo($proxy->getUserInfo($this->mail));
+            // On recopie simplement les infos récupérées dans les attributs de User
+            $this->street = isset($infos['street']) ? $infos['street'] : null;
+            $this->phone = isset($infos['mobile']) ? $infos['mobile'] : null;
+            $this->shift_type = isset($infos['shift_type']) ; $infos['shift_type'] : null;
+            $this->cooperative_state = isset($infos['cooperative_state']) ? $infos['cooperative_state'] : null;
+            $hasData = true;
+        }
+        else {
+            error_log("Odoo connection error for user " . $this->login);
+        }
+        self::getAdminStatus();
     }
 	
-	public function isAdmin()
+	public function getAdminStatus()
     {
-
-        return (true); 
-    }
-
-    /**
-     *  Get user info from Odoo
-     * */
-     /*
-     TODO : a renomer en initialize
-     */
-    public function getOdooInfo()
-    {
-        if(!isset($this->mail))
-            return null;
-
-
-
+        // TODO_NOW: lire le statut admin dans LDAP ?
         $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);
 
         // generate a database connection, using the PDO connector
@@ -107,37 +91,32 @@ class User extends BaseDBModel
             $query = $db->prepare($sql);
             $query->bindParam(':mail', $this->mail);
             $query->execute();
-         
+
             if ($query->rowCount() > 0)
 			   $this->admin=true;
-         
+
             die($this->admin);
         }
         */
-        // TODO: remove email from OdooProxy constructor
-        $proxy = new OdooProxy($this->mail);
-        $this->connected = $proxy->connect();
-        if ($this->connected === true)
-        {
-            // Si la connexion réussit, on récupère les prochains shifts de l'utilisateur
-            $this->nextShifts = formatShifts($proxy->getUserNextShifts());
-            // TODO_LATER: gérer les erreurs qui peuvent survenir
-            $infos = formatUserInfo($proxy->getUserInfo());
-            // On recopie simplement les infos récupérées dans les attributs de User
-            //~ $this->name = $infos['name']; -- now from ldap
-            $this->street = $infos['street'];
-            $this->phone = isset($infos['mobile']) ? $infos['mobile'] : '-undefined-';
-            $this->shift_type = $infos['shift_type'];
-            $this->cooperative_state = isset($infos['cooperative_state']) ? $infos['cooperative_state'] : '';
-            //~ $this->final_standard_point = $infos['final_standard_point'];
-            //~ $this->final_ftop_point = $infos['final_ftop_point'];
-        }
+        $this->admin = true;
     }
-
+    
+    public function hasData() { return $this->hasData; }
+    public function isAdmin() { return $this->admin; }
+    
+     * Display helpers / Getters sur les attributs
+    **/ 
+    // TODO_NOW: faire un helper commun qui renvoie une chaîne "info non dispo" si élément pas setté
+    public function getFirstName() { return $this->firstname; }
+    public function getLastname() { return $this->lastname; }
+    public function getId() { return $this->id; }
+    public function getEmail() { return $this->mail; }
+    public function getPhone() { return $this->phone; }        
+    public function getNextShifts() { return $this->nextShifts; }
+    
     // Renvoie les paramètres d'affichage du statut dans un object:
     // la class Bootstrap d'alerte, une alerte courte et le message de détail
-    public function getStatusDisplay()
-    {
+    public function getStatusDisplay() {
         // Objet d'affichage à renvoyé qui va être rempli en fontion du statut
         $display = [
             'class' => '',
@@ -145,6 +124,7 @@ class User extends BaseDBModel
             'full_msg' => '',
         ];
         // En dev on envoie des données bidons
+        // TODO_NOW: en fait on en a pas besoin parce qu'on a un mock de cooperative state en dev, à virer donc
         if (ENVIRONMENT === 'dev') {
             $display['class'] = 'alert-warning';
             $display['alert_msg'] = "T'es dingue mec";
@@ -197,76 +177,4 @@ class User extends BaseDBModel
         }
         return $display;
     }
-
-
-    public function checkPass($pass)
-    {
-        $pass = strip_tags($pass);
-        $ldap = ldap_connect(LDAP_SERVER);
-
-        if( $ldap )
-        {
-            // On dit qu'on utilise LDAP V3, sinon la V2 par défaut est utilisé
-            // et le bind ne passe pas.
-            ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
-
-            $ldapbind = ldap_bind($ldap, "uid=".$this->login.",ou=users,".LDAP_BASE_DN, $pass);
-
-            if( $ldapbind )
-            {
-                //~ echo '<p>Ldap bind OK</p>';
-
-                $filter="uid=$this->login";
-                $justthese = array("employeeNumber", "sn", "givenName", "mail", "userPassword");
-
-                $sr = ldap_search($ldap, LDAP_BASE_DN, $filter, $justthese);
-
-                $info = ldap_get_entries($ldap, $sr);
-                $nb_results = $info['count'];
-
-                if( $nb_results != 1 )
-                {
-                    //~ echo '<p>Info KO, user not found ('. $nb_results . ')</p>';
-                    $r = false;
-                }
-                else
-                {
-                    //~ if( !isset($info[0]['employeenumber'][0]) )
-                    if( !isset($info[0]['mail'][0]) )
-                    {
-                        // pas de n° louve!
-                        $r = false;
-                    }
-                    else
-                    {
-                        $this->firstname = isset( $info[0]['givenname'][0] ) ? $info[0]['givenname'][0] : 'unknown';
-                        $this->name = isset( $info[0]['sn'][0] ) ? $info[0]['sn'][0] : 'unkonwn';
-                        $this->id = isset( $info[0]['employeenumber'][0] ) ? $info[0]['employeenumber'][0] : 0;
-                        $this->mail = isset( $info[0]['mail'][0] ) ? $info[0]['mail'][0] : 'nomail';
-                        //~ $pass = $info[0]['userpassword'][0];
-
-                        $this->getOdooInfo();
-
-                        // l'utilisateur est authentifié et ses infos sont enregistrées.
-                        $r = true;
-                    }
-                }
-
-                ldap_close($ldap);
-            }
-            else
-            {
-                //~ echo '<p>Ldap bind KO</p>';
-                $r = false;
-            }
-        }
-        else
-        {
-            //~ echo '<p>Ldap connection KO</p>';
-            $r = false;
-        }
-
-        return $r;
-    }
-
 }

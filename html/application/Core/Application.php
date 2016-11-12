@@ -30,8 +30,8 @@ class Application
         // Démarre ou redémarre une session
         session_start();
 
-        // L'utilisateur est-il loggué ? Si non on le redirige vers la page de login
-        if (!isset($_SESSION['logged_in']) OR $_SESSION['logged_in'] === false )
+        // L'utilisateur est-il loggué ? (loggué = on a sérialisé son user dans la session)
+        if (!isset($_SESSION['SerializedUser']))
         {
             $page = new \Mini\Controller\LoginController();
 
@@ -40,27 +40,23 @@ class Application
                 $page->postCredentials($_POST['login'], $_POST['password']);
             }
             else {
+                // Page de login
                 $page->index();
             }
         }
         else {
+            // On sérialize l'user pour ne pas avoir à récupérer les infos d'Odoo à chaque changement de page
+            $user = unserialize($_SESSION['SerializedUser']);
+            // Si les données d'Odoo / de la BDD n'ont pas été récupérées, le faire
+            // TODO_LATER: remplacer 'hasData' par 'hasRecentData' (par ex rafraichir toutes les 5min)
+            if (!$user.hasData()) {
+                $user.getData();
+            }
             // L'utilisateur est accessible depuis le scope global car on en a besoin dans toute l'app
-            // On sérialize l'user pendant une session pour ne pas avoir à récupérer les infos d'Odoo à chaque
-            // changement de page
-            if (!isset($_SESSION['SerializedUser'])) {
-                // TODO_NOW: redirect to login page (if SerializedUser does not exist it shouldn't be logged_in)
-                //~ $GLOBALS['User'] = new User('zied.kheriji@gmail.com');
-                //~ $_SESSION['SerializedUser'] = serialize($GLOBALS['User']);
-            }
-            else {
-                $GLOBALS['User'] = unserialize($_SESSION['SerializedUser']);
-            }
+            $GLOBALS['User'] = $user;
 
             // TODO_NOW: à mettre ailleurs et pas en dur ! => et calculer au début ici
             $GLOBALS['hasEmergency'] = true;
-
-            // TODO_NOW: ajouter un check pour savoir si l'utilisateur est admin et peut donc accéder aux pages
-            // de management. Ajouter donc un champ admin sur $GLOBALS['User'] (récupéré du LDAP ou de Odoo ?)
 
             // check for controller: no controller given ? then load start-page
             if (!$this->url_controller) {
@@ -78,7 +74,7 @@ class Application
                 $this->url_controller = new $controller();
 
 				// Cas particulier: les pages de Gestion ne sont accessibles que par les admin
-				if ($shortcontroller == 'Management' AND $GLOBALS['User']->admin != true)
+				if ($shortcontroller == 'Management' AND !$user->isAdmin())
 				{
 				    // TODO_LATER: fournir un message d'erreur
 					header('location: ' . URL . 'error');

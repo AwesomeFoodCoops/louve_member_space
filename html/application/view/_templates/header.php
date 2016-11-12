@@ -57,7 +57,6 @@
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo URL . 'home/myinfo/'; ?>">Mes informations</a></li>
-                    <li><a href="#">Messages</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="<?php echo URL . 'login/logout/'; ?>">Déconnexion</a></li>
                 </ul>

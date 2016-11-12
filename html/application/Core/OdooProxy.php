@@ -12,15 +12,7 @@ use Mini\Testing\FakeOdoo;
 
 class OdooProxy
 {
-    private $mail = null;
-    private $userUid = null;
-    private $client = null;
-     
-    public function __construct($mail)
-    {
-        // Mail is used as login in Odoo
-        $this->mail = $mail;
-    }
+    private $connectionUid = null;
 
     // Connexion à la base Odoo
     // return true si la connexion réussit, false sinon
@@ -48,13 +40,13 @@ class OdooProxy
             error_log("Erreur Odoo #1: " . var_dump($response));
             return false;
         } else {
-            $this->userUid = $response->value()->scalarval();
+            $this->connectionUid = $response->value()->scalarval();
             return true;
         }
     }
 
     // Récupération des prochains créneaux de l'utilsateur (basé sur son email)
-    public function getUserNextShifts()
+    public function getUserNextShifts($mail)
     {
         // En dév local on renvoie des valeurs bidons
         if (ENVIRONMENT === 'dev') {
@@ -67,7 +59,7 @@ class OdooProxy
         $client->setSSLVerifyPeer(0);
 
         // On récupère les références des lignes qui nous intéressent dans la table "shift.registration"
-        $user_entries = self::getUserEntriesInTable($client, $odoo_table);
+        $user_entries = self::getUserEntriesInTable($client, $odoo_table, $mail);
 
         // Définition des champs qu'on va vouloir récupérer dans ces lignes
         $field_list = array(
@@ -85,7 +77,7 @@ class OdooProxy
     }
 
     // Récupération des infos personnelles de l'utilisateur
-    public function getUserInfo()
+    public function getUserInfo($mail)
     {
         // En dév local on renvoie des infos bidons
         if (ENVIRONMENT === 'dev') {
@@ -98,18 +90,15 @@ class OdooProxy
         $client->setSSLVerifyPeer(0);
 
         // On récupère les références des lignes qui nous intéressent dans la table "res.partner"
-        $user_entries = self::getUserEntriesInTable($client, $odoo_table);
+        $user_entries = self::getUserEntriesInTable($client, $odoo_table, $mail);
 
         // Définition des champs qu'on va vouloir récupérer dans ces lignes
         $field_list = array(
-            new Value("name", "string"),
             new Value("street", "string"),
             new Value("mobile", "string"),
             new Value("email", "string"),
             new Value("shift_type", "string"),
             new Value("cooperative_state", "string"),
-            new Value("final_standard_point", "string"),
-            new Value("final_ftop_point", "string"),
         );
 
         // Requête de ces champs sur les lignes sélectionnées
@@ -146,7 +135,7 @@ class OdooProxy
         $msg = new Request(
             'execute', array(
                 new Value(ODOO_DB_NAME, 'string'),
-                new Value($this->userUid, 'int'),
+                new Value($this->connectionUid, 'int'),
                 new Value(ODOO_DB_PASSWORD, 'string'),
                 new Value($odoo_table, 'string'),
                 new Value('search', 'string'),
@@ -182,13 +171,13 @@ class OdooProxy
 
     // Permet de trouver les lignes correspondant à un utilisateur dans une table Odoo via son email
     // TODO_LATER: On doit surement pouvoir faire une requête directe (et pas lecture ids puis requête de champs)
-    private function getUserEntriesInTable($client, $odoo_table)
+    private function getUserEntriesInTable($client, $odoo_table, $mail)
     {
         $domain_filter = array (
             new Value(
                 array(new Value('email' , "string"),
                       new Value('=',"string"),
-                      new Value($this->mail,"string")
+                      new Value($mail,"string")
                 ),"array"
             ),
         );
@@ -196,7 +185,7 @@ class OdooProxy
         $msg = new Request(
             'execute', array(
                 new Value(ODOO_DB_NAME, 'string'),
-                new Value($this->userUid, 'int'),
+                new Value($this->connectionUid, 'int'),
                 new Value(ODOO_DB_PASSWORD, 'string'),
                 new Value($odoo_table, 'string'),
                 new Value('search', 'string'),
@@ -223,7 +212,7 @@ class OdooProxy
         $msg = new Request(
             'execute', array(
                 new Value(ODOO_DB_NAME, "string"),
-                new Value($this->userUid, "int"),
+                new Value($this->connectionUid, "int"),
                 new Value(ODOO_DB_PASSWORD, "string"),
                 new Value($odoo_table, "string"),
                 new Value("read", "string"),
@@ -241,65 +230,3 @@ class OdooProxy
         return $resp;
     }
 }
-
-// TODO_LATER: à intégrer ? fonctions développées par JZ pour tester une connexion Odoo
-// Attention copiées en "brut", à adapter
-
-//    function getVersion()
-//    {
-//        $GLOBALS['xmlrpc_internalencoding'] = 'UTF-8';
-//
-//        $cnx = new Client($this->cfg->host . $this->cfg->api . 'common');
-//        //~ $cnx->return_type = 'phpvals';
-//        $cnx->request_charset_encoding = 'UTF-8';
-//        $cnx->setSSLVerifyPeer(0);
-//
-//        $msg = new Request('version');
-//        $rsp = $cnx->send($msg);
-//
-//        if( $rsp->faultCode() )
-//            $r = NULL;
-//        else
-//            $r = xmlrpc_decode($rsp->serialize());
-//
-//        return $r;
-//    }
-
-//    /*
-//     * Check access
-//     *
-//     * Returns: true if access is granted, false otherwise
-//     */
-//    function checkAccess()
-//    {
-//        $cnx = new Client($this->cfg->host . $this->cfg->api . 'object');
-//        //~ $cnx->return_type = 'phpvals';
-//        $cnx->request_charset_encoding = 'UTF-8';
-//        $cnx->setSSLVerifyPeer(0);
-//
-//        if( !$this->uid ) $this->authenticate();
-//
-//        $prm_list = array( new Value('read', 'string') );
-//        $prm_mapp = array( 'raise_exception' => new Value('false', 'boolean') );
-//
-//        $msg = new Request(
-//            'execute_kw', array(
-//                new Value($this->cfg->base, 'string'),
-//                new Value($this->uid, 'int'),
-//                new Value($this->cfg->pass, 'string'),
-//                new Value($this->table, 'string'),
-//                new Value('check_access_rights', 'string'),
-//                new Value($prm_list, 'array'),
-//                new Value($prm_mapp, 'struct')
-//            )
-//        );
-//        $rsp = $cnx->send($msg);
-//
-//        if( $rsp->faultCode() ) {
-//            die( '<p>Error '. $rsp->errno . ' :' . $rsp->faultString() . '</p>');
-//        } else {
-//            $r = $rsp->value()->scalarval();
-//        }
-//
-//        return $r;
-//    }

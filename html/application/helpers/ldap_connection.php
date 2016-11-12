@@ -1,7 +1,7 @@
 <?php
 
 // Fonction de connexion au LDAP et de vérification de l'identité de l'utilisateur
-function checkCredentials($login, $password)
+function bindLdapUser($login, $password)
 {
     try
     {
@@ -18,19 +18,45 @@ function checkCredentials($login, $password)
 
             // Vérification de l'authentification
             if ($ldapbind) {
-                //connexion réussie
-                return true;
+
+                $filter="uid=$login";
+                $fields = array("employeeNumber", "sn", "givenName", "mail", "userPassword");
+                $search = ldap_search($conn, LDAP_BASE_DN, $filter, $fields);
+                $info = ldap_get_entries($conn, $search);
+                $nb_results = $info['count'];
+
+                if( $nb_results != 1 )
+                {
+                    error_log("Error LDAP: not exactly 1 user!");
+                    return null;
+                }
+                else
+                {
+                    if( !isset($info[0]['mail'][0]) )
+                    {
+                        error_log("Error LDAP: no mail for user!");
+                        return null;
+                    }
+                    else
+                    {
+                        $firstname = isset( $info[0]['givenname'][0] ) ? $info[0]['givenname'][0] : 'unknown';
+                        $lastname = isset( $info[0]['sn'][0] ) ? $info[0]['sn'][0] : 'unkonwn';
+                        $id = isset( $info[0]['employeenumber'][0] ) ? $info[0]['employeenumber'][0] : null;
+                        $mail = isset( $info[0]['mail'][0] ) ? $info[0]['mail'][0] : null;
+                        return array($firstname, $lastname, $id, $mail)
+                    }
+                }
             }
             else {
-                return false;
+                error_log("Error LDAP: Connection failed");
+                return null;
             }
             ldap_close($conn);
        }
     }
     catch (Exception $e)
     {
-        // TODO_LATER: manager l'exception ! (envoi de logs d'erreurs)
-        // die('Erreur : ' . $e->getMessage());
-        return false;
+        error_log("Error LDAP: " . $e);
+        return null;
     }
 }

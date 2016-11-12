@@ -4,7 +4,7 @@
     <div class="louve-creneau">
 	<?php
 
-    $shifts = $GLOBALS['User']->nextShifts;
+    $shifts = $GLOBALS['User']->getNextShifts();
     if (null !== $shifts[0])
     {
         $nexttime = $shifts[0];
