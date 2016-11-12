@@ -40,11 +40,11 @@
             <li><a href="http://vps247219.ovh.net:4567"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
 
             <?php
-                if($GLOBALS['User']->isAdmin())
-                    echo(' <li><a href="'. URL .'management/"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
+            if($GLOBALS['User']->isAdmin())
+                echo(' <li><a href="'. URL .'management/"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
             if ($GLOBALS['hasEmergency']) {
                 $emergencyStyle = "color:lightcoral";
-                echo '<li><a href="' . URL . 'urgences/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
+                echo '<li><a href="' . URL . 'emergency/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
             }
 
         ?>
