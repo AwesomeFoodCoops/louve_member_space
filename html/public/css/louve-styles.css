@@ -35,3 +35,14 @@ address{
     padding: 15px;
     margin: 0 auto;
 }
+
+.navbar-brand > img:hover {
+    -ms-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+    transition: transform .3s ease-in-out;
+}
+
+.navbar-brand > img {
+    transition: transform .3s ease-in-out;
+}

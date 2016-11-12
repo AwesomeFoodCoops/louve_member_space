@@ -4,6 +4,7 @@
         <title>La louve - mon espace</title>
         <link href="<?php echo URL; ?>css/bootstrap.min.css" rel="stylesheet" type='text/css'>
         <link href="<?php echo URL; ?>css/bootgrid.css" rel="stylesheet" type='text/css'>
+        <link href="<?php echo URL; ?>css/louve-styles.css" rel="stylesheet" type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,900,300' rel='stylesheet' type='text/css'>
         <!-- TODO_NOW: pour les deux feuilles de style suivantes, elles ne servent que pour les pages d'ajout d'urgence
          +> faire un import uniquement pour ces pages -->
@@ -37,17 +38,17 @@
             <li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
             <!-- TODO_NOW: url à mettre dans la config -->
             <li><a href="http://vps247219.ovh.net:4567"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
-			
-			<?php 
-				if($GLOBALS['User']->isAdmin())
-					echo(' <li><a href="<?php echo URL . \'management/\'; ?>"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
-			
+
+            <?php
+                if($GLOBALS['User']->isAdmin())
+                    echo(' <li><a href="<?php echo URL . \'management/\'; ?>"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
+
            /* <li><a href="<?php echo URL . 'manaement/'; ?>"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li> */
             if ($GLOBALS['hasEmergency']) {
                 $emergencyStyle = "color:lightcoral";
-				echo '<li><a href="' . URL . 'urgences/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
+                echo '<li><a href="' . URL . 'urgences/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
             }
-          
+
         ?>
         </div>
         <ul class="nav navbar-inverse navbar-nav navbar-right">
