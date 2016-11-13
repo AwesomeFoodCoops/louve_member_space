@@ -18,8 +18,12 @@
         <link rel="manifest" href="/manifest.json">
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
         <meta name="theme-color" content="#b96e51">
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Boostrap JS -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- TODO_LATER pour les librairies easyui et edatagrid ne les importer que dans les pages de management -->
+        <script type="text/javascript" src="<?php echo URL . 'js/jquery.easyui.min.js'; ?>"></script>
+        <script type="text/javascript" src="<?php echo URL . 'js/jquery.edatagrid.js'; ?>"></script>
         <meta charset="UTF-8">
         <style type="text/css">
             @font-face {

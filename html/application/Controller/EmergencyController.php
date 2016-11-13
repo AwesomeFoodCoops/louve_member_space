@@ -14,7 +14,6 @@ namespace Louve\Controller;
 use Louve\Model\Emergency;
 
 
-
 class EmergencyController
 {
     // Page principale / par défaut: liste des outils de gestion
@@ -26,8 +25,4 @@ class EmergencyController
         require APP . 'view/_templates/footer.php';
         
     }
-
-  
-
-   
 }
