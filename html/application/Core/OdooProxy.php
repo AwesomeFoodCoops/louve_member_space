@@ -37,7 +37,8 @@ class OdooProxy
         $response = $client->send($msg);
 
         if( $response->faultCode() ) {
-            error_log("Erreur Odoo #1: " . var_dump($response));
+            // TODO_NOW: mettre ce type de report d'erreur avec traceback partout
+            error_log('Erreur Odoo #1: ' . print_r($response, TRUE));
             return false;
         } else {
             $this->connectionUid = $response->value()->scalarval();

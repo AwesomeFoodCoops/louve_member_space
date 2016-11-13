@@ -20,8 +20,8 @@ if (php_sapi_name() === 'cli-server') {
 else {
     define('ENVIRONMENT', 'prod');
     error_reporting(E_ALL);
-    // TODO_PRD: à désactiver à la mise en prod !! (et mettre la bonne valeur à trouver)
-    ini_set('display_errors', '1');
+    ini_set('display_errors', -1);
+    ini_set("log_errors", 1);
  }
 
 /**
