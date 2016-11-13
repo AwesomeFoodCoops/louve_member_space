@@ -11,8 +11,7 @@ use PDO;
  **/
 class Emergency extends BaseDBModel
 {
-    // TODO: Zied et Julien => 11€ chacun pour Osé
-
+    //retourne l'urgence du moment
     public function getCurrent()
     {
         if (!$this->fake) {
@@ -20,6 +19,24 @@ class Emergency extends BaseDBModel
             $query = $this->db->prepare($sql);
             $query->execute();
             $result = $query->fetch();
+            return $result;
+        }
+        // Valeur bidon en local
+        // TODO_NOW: harmoniser les mocks => faire comme pour Odoo un fichier à part dans Testing
+        return (object) [
+            "titre" => "AAAaarrg!",
+            "info" => "Y'a le feu de partout",
+            "lien" => 'https://facebook.com',
+        ];
+    }
+//retourne toutes les urgence courantes
+   public function getCurrents()
+    {
+        if (!$this->fake) {
+            $sql = 'SELECT * FROM urgences WHERE date <= CURDATE() AND datefin >= CURDATE() ORDER BY id DESC';
+            $query = $this->db->prepare($sql);
+            $query->execute();
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         }
         // Valeur bidon en local
@@ -49,7 +66,7 @@ class Emergency extends BaseDBModel
     public function getAll()
     {
         if (!$this->fake) {
-            $sql = 'SELECT * FROM urgences WHERE date <= CURDATE() AND datefin >= CURDATE() ORDER BY niveau DESC LIMIT 0, 15';
+            $sql = 'SELECT * FROM urgences order by id desc';
             $query = $this->db->prepare($sql);
             $query->execute();
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
