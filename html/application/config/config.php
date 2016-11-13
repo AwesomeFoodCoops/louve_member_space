@@ -24,6 +24,10 @@ else {
     ini_set("log_errors", 1);
  }
 
+
+// Charge la config "secrète": mots de passe, logins
+require APP . 'config/secret.php';
+
 /**
  * Configuration for: URL
  * Here we auto-detect your applications URL and the potential sub-folder. Works perfectly on most servers and in local
@@ -60,24 +64,18 @@ define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER );
  * Configuration for: Database
  * This is the place where you define your database credentials, database type etc.
  */
-// TODO_PRD: (mettre les mots de passe dans un fichier de conf mis dans gitignore)
+define('DB_NAME', 'louve');
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'louve');
-define('DB_USER', 'louve');
-define('DB_PASS', 'TESTcoop1');
 define('DB_CHARSET', 'utf8');
+// login, MDP => dans le fichier de conf secret
 
 /**
  * Configuration for: Odoo
  */
-define('ODOO_DB_USER', 'ESPACE_MEMBRES');
-define('ODOO_DB_PASSWORD', 'bBuzWHjSr5ZYN1Br');
-define('ODOO_DB_NAME', 'louve-erp-test_20161111');
-define('ODOO_SERVER_URL', 'http://gestion-test.cooplalouve.fr');
+// Tout est dans le fichier de conf secret
 
 /**
  * Configuration for: LDAP
  */
-define('LDAP_SERVER', 'ldap://vps247219.ovh.net');
-define('LDAP_BASE_DN', 'dc=ovh,dc=net');
+// Tout est dans le fichier de conf secret

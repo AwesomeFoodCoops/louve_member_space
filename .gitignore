@@ -1,3 +1,4 @@
 .idea/
 composer.lock
 html/vendor/
+html/application/config/secret.php
