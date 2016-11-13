@@ -1,36 +1,74 @@
 La Louve member space
 =====================
 
-Repository for the member space of "La Louve".
+Site membre de la coopérative "La Louve".
 
-Contributing
+Installation
 ------------
 
-We use Git / GitHub to manage sources. Here's a quick guide: `http://rogerdudler.github.io/git-guide/`.
+Pour installer les dépendances::
 
-Development workflow should be as follows:
- - Work on a feature
- - Do a Pull Request
- - Merge once approved
- - Push to master
+    cd html
+    composer install
 
-**TBD**:
- - What to install on which OS ?
- - How to launch a local development server for development / debugging purposes ?
+Développer en local
+-------------------
 
+Le site se lance en local::
 
-Passwords
----------
+    cd html/public
+    php -S localhost:8080 index.php
 
-There should no be any password commited in this repository. We have to create an example settings file to show how to configure them. For local development purpose, a setting file to be added to `.gitignore` can be added.
+Le site est alors accessible dans un navigateur à l'url `localhost:8080`.
+Des données "fake" permettent d'éviter la communication avec Odoo, le ldap et la BDD MySQL.
+Il faudra quand même installer la librairie ldap PHP: http://stackoverflow.com/questions/36834926/php-ldap-connection-fonction-issue
 
-**Production passwords are stored and shared on LastPass**
+Déploiement (à mettre à jour)
+-----------------------------
 
+Utilisation d'un .htaccess => AllowOverride All dans la conf apache du dossier servi:
 
-How to deploy on production server
-----------------------------------
+```
+<VirtualHost *:8080>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html/public
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+        <Directory "/var/www/html/public">
+                # On peut mettre un fichier .htaccess pour rédéfinir tous
+                # les paramètres d'accès au dossier
+                AllowOverride All
+        </Directory>
+</VirtualHost>
+```
 
-Release process
----------------
+Autoriser `mod_rewrite`::
 
-**TBD**: detail here how to release the site, i-e go from code repository to live production server.
+    sudo a2enmod rewrite
+
+Ne pas oublier d'installer les dépendances avec `composer install`
+
+Le script `deploy_site_member.sh` permet de mettre à jour le site avec la dernière version de master.
+
+Pour l'utiliser, se connecter en SSH sur le serveur puis::
+
+	cd site_deploy/
+	./deploy_site_member.sh
+
+Par défaut le script échoue si il y a des différences entre le serveur et Git afin de ne pas supprimer des hotfixes sur le serveur. Pour forcer la mise à jour du code, on peut ajouter `--force`::
+
+	./deploy_site_member.sh --force
+
+Pour ne pas mettre les infos de Git dans le dossier servi par Apache, le "repository" Git et le "working tree" (là où sont effectivement les fichiers) sont séparés. De même seul le dossier `html` de ce projet est "copié" dans `/var/www`
+
+```bash
+├── root
+│   └── site_deploy
+│       ├── deploy_site_member.sh
+│       └── .git/						# Git local repository
+|
+└── var
+    └── wwww							# Git working tree = where files are
+		└── html						# Only html directory is retrieved
+```
+
