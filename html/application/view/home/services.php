@@ -13,7 +13,7 @@
             <div class="louve-creneau">
                 <h3><strong>Echanger son créneau</strong></h3>
                 <p> Vous serez indisponible pour effectuer votre prochain créneau ? Vous pouvez tenter de l'échanger ici avec un autre membre de la louve. </br></p>
-                <button class="btn btn-default disabled" style="border-color : red; color : red;"><span class="glyphicon glyphicon-ok"></span> Prochainement ici.</button>
+                <button class="btn btn-default disabled" style="border-color : red; color : red;"><span class="glyphicon glyphicon-retweet"></span> Prochainement ici.</button>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
             <div class="louve-creneau">
                 <h3><strong>Contacter le bureau des membres</strong></h3>
                 <p> Un problème ? Une remarque ? Une question ou suggestion ? Le bureau des membres est là pour vous aider ! </p>
-                <button class="btn btn-default disabled" style="border-color: red; color: red;"><span class="glyphicon glyphicon-apple"></span> Prochainement ici.</button>
+                <button class="btn btn-default disabled" style="border-color: red; color: red;"><span class="glyphicon glyphicon-pencil"></span> Prochainement ici.</button>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
             <div class="louve-creneau">
                 <h3><strong>Organiser un covoiturage</strong></h3>
                 <p> Trouvez des personnes qui habitent près de chez vous et organisez-vous pour vos déplacements vers et depuis la louve ! </p>
-                 <button class="btn btn-default disabled" style="border-color: red; color: red;"><span class="glyphicon glyphicon-apple"></span> Prochainement ici.</button>
+                 <button class="btn btn-default disabled" style="border-color: red; color: red;"><span class="glyphicon glyphicon-move"></span> Prochainement ici.</button>
                 </div>
             </div>
         </div>

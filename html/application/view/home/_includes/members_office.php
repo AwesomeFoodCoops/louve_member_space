@@ -2,9 +2,11 @@
     <div class="col-xs-12 col-sm-6">
         <h3  class="entete ui horizontal divider"><strong>Bureau des membres</strong></h3>
         <div class="louve-creneau">
-            <h3>116 rue des poissonniers</h3>
-            <p>de 14h00 à 18h00</p>
-            <p>01 00 00 00</p>
+			<h3><strong> La Louve - Bureau des membres <strong/></h3>
+            <h4>116 rue des poissonniers</h4>
+			<h4>75018 Paris</h4>
+            <p>Du mardi au samedi de 13h à 20h.</p>
+			<p>Et prochainement ausi par téléphone.</p>
         </div>
     </div>
     <div class="col-xs-12">

@@ -35,7 +35,7 @@ class HomeController
         echo "<div class=container>";
         require APP . 'view/home/_includes/emergencies.php';
         require APP . 'view/home/_includes/status.php';
-        require APP . 'view/_includes/shifts.php';
+        require APP . 'view/_includes/homeshifts.php';
         require APP . 'view/home/_includes/next_meeting.php';
         require APP . 'view/_includes/documents.php';
         // fermeture du container initial

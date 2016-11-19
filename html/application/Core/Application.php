@@ -56,7 +56,7 @@ class Application
             $GLOBALS['User'] = $user;
 
             // TODO_NOW: à mettre ailleurs et pas en dur ! => et calculer au début ici
-            $emergency = new \Louve\Model\Emergency();
+            $emergency = new Emergency();
             $GLOBALS['hasEmergency'] = $emergency->isActive();
 
             // check for controller: no controller given ? then load start-page

@@ -3,7 +3,7 @@
     <head>
         <title>La louve - mon espace</title>
         <link href="<?php echo URL; ?>css/bootstrap.min.css" rel="stylesheet" type='text/css'>
-        <link href="<?php echo URL; ?>css/bootgrid.css" rel="stylesheet" type='text/css'>
+        <link href="<?php echo URL; ?>css/louve-styles.css" rel="stylesheet" type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,900,300' rel='stylesheet' type='text/css'>
         <!-- TODO_NOW: pour les deux feuilles de style suivantes, elles ne servent que pour les pages d'ajout d'urgence
          +> faire un import uniquement pour ces pages -->
@@ -49,7 +49,7 @@
         <div class="nav navbar-nav collapse navbar-collapse" id="louvenav">
             <li><a href="<?php echo URL . 'home/participation/'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
 			<li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
-            <li><a href="http://membres.cooplalouve.fr/forum" target="_blank"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
+            <li><a href="http://vps247219.ovh.net:4567" target="_blank"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
             <?php 
 			if($GLOBALS['User']->isAdmin())
 					echo(' <li><a href="'.URL . 'management"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
