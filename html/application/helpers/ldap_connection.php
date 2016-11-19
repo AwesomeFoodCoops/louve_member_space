@@ -11,19 +11,21 @@ function bindLdapUser($login, $password) {
             // et le bind ne passe pas.
             ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3);
             // Authentification sur le serveur LDAP
-            $ldapbind = ldap_bind($conn, "uid=" . $login . ",ou=users," . LDAP_BASE_DN, $password);
+            $ldapbind = ldap_bind($conn, "mail=" . $login . ",ou=users," . LDAP_BASE_DN, $password);
 
             // Vérification de l'authentification
             if ($ldapbind) {
-                $filter="uid=$login";
+		$filter="mail=$login";	
                 $fields = array("employeeNumber", "sn", "givenName", "mail", "userPassword");
                 $search = ldap_search($conn, LDAP_BASE_DN, $filter, $fields);
                 $info = ldap_get_entries($conn, $search);
                 $nb_results = $info['count'];
+		error_log(var_dump($info));
+		
 
                 if( $nb_results != 1 ) {
-                    error_log("Error LDAP: not exactly 1 user!");
-                    return null;
+                    error_log("Error LDAP: not exactly 1 user!: ".print_r($info, TRUE));
+		    return null;
                 }
                 else {
                     if( !isset($info[0]['mail'][0]) ) {
@@ -40,14 +42,15 @@ function bindLdapUser($login, $password) {
                 }
             }
             else {
-                error_log("Error LDAP: " . var_dump($ldapbind));
+                error_log('Erreur LDAP. ldapbind: ' . print_r($ldapbind, TRUE) . ' connection: ' . print_r($conn, TRUE) . ' search: ' . print_r($search, TRUE));
                 return null;
             }
             ldap_close($conn);
         }
     }
     catch (Exception $e) {
-        error_log("Error LDAP: " . $e);
+	error_log('Erreur LDAP:' . $e . ' ldapbind: ' . print_r($ldapbind, TRUE) . ' connection: ' . print_r($conn, TRUE) . ' search: ' . print_r($search, TRUE));
         return null;
     }
 }
+
