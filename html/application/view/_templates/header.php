@@ -49,7 +49,7 @@
         <div class="nav navbar-nav collapse navbar-collapse" id="louvenav">
             <li><a href="<?php echo URL . 'home/participation/'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
 			<li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
-            <li><a href="http://vps247219.ovh.net:4567" target="_blank"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
+            <li><a href="http://membres.cooplalouve.fr/forum" target="_blank"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
             <?php 
 			if($GLOBALS['User']->isAdmin())
 					echo(' <li><a href="'.URL . 'management"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
