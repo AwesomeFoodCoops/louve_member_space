@@ -1,4 +1,6 @@
 <?php
+if( $GLOBALS['hasEmergency'])
+{
     $currentEmergency = $emergency->getCurrent();
 ?>
 <div class="alert alert-info fade in">
@@ -6,3 +8,6 @@
     <strong> <?php echo $currentEmergency->titre;?> : </strong>
     <a href="<?php echo $currentEmergency->lien;?>"> <?php echo $currentEmergency->info;?> </a>
 </div>
+<?php
+}
+?>

@@ -155,4 +155,23 @@ class Emergency extends BaseDBModel
             "niveau" => "3"
         ];
     }
+    //y a t il des urgences en cours
+ 
+    public function isActive() 
+    {
+         $sql = 'SELECT * FROM urgences WHERE date <= CURDATE() AND datefin >= CURDATE() ORDER BY id DESC LIMIT 0, 1';
+            $query = $this->db->prepare($sql);
+            $query->execute();
+            //$result = $query->fetch(PDO::FETCH_ASSOC);
+            
+            if (count($query->fetchAll(PDO::FETCH_ASSOC)) > 0) {
+            return true;
+            } 
+            else {
+            return false;
+            }
+            //return (is_array($result));
+            
+    }
+ 
 }

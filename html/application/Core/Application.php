@@ -4,7 +4,7 @@ namespace Louve\Core;
 
 use Louve\Model\User;
 use Louve\Model\Meeting;
-
+use Louve\Model\Emergency;
 
 class Application
 {
@@ -56,7 +56,8 @@ class Application
             $GLOBALS['User'] = $user;
 
             // TODO_NOW: à mettre ailleurs et pas en dur ! => et calculer au début ici
-            $GLOBALS['hasEmergency'] = true;
+            $emergency = new \Louve\Model\Emergency();
+            $GLOBALS['hasEmergency'] = $emergency->isActive();
 
             // check for controller: no controller given ? then load start-page
             if (!$this->url_controller) {
