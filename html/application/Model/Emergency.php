@@ -159,19 +159,19 @@ class Emergency extends BaseDBModel
  
     public function isActive() 
     {
-         $sql = 'SELECT * FROM urgences WHERE date <= CURDATE() AND datefin >= CURDATE() ORDER BY id DESC LIMIT 0, 1';
+        if (!$this->fake) {
+            $sql = 'SELECT * FROM urgences WHERE date <= CURDATE() AND datefin >= CURDATE() ORDER BY id DESC LIMIT 0, 1';
             $query = $this->db->prepare($sql);
             $query->execute();
-            //$result = $query->fetch(PDO::FETCH_ASSOC);
-            
+
             if (count($query->fetchAll(PDO::FETCH_ASSOC)) > 0) {
-            return true;
-            } 
-            else {
-            return false;
+                return true;
             }
-            //return (is_array($result));
-            
+            else {
+                return false;
+            }
+        }
+        return True;
     }
  
 }
