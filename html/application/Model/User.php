@@ -18,7 +18,7 @@ include_once(APP . 'helpers/odoo_formatting.php');
  * AUCUNE DONNEE UTILISATEUR N'EST STOCKEE DANS LA BDD LOCALE MYSQL
  * Utilisation de XMLRPC via la classe OdooProxy
  */
-class User extends BaseDBModel
+class User
 {
     private $login = null;
     private $mail = null;
@@ -31,12 +31,16 @@ class User extends BaseDBModel
     private $phone = null;
     private $shift_type = null;
     private $cooperative_state = null;       // Statut coopérateur: à jour ? retard, etc...
-    
+
     // Est-ce que les données depuis Odoo / BDD locale ont été récupérées ?
     // TODO_LATER: remplacer par un timestamp et rafraichir les données si timestamp trop vieux
     private $hasData = false;
 
-    public function __construct($login) { $this->login = $login; }
+    public function __construct($login) {
+        $this->login = $login;
+        //~ parent::__construct();
+        self::getAdminStatus();
+    }
 
     // Essaie de se connecter au LDAP et de récupérer des infos sur l'utilisateur
     public function bindLdap($password)
@@ -49,7 +53,7 @@ class User extends BaseDBModel
         return false;
     }
 
-    // Récupération des données du membre depuis Odoo et la base locale 
+    // Récupération des données du membre depuis Odoo et la base locale
     public function getData()
     {
         if(!isset($this->mail)){
@@ -73,34 +77,25 @@ class User extends BaseDBModel
         else {
             error_log("Odoo connection error for user " . $this->login);
         }
-        self::getAdminStatus();
     }
-	
-	public function getAdminStatus()
+
+    public function getAdminStatus()
     {
         // TODO_NOW: lire le statut admin dans LDAP ?
-        //$options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);
+        $db = new BaseDBModel;
 
-        // generate a database connection, using the PDO connector
-        // @see http://net.tutsplus.com/tutorials/php/why-you-should-be-using-phps-pdo-for-database-access/
-        //$db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET, DB_USER, DB_PASS, $options);
         //test si l user est Admin
-        /*if (!$this->fake) {
-            $sql = "SELECT mail FROM admins where mail=':mail'";
-
-            $query = $db->prepare($sql);
+        if (!$db->fake) {
+            $sql = "SELECT mail FROM admins where mail='$this->login'";
+            $query = $db->db->prepare($sql);
             $query->bindParam(':mail', $this->mail);
             $query->execute();
-
             if ($query->rowCount() > 0)
-			   $this->admin=true;
-
-            die($this->admin);
+               $this->admin=true;
         }
-        */
-        //$this->admin = true;
+        error_log('COUNT:'.$query->rowCount());
     }
-    
+
     public function hasData() { return $this->hasData; }
     public function isAdmin() { return $this->admin; }
 
@@ -109,9 +104,9 @@ class User extends BaseDBModel
     public function getLastname() { return $this->lastname; }
     public function getId() { return $this->id; }
     public function getEmail() { return $this->mail; }
-    public function getPhone() { return $this->phone; }        
+    public function getPhone() { return $this->phone; }
     public function getNextShifts() { return $this->nextShifts; }
-    
+
     // Renvoie les paramètres d'affichage du statut dans un object:
     // la class Bootstrap d'alerte, une alerte courte et le message de détail
     public function getStatusDisplay() {
