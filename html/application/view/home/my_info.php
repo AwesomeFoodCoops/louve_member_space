@@ -19,7 +19,7 @@ $display = $user->getStatusDisplay();
                 echo ('<p> Votre LouveID est '. $user->getId() .'. <p>');
                 echo ('<p><strong>'.$display['alert_msg'].'</strong> '.$display['full_msg'].'</p>');
                 echo ('<p> <br/><strong>Pour modifier ces informations contactez le bureau des membres. </strong><p>');
-                echo ('<a href="changepwd.php">
+		echo ('<a href="' . URL . '/selfservice">
                        <button class="btn btn-default type="submit">modifier mon mot de passe</button>
                        </a>');
             }

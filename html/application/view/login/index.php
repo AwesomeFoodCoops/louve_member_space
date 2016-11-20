@@ -1,10 +1,11 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <a class="navbar-brand" href="#">La Louve</a>
+       <a class="navbar-brand" href="<?php echo URL; ?>"><img alt="La Louve" src="<?php echo URL; ?>img/Louve_logo.png" width="27px"/></a>
+       <a class="navbar-brand" href="#">La Louve</a>
     </div>
 </nav>
 
-<header class="jumbotron" style="background-color: #ff4200">
+<div class="jumbotron" style="background-color: #ff4200">
 
     <!-- Main component for a primary marketing message or call to action -->
     <div class="container">
@@ -19,7 +20,7 @@
             </div>
         </div>
     </div>
-</header>
+</div>
 
 <div class="container-fluid">
 
@@ -33,10 +34,10 @@
         <p></p>
         <label for="inputPassword" class="sr-only">Mot de passe</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required>
-        <p style="padding:10px;"><a href="forgetpwd.php">Mot de passe oubli&eacute;?</a></p>
+        <p style="padding:10px;"><a href="<?php echo URL; ?>selfservice/?action=sendtoken">Mot de passe oubli&eacute;?</a></p>
         <button class="btn btn-danger btn-block " type="submit">Se connecter</button>
         <p style="padding:10px;"></p>
-        <p>Retrouvez la Louve sur <a href="lalouve.net">www.lalouve.net</a></p>
+        <p>Retrouvez la Louve sur <a href="http://public.cooplalouve.fr">cooplalouve.fr</a></p>
     </form>
 
 </div> <!-- /container -->
