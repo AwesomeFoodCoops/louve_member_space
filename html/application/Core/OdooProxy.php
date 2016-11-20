@@ -5,6 +5,7 @@ namespace Louve\Core;
 use PhpXmlRpc\Value;
 use PhpXmlRpc\Request;
 use PhpXmlRpc\Client;
+use PhpXmlRpc\Helper\Date;
 
 // En développement on ne va pas chercher les infos sur Odoo, on retourne des valeurs bidons
 use Louve\Testing\FakeOdoo;
@@ -59,8 +60,11 @@ class OdooProxy
         $client->request_charset_encoding = 'UTF-8';
         $client->setSSLVerifyPeer(0);
 
+        //$t = time()+4*7*24*60*60;
+        $t = time();
+        $date = Date::iso8601Encode($t);
         // On récupère les références des lignes qui nous intéressent dans la table "shift.registration"
-        $user_entries = self::getUserEntriesInTable($client, $odoo_table, $mail);
+        $user_entries = self::getUserEntriesInTableLaterThan($client, $odoo_table, $mail, $date);
 
         // Définition des champs qu'on va vouloir récupérer dans ces lignes
         $field_list = array(
@@ -207,6 +211,50 @@ class OdooProxy
         return $uids_list;
     }
 
+    // Permet de trouver les lignes correspondant à un utilisateur dans une table Odoo via son email
+    // TODO_LATER: On doit surement pouvoir faire une requête directe (et pas lecture ids puis requête de champs)
+    private function getUserEntriesInTableLaterThan($client, $odoo_table, $mail, $date)
+    {
+        $domain_filter = array (
+            new Value(
+                array(new Value('email' , "string"),
+                      new Value('=',"string"),
+                      new Value($mail,"string")
+                ),"array"
+            ),
+            new Value(
+                array(new Value('date_begin' , "string"),
+                      new Value('>=',"string"),
+                      new Value($date,"string")
+                ),"array"
+            ),
+        );
+
+        $msg = new Request(
+            'execute', array(
+                new Value(ODOO_DB_NAME, 'string'),
+                new Value($this->connectionUid, 'int'),
+                new Value(ODOO_DB_PASSWORD, 'string'),
+                new Value($odoo_table, 'string'),
+                new Value('search', 'string'),
+                new Value($domain_filter, 'array')
+            )
+        );
+
+        $response = $client->send($msg);
+	
+        error_log('Erreur Odoo #3: Date('. $date . ')'. print_r($response, TRUE));
+        $uids = $response->value()->scalarval();
+        $uids_list = array();
+
+        for($i = 0; $i < count($uids); $i++){
+            $uids_list[]= new Value($uids[$i]->me['int'], 'int');
+        }
+        // Liste des IDs de ligne pour lesquelles le mail de l'utilisateur courant
+        // matche celui de la ligne
+        return $uids_list;
+    }
+
     // Retourne les valeurs pour une liste de colonnes et une liste de lignes
     private function getEntriesValues($client, $odoo_table, $entry_uids, $field_list)
     {
@@ -218,7 +266,7 @@ class OdooProxy
                 new Value($odoo_table, "string"),
                 new Value("read", "string"),
                 new Value($entry_uids, "array"),
-                new Value($field_list, "array"),            
+                new Value($field_list, "array"),
             )
         );
 
