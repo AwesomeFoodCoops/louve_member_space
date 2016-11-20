@@ -20,5 +20,5 @@
     </style>
 </head>
 
-<body style="background-color: #FFF0EB;">
+<body style="background-color: #FFF0EB; padding-top: 0px;">
 
