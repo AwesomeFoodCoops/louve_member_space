@@ -6,7 +6,7 @@
             <h4>116 rue des poissonniers</h4>
 			<h4>75018 Paris</h4>
             <p>Du mardi au samedi de 13h à 20h.</p>
-			<p>Et prochainement ausi par téléphone.</p>
+			<p>Et prochainement aussi par téléphone.</p>
         </div>
     </div>
     <div class="col-xs-12">
