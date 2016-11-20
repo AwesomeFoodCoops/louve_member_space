@@ -4,6 +4,6 @@
 	<?php
 	    // TODO_NOW: se baser sur $GLOBALS['User'].shift_type pour connaître le statut
 	    // ET SURTOUT TROUVER L'INFO DU COORDINATEUR !!!
-	    echo ('<h3> Vous êtes en équipe volante. vous n\'avez donc pas de coordinateur. Contactez le bureau des membres pour toute question.</h3>');
+	    echo ('<h3> Prochainement plus d\'informations sur votre coordinateur. Contactez le bureau des membres pour toute question.</h3>');
 	?>
 </div>
