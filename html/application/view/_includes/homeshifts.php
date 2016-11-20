@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-xs-12 col-sm-6">
-    <h3  class="entete ui horizontal divider"><strong>Mon prochain créneau</strong></h3>
+    <h3  class="entete ui horizontal divider"><strong>Mon prochain service</strong></h3>
     <div class="louve-creneau">
     <?php
 
@@ -11,7 +11,7 @@
         echo ('<h3> '. $nexttime .'</h3>');
     }
     else {
-        echo ("<h3>Vous n'êtes inscrit a aucun créneau futur.</h3>");
+        echo ("<h3>Vous n'êtes inscrit a aucun service.</h3>");
     }
     ?>
 
