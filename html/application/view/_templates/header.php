@@ -47,8 +47,8 @@
         </div>
 
         <div class="nav navbar-nav collapse navbar-collapse" id="louvenav">
-            <li><a href="<?php echo URL . 'home/participation/'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
-            <li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
+            <li><a href="<?php echo URL . 'home/participation/'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MES SERVICES</a></li>
+            <li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> OUTILS</a></li>
             <li><a href="<?php echo URL . 'forum'; ?>"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
             <?php
             if($GLOBALS['User']->isAdmin())

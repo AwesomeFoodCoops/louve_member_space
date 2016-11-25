@@ -25,7 +25,7 @@
     <div class="louve-creneau">
     <?php
     if (null == $shifts)
-        echo ('<strong>Erreur : </strong> Prochain service indisponibles actuellement. Veuillez réessayer plus tard ou contacter le bureau des membres.');
+        echo ('<strong>Erreur : </strong> Prochain service indisponible actuellement. Veuillez réessayer plus tard ou contacter le bureau des membres.');
     else
     {
         for($i = 0; $i < count($shifts) AND $i < 3; $i++)
