@@ -26,7 +26,21 @@ else {
 
 
 // Charge la config "secrète": mots de passe, logins
-require APP . 'config/secret.php';
+$credentials = APP . 'config/secret.php';
+if (file_exists($credentials)) {
+    require $credentials;
+} else {
+    define('DB_USER', '');
+    define('DB_PASS', '');
+
+    define('ODOO_DB_USER', '');
+    define('ODOO_DB_PASSWORD', '');
+    define('ODOO_DB_NAME', '');
+    define('ODOO_SERVER_URL', '');
+
+    define('LDAP_SERVER', '');
+    define('LDAP_BASE_DN', '');
+}
 
 /**
  * Configuration for: URL
