@@ -6,6 +6,7 @@
     <h3  class="entete ui horizontal divider"><strong>Services suivants</strong></h3>
     <div class="louve-creneau">
     <?php
+    $shifts = $GLOBALS['User']->getNextShifts();
     if (null == $shifts)
         echo ('<strong>Erreur : </strong> Prochain service indisponible actuellement. Veuillez réessayer plus tard ou contacter le bureau des membres.');
     else
