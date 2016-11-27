@@ -16,7 +16,7 @@
     ?>
 
     <p> Une absence prévue? </p>
-    <button class="btn btn-default"><span class="glyphicon glyphicon-earphone"></span> Contactez vos coordinateurs</button>
+    <button class="btn btn-default disabled"><span class="glyphicon glyphicon-earphone"></span> Contactez vos coordinateurs </br>(non disponible pour l'instant)</button>
     </div>
 </div>
 
