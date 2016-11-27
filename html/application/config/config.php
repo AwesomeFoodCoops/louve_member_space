@@ -30,16 +30,16 @@ $credentials = APP . 'config/secret.php';
 if (file_exists($credentials)) {
     require $credentials;
 } else {
-    define('DB_USER', 'xxx');
-    define('DB_PASS', 'xxx');
+    define('DB_USER', '');
+    define('DB_PASS', '');
 
-    define('ODOO_DB_USER', 'xxx');
-    define('ODOO_DB_PASSWORD', 'xxx');
-    define('ODOO_DB_NAME', 'xxx');
-    define('ODOO_SERVER_URL', 'xxx');
+    define('ODOO_DB_USER', '');
+    define('ODOO_DB_PASSWORD', '');
+    define('ODOO_DB_NAME', '');
+    define('ODOO_SERVER_URL', '');
 
-    define('LDAP_SERVER', 'xxx');
-    define('LDAP_BASE_DN', 'xxx');
+    define('LDAP_SERVER', '');
+    define('LDAP_BASE_DN', '');
 }
 
 /**
