@@ -24,6 +24,7 @@
     <h3  class="entete ui horizontal divider"><strong>Le magasin</strong></h3>
     <div class="louve-creneau">
     <?php
+	echo(time());
 	$day = date('D');
 	$min = date('i');
 	$hrs = date('H');
