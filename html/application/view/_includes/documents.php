@@ -12,7 +12,7 @@
 		
 		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/basecoordinateurs.pdf" target="_blank">
 			<p  ><img src="img/team.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
-				<br/>Les coordinateurs</a></p>
+				<br/>Pour les coordinateurs</a></p>
 		</div>
 		
 		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
