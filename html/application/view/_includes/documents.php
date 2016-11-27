@@ -25,7 +25,11 @@
 			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
 				<br/>Exemple de feuille de présence</a></p>
 		</div>
-
+		
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/CalendrierABCD.pdf" target="_blank">
+			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
+				<br/>Calemdrier ABCD</a></p>
+		</div>
         </div>
     </div>
     </div>
