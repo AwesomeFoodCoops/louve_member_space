@@ -25,7 +25,9 @@
     <h3  class="entete ui horizontal divider"><strong>Une absence prévue?</strong></h3>
     <div class="louve-creneau">
     <p>Echanger mon service   </p>
-    <button class="btn btn-default" href="https://membres.cooplalouve.fr/forum/category/4/comments-feedback"><span class="glyphicon glyphicon-earphone"></span> Consultez le forum</button>
+    <a href="<?php echo URL . 'forum/category/4/comments-feedback'?>">
+    <button class="btn btn-default"><span class="glyphicon glyphicon-earphone"></span> Consultez le forum</button>
+    </a>
     </div>
 </div>
 
