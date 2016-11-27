@@ -11,7 +11,7 @@
 		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/basecoordinateurs.pdf" target="_blank"><p  ><img src="img/team.png" style="width:80px;" alt="doc" class="img-responsive img-center" /><br/>Les coordinateurs</a></p>
 		</div>
 		
-		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/Statuts_et_presence.pdf" target="_blank"><p  ><img src="img/time.png" style="width:80px;" alt="doc" class="img-responsive img-center" /><br/>Les Statuts</a></p>
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/Statuts_et_presence.pdf" target="_blank"><p  ><img src="img/time.png" style="width:80px;" alt="doc" class="img-responsive img-center" /><br/>Systeme de présence</a></p>
 		</div>
 		
 		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/FPexemple.pdf" target="_blank"><p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" /><br/>Exemple de feuille de présence</a></p>
