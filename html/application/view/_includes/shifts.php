@@ -1,24 +1,6 @@
 <div class="container">
-    <div class="col-xs-12 col-sm-6">
-    <h3  class="entete ui horizontal divider"><strong>Mon prochain service</strong></h3>
-    <div class="louve-creneau">
-    <?php
-
-    $shifts = $GLOBALS['User']->getNextShifts();
-    if ( isset($shifts[0]) && null !== $shifts[0])
-    {
-        $nexttime = $shifts[0];
-        echo ('<h3> '. $nexttime .'</h3>');
-    }
-    else {
-        echo ("<h3>Vous n'êtes inscrit a aucun service futur.</h3>");
-    }
-    ?>
-
-    <p> Une absence prévue? </p>
-    <button class="btn btn-default"><span class="glyphicon glyphicon-earphone"></span> Contactez vos coordinateurs</button>
-    </div>
-</div>
+<div class="row">
+   
 
 <div class="col-xs-12 col-sm-6">
     <h3  class="entete ui horizontal divider"><strong>Services suivants</strong></h3>
@@ -36,5 +18,16 @@
     }
     ?>
     </div>
+</div>
+
+ <div class="col-xs-12 col-sm-6">
+    <h3  class="entete ui horizontal divider"><strong>Une absence prévue?</strong></h3>
+    <div class="louve-creneau">
+    <p>Echanger mon service   </p>
+    <button class="btn btn-default" href="https://membres.cooplalouve.fr/forum/category/4/comments-feedback"><span class="glyphicon glyphicon-earphone"></span> Consultez le forum</button>
+    </div>
+</div>
+
+
 </div>
 </div>
