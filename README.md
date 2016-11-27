@@ -19,16 +19,31 @@ Pour installer composer (Ubuntu):
 Développer en local
 -------------------
 
-Le site se lance en local:
+Commencez déjà par créer votre propre branche. Il s'agit de faire un *fork* sur GitHub, puis un *clone* depuis votre machine. Si vous êtes n'êtes pas familier avec Git/GitHub, prenez le temps de tester [ce petit example](https://help.github.com/articles/fork-a-repo/).
 
-    cd html/public
-    php -S localhost:8080 index.php
+Naviguez ensuite sur votre branche, et lancez le site via le serveur built-in de PHP :
 
-Le site est alors accessible dans un navigateur à l'url `localhost:8080`.
+    $> cd html/public
+    $> php -S localhost:8080 index.php
+
+À partir de là, le site est alors accessible dans un navigateur à l'url `localhost:8080`.
+
 Des données "fake" permettent d'éviter la communication avec Odoo, le ldap et la BDD MySQL.
 Il faudra quand même installer la librairie ldap PHP (Ubuntu): 
 
     sudo apt-get install php7.0-ldap	
+
+Une fois le boulot terminé en local (sur votre *clone*), rapatriez vos modifications sur GitHub (sur votre *fork*) :
+
+    $> git add -A
+    $> git commit -m "Un p'tit message expliquant votre travail."
+    $> git push origin master
+
+À noter que vous devrez avoir une [clé SSH](https://help.github.com/articles/generating-an-ssh-key/) publique affectée à votre compte GitHub, à laquelle est associée une clé privée sur votre machine (l'exemple, cité au début, vous fera parcourir tout le workflow).
+
+Il ne vous reste plus qu'à demander une [*pull request*](https://help.github.com/articles/about-pull-requests/)–Quelqu'un s'occupera d'inclure vos modifications pour la prochaine mise en prod'.
+
+**P.S.** Si vous bloquez, n'hésitez pas à contacter un membre.
 
 Déploiement (à mettre à jour)
 -----------------------------
