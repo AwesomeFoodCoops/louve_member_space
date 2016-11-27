@@ -93,7 +93,6 @@ class User
             if ($query->rowCount() > 0)
                $this->admin=true;
         }
-        error_log('COUNT:'.$query->rowCount());
     }
 
     public function hasData() { return $this->hasData; }
