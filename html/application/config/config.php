@@ -11,6 +11,8 @@
  * Useful to show every little problem during development, but only show hard errors in production
  */
 
+date_default_timezone_set('Europe/Paris');
+
 // En développement reporter toutes les erreurs
 if (php_sapi_name() === 'cli-server') {
     define('ENVIRONMENT', 'dev');
