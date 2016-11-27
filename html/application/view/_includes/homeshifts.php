@@ -24,7 +24,7 @@
     <h3  class="entete ui horizontal divider"><strong>Le magasin</strong></h3>
     <div class="louve-creneau">
     <?php
-	
+
 	$day = date('D');
 	$min = date('i');
 	$hrs = date('H');
@@ -36,10 +36,14 @@
 	else if ($day == 'Sun')
 	{
 		$debut = "08:30:00";
+		$imminente = "11:30:00";
 		$fin = "12:30:00";
 
 		if (time() >= strtotime($debut) && time() <= strtotime($fin)) {
-		echo '<h3 style="color : green">Actuellement ouvert</h3>';
+			if (time() >= strtotime($imminente))
+			echo '<h3 style="color : orange">Fermeture imminente</h3>';
+			else
+			echo '<h3 style="color : green">Actuellement ouvert</h3>';
 		}
 		else{
 			echo '<h3 style="color : red">Actuellement fermé</h3>';
@@ -61,10 +65,15 @@
 	else
 	{
 		$debut = "09:00:00";
+		$imminente = "20:00:00";
 		$fin = "21:00:00";
 
 		if (time() >= strtotime($debut) && time() <= strtotime($fin)) {
-		echo '<h3 style="color : green">Actuellement ouvert</h3>';
+			if (time() >= strtotime($imminente))
+			echo '<h3 style="color : orange">Fermeture imminente</h3>';
+			else
+			echo '<h3 style="color : green">Actuellement ouvert</h3>';
+
 		}
 		else{
 			echo '<h3 style="color : red">Actuellement fermé</h3>';
