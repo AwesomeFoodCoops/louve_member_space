@@ -54,7 +54,10 @@ function formatShifts($shifts)
     {
         $nextTime = $shifts[$i]->me['struct']['date_begin']->me['string'];
         list($dd, $day, $month, $year, $hour, $minutes) = formatDate($nextTime);
-        $result[$i] = $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
+        
+        //todo a virer des qu on sait comment virer les faux shifts d odoo
+        if ($hour!="22")
+        $result[count( $result)] = $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
     }
     return $result;
 }
