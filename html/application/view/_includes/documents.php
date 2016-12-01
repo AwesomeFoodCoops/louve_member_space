@@ -30,6 +30,10 @@
 			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
 				<br/>Calendrier ABCD</a></p>
 		</div>
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/statutsLouve.pdf" target="_blank">
+			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
+				<br/>Statuts de la coopérative</a></p>
+		</div>
         </div>
     </div>
     </div>
