@@ -127,7 +127,8 @@ class OdooProxy
         $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
         $client->request_charset_encoding = 'UTF-8';
         $client->setSSLVerifyPeer(0);
-
+        $t = time();
+        $date = Date::iso8601Encode($t);
         $domain_filter = array (
             new Value(
                 array(new Value('name' , "string"),
@@ -135,6 +136,14 @@ class OdooProxy
                       new Value('Volant',"string")
                 ),"array"
             ),
+            
+            new Value(
+                array(new Value('date_begin' , "string"),
+                      new Value('>=',"string"),
+                      new Value($date,"string")
+                ),"array"
+            ),
+            
         );
 
         $msg = new Request(
