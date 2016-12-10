@@ -13,19 +13,22 @@
             <div class="louve-creneau">
                 <h3><strong>Echanger son service</strong></h3>
                 <p> Vous serez indisponible pour effectuer votre prochain service ? Vous pouvez tenter de l'échanger ici avec un autre membre de la louve. </br></p>
-                <button class="btn btn-default disabled" style="border-color : red; color : red;"><span class="glyphicon glyphicon-retweet"></span> Prochainement ici.</button>
-            </div>
+              <a href="https://membres.cooplalouve.fr/forum/category/5/échanges">  
+        <button class="btn btn-default" style="border-color : green; color : green;"><span class="glyphicon glyphicon-retweet"></span> Echanger mon service.</button>
+        </a>        
+    </div>
         </div>
     </div>
-
+é
     <div class="row">
         <div class="col-xs-12 col-sm-6">
             <div class="louve-creneau">
                 <h3><strong>Suggérer un produit</strong></h3>
-                <p> Lors de vos dernières courses un produit vous a manqué ? Suggérez le ici et votez pour les articles que vous souhaitez voir apparaître en rayons.</p>
+                <p> Lors de vos dernières courses un produit vous a manqué ? Découvrez ici comment suggérer les produits que vous souhaitez voir apparaître en rayons.</p>
                 <button class="btn btn-default disabled" style="border-color: red; color: red;"><span class="glyphicon glyphicon-apple"></span> Prochainement ici.</button>
             </div>
         </div>
+        <?php /*
         <div class="col-xs-12 col-sm-6">
             <div class="louve-creneau">
                 <h3><strong>Contacter le bureau des membres</strong></h3>
@@ -35,13 +38,15 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row"> */ ?>
         <div class="col-xs-12 col-sm-6">
             <div class="louve-creneau">
                 <h3><strong>Organiser un covoiturage</strong></h3>
                 <p> Trouvez des personnes qui habitent près de chez vous et organisez-vous pour vos déplacements vers et depuis la louve ! </p>
-                 <button class="btn btn-default disabled" style="border-color: red; color: red;"><span class="glyphicon glyphicon-move"></span> Prochainement ici.</button>
-                </div>
+                <a href="https://membres.cooplalouve.fr/forum/category/6/covoiturages">
+                 <button class="btn btn-default" style="border-color: green; color: green;"><span class="glyphicon glyphicon-move"></span> Organiser mon covoiturage.</button>
+                </a>
+                    </div>
             </div>
         </div>
     </div>
