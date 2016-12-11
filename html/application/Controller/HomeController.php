@@ -69,7 +69,7 @@ class HomeController
         echo "<div class=container>";
         require APP . 'view/_includes/shifts.php';
         //require APP . 'view/home/_includes/my_coordinator.php';
-        //require APP . 'view/home/_includes/members_office.php';
+        require APP . 'view/home/_includes/members_office.php';
         echo "</div>";
         require APP . 'view/_templates/footer.php';
     }
