@@ -1,5 +1,6 @@
 <?php
 
+use Louve\Model\Shift;
 // Transforme un résultat de l'api Odoo dans un format moins dégueu :)
 function formatUserInfo($userInfo)
 {
@@ -49,17 +50,29 @@ function formatDate($date)
 // TODO_LATER: beaucoup de choses à améliorer ici
 function formatShifts($shifts)
 {
+    //die(var_dump($shifts));
     $result = array();
     for($i = 0; $i < count($shifts) AND $i < 3; $i++)
     {
+        
+
         $nextTime = $shifts[$i]->me['struct']['date_begin']->me['string'];
         list($dd, $day, $month, $year, $hour, $minutes) = formatDate($nextTime);
         
         //todo a virer des qu on sait comment virer les faux shifts d odoo
         if ($hour!="22")
-        $result[count( $result)] = $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
+        {
+        $shift = new Shift();
+        $shift->date =  $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
+        //$shift->coordinator_id = $shifts[$i]->me['struct']['user_id'][0]->me['int'];
+        //echo(var_dump($shifts[$i]));
+        $result[count( $result)] = $shift;
+        }
     }
     return $result;
+    
+
+
 }
 
 // Formattage des shifts volants
