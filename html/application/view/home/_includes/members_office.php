@@ -1,4 +1,4 @@
-</div>
+
     <div class="col-xs-12 col-sm-6">
         <h3  class="entete ui horizontal divider"><strong>Bureau des membres</strong></h3>
         <div class="louve-creneau">
