@@ -8,13 +8,23 @@
     <?php
     $shifts = $GLOBALS['User']->getNextShifts();
     if (null == $shifts)
-        echo ('<strong>Erreur : </strong> Prochain service indisponible actuellement. Veuillez réessayer plus tard ou contacter le bureau des membres.');
+        echo ("<h3>Vous n'êtes inscrit a aucun service suivant.</h3>");              
     else
     {
         for($i = 0; $i < count($shifts) AND $i < 3; $i++)
         {
-            $shift = $shifts[$i];
-            echo ('<h3> '. $shift . '</h3>');
+		$myshift = $shifts[$i];
+        $nexttime = $myshift->date;
+		 
+        echo ('<h3> '. $nexttime .'</h3>');
+		echo ('<h3> Coordinateurs</h3>');
+            for($j = 0; $j < count($myshift->coordinators) ; $j++)
+            {
+		    echo ('<a href="mailto:' . $myshift->coordinators[$j]->mail . '">' );
+		    echo ($myshift->coordinators[$j]->firstname . " " . $myshift->coordinators[$j]->lastname  . "<br>");
+		    echo ("</a>");
+		    echo ($myshift->coordinators[$j]->phone  . "<br>");
+            }
         }
     }
     ?>
