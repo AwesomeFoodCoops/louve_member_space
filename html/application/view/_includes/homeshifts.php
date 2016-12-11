@@ -5,19 +5,29 @@
     <?php
 
     $shifts = $GLOBALS['User']->getNextShifts();
+
+	
     if ( isset($shifts[0]) && null !== $shifts[0])
     {
-        $nexttime = $shifts[0];
+		
+		$myshift = $shifts[0];
+        $nexttime = $myshift->date;
+		 
         echo ('<h3> '. $nexttime .'</h3>');
+		echo ('<h3> Coordinateurs</h3>');
+            for($j = 0; $j < count($myshift->coordinators) ; $j++)
+            {
+		    echo ('<a href="mailto:' . $myshift->coordinators[$j]->mail . '">' );
+		    echo ($myshift->coordinators[$j]->firstname . " " . $myshift->coordinators[$j]->lastname  . "<br>");
+		    echo ("</a>");
+		    echo ($myshift->coordinators[$j]->phone  . "<br>");
+            }
     }
     else {
         echo ("<h3>Vous n'êtes inscrit a aucun service.</h3>");
     }
     ?>
-
-    <p> Une absence prévue? </p>
-    <button class="btn btn-default disabled"><span class="glyphicon glyphicon-earphone"></span> Contactez vos coordinateurs </br>(non disponible pour l'instant)</button>
-    </div>
+  </div>
 </div>
 
 <div class="col-xs-12 col-sm-6">
