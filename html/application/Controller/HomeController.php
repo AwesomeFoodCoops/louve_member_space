@@ -13,7 +13,7 @@ namespace Louve\Controller;
 
 use Louve\Model\Event;
 use Louve\Model\Emergency;
-
+use Louve\Model\Shift;
 
 class HomeController
 {
@@ -28,6 +28,8 @@ class HomeController
         $event = new Event();
         // Nécessaire pour la pastille "Urgences": accès au modèle d'urgence
         $emergency = new Emergency();
+
+        $myshift = new Shift();
 
         // Require des différents templates nécessaires à l'affichage de la page d'accueil
         require APP . 'view/_templates/header.php';
