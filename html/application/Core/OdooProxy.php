@@ -73,7 +73,7 @@ class OdooProxy
             new Value("name", "string"),
             new Value("state", "string"),
             new Value("date_begin", "string"),
-            new Value("user_id","string"),
+            new Value("user_ids","string"),
             new Value("email", "string"),
         );
 
@@ -96,9 +96,24 @@ class OdooProxy
         $shift->date =  $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
         //todo boucler sur les coordinateurs prevoir qu il va y en avoir plusieurs
         //die(count($result[$i]->me['struct']['user_id']));
-        //for($i = 0; $i < count($result[$i]->me['struct']['user_id']); $i++)
+        //for($i = 0; $i < count($result[$i]->me['struct']['user_ids']); $i++)
         //{
-        $shift->addCoordinator($result[$i]->me['struct']['user_id'][0]->me['int']);
+        try{
+            if (!empty($result[$i]->me['struct']['user_ids'][0]->me['int']))
+            $shift->addCoordinator($result[$i]->me['struct']['user_ids'][0]->me['int']);
+            } 
+        catch(Exception $e){
+
+            }
+         try{
+            if (!empty($result[$i]->me['struct']['user_ids'][1]->me['int']))             
+            $shift->addCoordinator($result[$i]->me['struct']['user_ids'][1]->me['int']);
+            } 
+        catch(Exception $e){
+
+            }
+
+        //$shift->addCoordinator($result[$i]->me['struct']['user_ids'][1]->me['int']);
         //}
         //$shift->coordinator_id = $shifts[$i]->me['struct']['user_id'][0]->me['int'];
         //echo(var_dump($shifts[$i]));
