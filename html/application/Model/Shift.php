@@ -47,7 +47,7 @@ class Shift
             $coordinateur->lastname = explode(", ",$values->me['struct']['name']->me['string'])[0];
             $coordinateur->firstname = explode(", ",$values->me['struct']['name']->me['string'])[1];
             
-            $coordinateur->phone= $values->me['struct']['mobile']->me['string'];
+            $coordinateur->phone= isset($values->me['struct']['mobile']->me['string']) ? $values->me['struct']['mobile']->me['string'] : null;
 
             // Si la connexion réussit, on récupère le coordinateur du shift
             $this->coordinators[count($this->coordinators)] = $coordinateur;
