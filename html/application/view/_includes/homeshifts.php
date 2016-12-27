@@ -17,9 +17,9 @@
 		echo ('<h3> Coordinateurs</h3>');
             for($j = 0; $j < count($myshift->coordinators) ; $j++)
             {
-		    echo ('<a href="mailto:' . $myshift->coordinators[$j]->mail . '">' );
 		    echo ($myshift->coordinators[$j]->firstname . " " . $myshift->coordinators[$j]->lastname  . "<br>");
-		    echo ("</a>");
+			echo ('<a href="mailto:' . $myshift->coordinators[$j]->mail . '">' . $myshift->coordinators[$j]->mail );
+            echo ("</a><br>");
 		    echo ($myshift->coordinators[$j]->phone  . "<br>");
             }
     }
