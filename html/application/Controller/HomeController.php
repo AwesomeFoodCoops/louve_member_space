@@ -73,4 +73,12 @@ class HomeController
         echo "</div>";
         require APP . 'view/_templates/footer.php';
     }
+
+    // Page "Documents" contenant l'historique des documents de la Louve (i.e. CR AG) et les documents de la prochaine AG
+    public function documents()
+    {
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/home/documents_all.php';
+        require APP . 'view/_templates/footer.php';
+    }
 }
