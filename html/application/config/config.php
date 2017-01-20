@@ -11,6 +11,8 @@
  * Useful to show every little problem during development, but only show hard errors in production
  */
 
+date_default_timezone_set('Europe/Paris');
+
 // En développement reporter toutes les erreurs
 if (php_sapi_name() === 'cli-server') {
     define('ENVIRONMENT', 'dev');
@@ -93,3 +95,6 @@ define('DB_CHARSET', 'utf8');
  * Configuration for: LDAP
  */
 // Tout est dans le fichier de conf secret
+
+// Grab this from Google Calendar's settings.
+define('GOOGLE_CALENDAR_ID', 'example@group.calendar.google.com');
