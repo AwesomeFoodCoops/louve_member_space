@@ -61,6 +61,14 @@ class HomeController
         require APP . 'view/_templates/footer.php';
     }
 
+    // Page de listing des évènements de La Louve, sous forme d'un calendrier Google.
+    public function calendar()
+    {
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/home/calendar.php';
+        require APP . 'view/_templates/footer.php';
+    }
+
     // Page de détail sur la situation du membre vis-à-vis de la Louve: statut, retard c'éneauc, etc...
     public function participation()
     {
