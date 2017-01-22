@@ -3,7 +3,7 @@
   
 <div class="footer-bottom">
   <div class="container">
-    <div class="row" style='display:flex; flex-wrap: wra'>
+    <div class="row" style='display:flex; flex-wrap: wrap'>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
             <h4><a href='https://membres.cooplalouve.fr/home/participation/'>MES SERVICES</a></h4>
             <ul class="list-unstyled clear-margins">
