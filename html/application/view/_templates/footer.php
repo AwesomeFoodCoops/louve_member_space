@@ -4,21 +4,21 @@
 <div id="footer">
   <div class="container">
     <div class="row">
-    	<div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 ">
-    		<h4>MES SERVICES</h4>
+    	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
+    		<h4><a href='https://membres.cooplalouve.fr/home/participation/'>MES SERVICES</a></h4>
     		<p>Agenda des services</p>
     		<p>Contact Coordinateur</p>
     		<p>Bureau des membres</p>
     		<p>Planning des services</p>
     	</div>
-    	<div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 ">
-    		<h4>OUTILS</h4>
+    	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
+    		<h4><a href='https://membres.cooplalouve.fr/home/services/'>OUTILS</a></h4>
     		<p>Services Volants</p>
     		<p>Echanger un créneau</p>
     		<p>Organiser un covoiturage</p>
     	</div>
-    	<div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 ">
-    		<h4>FORUM</h4>
+    	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
+    		<h4><a href='https://membres.cooplalouve.fr/forum/'>FORUM</a></h4>
     		<p>Discussion La Louve</p>
     		<p>Discussion de comptoir</p>
     		<p>Recettes autour des produits</p>
@@ -29,22 +29,22 @@
     		<p>F.À.Q</p>
     		<p>Plateforme Web</p>
     	</div>
-    	<div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 ">
-    		<h4>VIE DE LA LOUVE</h4>
+    	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
+    		<h4><a href=''>VIE DE LA LOUVE</a></h4>
     		<p>Besoins urgents</p>
     		<p>Prochaine AG</p>
     		<p>Louveletter</p>
     		<p>Chiffres Clés</p>
     		<p>Agenda</p>
     	</div>
-    	<div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 ">
-    		<h4>DOCUMENTS</h4>
+    	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
+    		<h4><a href=''>DOCUMENTS</a></h4>
     		<p>Guide du Supermarché</p>
     		<p>Compte Rendu AG</p>
     		<p>Organisation</p>
     	</div>
-    	<div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 ">
-    		<h4>INFOS</h4>
+    	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
+    		<h4><a href='https://membres.cooplalouve.fr/'>INFOS</a></h4>
     		<p>116 rue des poissonniers</p>
     		<p>75018 Paris</p>
     		<p>info@cooplalouve.fr</p>
