@@ -13,6 +13,7 @@ namespace Louve\Controller;
 
 use Louve\Model\Emergency;
 use Louve\Model\Event;
+use Louve\Model\Document;
 
 
 class ManagementController
@@ -27,9 +28,10 @@ class ManagementController
 
     // TODO_NOW
     // Page d'ajout de documents PDF
-    public function addDocument()
+    public function manageDocument()
     {
         require APP . 'view/_templates/header.php';
+        require APP . 'view/management/document.php';
         require APP . 'view/_templates/footer.php';
     }
 
@@ -124,9 +126,42 @@ class ManagementController
     {
         $event = new Event();
         // TODO_LATER: l'id est ou devrait être pasé en argument de la fonction par le routeur d'url de l'application
-        $emergency->destroy(intval($_REQUEST['id']));
+        $event->destroy(intval($_REQUEST['id']));
         echo json_encode(array('success'=>true));
     }
 
-   
+   //documents
+    public function getDocuments()
+    {
+        $Document = new Document();
+        $results = $Document->getAll();
+        echo json_encode($results);
+    }
+
+    public function postDocument()
+    {
+        $Document = new Document();
+        $result = $Document->save(
+            $_REQUEST['lien'], $_REQUEST['icone'], $_REQUEST['categorie'], $_REQUEST['titre'],$_REQUEST['acces']
+        );
+        echo json_encode($result);
+    }
+
+    public function updateDocument()
+    {
+        $Document = new Document();
+        $result = $Document->update(
+            $_REQUEST['id'],  $_REQUEST['lien'], $_REQUEST['icone'], $_REQUEST['categorie'], $_REQUEST['titre'],$_REQUEST['acces']
+        );
+        echo json_encode($result);
+    }
+
+    public function destroyDocument()
+    {
+        $Document = new Document();
+        // TODO_LATER: l'id est ou devrait être pasé en argument de la fonction par le routeur d'url de l'application
+        $Document->destroy(intval($_REQUEST['id']));
+        echo json_encode(array('success'=>true));
+    }
+
 }
