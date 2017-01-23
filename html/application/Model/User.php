@@ -173,4 +173,23 @@ class User
         }
         return $display;
     }
+
+    public function getCurrentWeek() {
+        $calendar = array();
+        $letters = array("A", "B", "C", "D");
+        for ($counter = 1; $counter <= 53; $counter++) {
+            if ($counter == 1) {
+                $calendar[$counter] = next($letters);
+            } else {
+                if (current($letters) == "D") {
+                    reset($letters);
+                    $calendar[$counter] = current($letters);
+                } else {
+                    $calendar[$counter] = next($letters);
+                }
+            }
+        }
+
+        return $calendar[(int) date("W")];
+    }
 }
