@@ -152,4 +152,16 @@ body{
 padding-top:120px;
 
 }
-}	
+}
+
+#current_week {
+    font-size: 90px;
+    font-weight: bold;
+}
+
+#subtitle {
+    margin: 5px 0 0 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #848484;
+}

@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-5">
     <h3  class="entete ui horizontal divider"><strong>Mon prochain service</strong></h3>
     <div class="louve-creneau">
     <?php
@@ -30,7 +30,19 @@
   </div>
 </div>
 
-<div class="col-xs-12 col-sm-6">
+<div>
+    <div class="col-xs-12 col-sm-2">
+        <h3 class="entete ui horizontal divider"><strong>Semaine</strong><div id="subtitle">en cours</h3><div></h3>
+        <div class="louve-creneau">
+            <div id="current_week">
+                <?php echo $GLOBALS['User']->getCurrentWeek(); ?>
+            </div>
+            <a href="pdfs/CalendrierABCD.pdf" target="_blank">Calendrier ABCD</a>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12 col-sm-5">
     <h3  class="entete ui horizontal divider"><strong>Le magasin</strong></h3>
     <div class="louve-creneau">
     <?php
@@ -105,4 +117,3 @@
     ?>
     </div>
 </div>
-
