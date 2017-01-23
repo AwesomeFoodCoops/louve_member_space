@@ -19,6 +19,7 @@
     </div>
         </div>
     </div>
+    <!--
     <div class="row">
         <div class="col-xs-12 col-sm-6">
             <div class="louve-creneau">
@@ -26,7 +27,7 @@
                 <p> Lors de vos dernières courses un produit vous a manqué ? Découvrez ici comment suggérer les produits que vous souhaitez voir apparaître en rayons.</p>
                 <button class="btn btn-default disabled" style="border-color: red; color: red;"><span class="glyphicon glyphicon-apple"></span> Prochainement ici.</button>
             </div>
-        </div>
+        </div> -->
         <?php /*
         <div class="col-xs-12 col-sm-6">
             <div class="louve-creneau">
