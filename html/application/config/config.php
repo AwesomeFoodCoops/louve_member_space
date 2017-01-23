@@ -97,4 +97,4 @@ define('DB_CHARSET', 'utf8');
 // Tout est dans le fichier de conf secret
 
 // Grab this from Google Calendar's settings.
-define('GOOGLE_CALENDAR_ID', 'example@group.calendar.google.com');
+define('GOOGLE_CALENDAR_ID', 'r3d4f9vip901c4ovao8ibvfats@group.calendar.google.com');
