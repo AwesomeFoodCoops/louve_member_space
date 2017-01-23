@@ -24,7 +24,7 @@
 		    echo ($myshift->coordinators[$j]->firstname . " " . $myshift->coordinators[$j]->lastname  . "<br>");
 		    echo ('<a href="mailto:' . $myshift->coordinators[$j]->mail . '">' . $myshift->coordinators[$j]->mail );
             echo ("</a><br>");
-		    echo ($myshift->coordinators[$j]->phone  . "<br>");
+		    echo ("<a href='tel:" . $myshift->coordinators[$j]->phone  . "'>" . $myshift->coordinators[$j]->phone  . "</a><br>");
             }
         }
     }
@@ -37,10 +37,11 @@
     <div class="louve-creneau">
     <p>Echanger mon service   </p>
     <a href="<?php echo URL . 'forum/category/5'?>">
-    <button class="btn btn-default"><span class="glyphicon glyphicon-earphone"></span> Consultez le forum</button>
+    <button class="btn btn-default"><span class="glyphicon glyphicon-comment"></span> Consultez le forum</button>
     </a>
     </div>
 </div>
+
 
 
 </div>

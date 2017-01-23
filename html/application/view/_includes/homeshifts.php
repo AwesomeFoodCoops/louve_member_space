@@ -20,7 +20,7 @@
 		    echo ($myshift->coordinators[$j]->firstname . " " . $myshift->coordinators[$j]->lastname  . "<br>");
 			echo ('<a href="mailto:' . $myshift->coordinators[$j]->mail . '">' . $myshift->coordinators[$j]->mail );
             echo ("</a><br>");
-		    echo ($myshift->coordinators[$j]->phone  . "<br>");
+		    echo ("<a href='tel:" . $myshift->coordinators[$j]->phone  . "'>" . $myshift->coordinators[$j]->phone  . "</a><br>");
             }
     }
     else {
