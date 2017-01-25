@@ -5,11 +5,13 @@
             <div class="louve-box">
             <?php
                 $infos = $event->getNextMeeting();
-			    echo ('<h3>' . $infos->info . ' </a></h3>');
-		        echo ('<a href="'. $infos->lien . '">
-                    <button class="btn btn-default type="submit">Inscription / Ordre du Jour / Questions</button>
-                    </a>');
-			        ?>
+                if (is_object($infos)) {
+			        echo ('<h3>' . $infos->info . ' </a></h3>');
+		            echo ('<a href="'. $infos->lien . '"><button class="btn btn-default type="submit">Inscription / Ordre du Jour / Questions</button></a>');
+                } else {
+                    echo "La date sera bientôt définie.";   
+                }
+			?>
             </div>
         </div>
     </div>
