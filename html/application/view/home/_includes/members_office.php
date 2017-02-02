@@ -2,9 +2,10 @@
     <div class="col-xs-12 col-sm-6">
         <h3  class="entete ui horizontal divider"><strong>Bureau des membres</strong></h3>
         <div class="louve-creneau">
-			<h3><strong> Rendez-vous au magasin <strong/></h3>
-            <h4>Du mardi au samedi de 13h à 20h.</h4>
-			<h4>Et prochainement aussi par téléphone.</h4>
+	    <h3><strong> Rendez-vous au magasin <strong/></h3>
+            <h4>mardi : 13h30 - 16h</h4>
+            <h4>mercredi - vendredi : 13h30 - 20h</h4>
+            <h4>samedi : 10 - 16h</h4>
         </div>
     </div>
     <div class="col-xs-12">
