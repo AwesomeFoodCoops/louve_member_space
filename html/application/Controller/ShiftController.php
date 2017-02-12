@@ -13,6 +13,7 @@ namespace Louve\Controller;
 
 
 use Louve\Core\OdooProxy;
+use Louve\Model\Session;
 
 // Un import 'use function Mini\Core\formatFtopShifts;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!
@@ -22,6 +23,12 @@ include_once(APP . 'helpers/odoo_formatting.php');
 
 class ShiftController
 {
+    public function __construct()
+    {
+        $this->session = new Session();
+        //TODO ACL and redirect
+    }
+
     // Page d'affichage des shifts volants
     public function ftopShifts()
     {
