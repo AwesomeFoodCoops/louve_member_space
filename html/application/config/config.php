@@ -13,27 +13,29 @@
 
 date_default_timezone_set('Europe/Paris');
 
+define('ENVIRONMENT', 'dev');
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+ 
 // En développement reporter toutes les erreurs
 if (php_sapi_name() === 'cli-server') {
-    define('ENVIRONMENT', 'dev');
+    //define('ENVIRONMENT', 'dev');
     error_reporting(E_ALL);
     ini_set('display_errors', '1');
-}
-else {
-    define('ENVIRONMENT', 'prod');
+} else {
+//    define('ENVIRONMENT', 'prod');
     error_reporting(E_ALL);
     ini_set('display_errors', -1);
     ini_set("log_errors", 1);
- }
-
+}
 
 // Charge la config "secrète": mots de passe, logins
 $credentials = APP . 'config/secret.php';
 if (file_exists($credentials)) {
     require $credentials;
 } else {
-    define('DB_USER', '');
-    define('DB_PASS', '');
+    define('DB_USER', 'root');
+    define('DB_PASS', 'mWse74a10/');
 
     define('ODOO_DB_USER', '');
     define('ODOO_DB_PASSWORD', '');
