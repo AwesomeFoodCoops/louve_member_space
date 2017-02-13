@@ -21,38 +21,46 @@ use Louve\Model\Coordinator;
  */
 class Shift
 {
-  
+    /**
+     *  @var null
+     */
     public $date = null;
-    public $coordinators = null;
 
-    /*
-    private $coordinator_name = null;             
-    private $coordinator_phone = null;
-    private $coordinator_email = null;
-  
-    */
-    public function __construct() {
+    /**
+     *  liste des coordinators
+     *  @var array
+     */
+    public $coordinators = array();
+
+    /**
+     *
+     *  Shift constructor.
+     */
+    public function __construct()
+    {
        
     }
 
-    public function addCoordinator($coordinator_id){
-
+    /**
+     *  addCoordinator
+     *  @param $coordinator_id
+     */
+    public function addCoordinator($coordinator_id)
+    {
         $proxy = new OdooProxy();
         if ($proxy->connect() === true)
         {
             $values = $proxy->getCoordinatorInfo($coordinator_id);
             
             $coordinateur = new Coordinator();
-            $coordinateur->mail = $values->me['struct']['email']->me['string'];
-            $coordinateur->lastname = explode(", ",$values->me['struct']['name']->me['string'])[0];
-            $coordinateur->firstname = explode(", ",$values->me['struct']['name']->me['string'])[1];
+            $coordinateur->setEmail($values->me['struct']['email']->me['string']);
+            $coordinateur->setLastname(explode(", ",$values->me['struct']['name']->me['string'])[0]);
+            $coordinateur->setFirstname(explode(", ",$values->me['struct']['name']->me['string'])[1]);
             
-            $coordinateur->phone= isset($values->me['struct']['mobile']->me['string']) ? $values->me['struct']['mobile']->me['string'] : null;
+            $coordinateur->setPhone(isset($values->me['struct']['mobile']->me['string']) ? $values->me['struct']['mobile']->me['string'] : null);
 
             // Si la connexion réussit, on récupère le coordinateur du shift
             $this->coordinators[count($this->coordinators)] = $coordinateur;
         }
-
-
-}
+    }
 }

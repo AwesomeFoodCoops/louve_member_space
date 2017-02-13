@@ -25,6 +25,7 @@
 <div class="container-fluid">
 
     <form class="form-signin" method="post" action="<?php echo URL; ?>login/sendcredentials">
+        <input type="hidden" name="token" value="<?php echo $token ?>" />
         <h3 class="form-signin-heading">Identifiant Louve</h3>
         <label for="inputID" class="sr-only">Identifiant Membre</label>
         <p>

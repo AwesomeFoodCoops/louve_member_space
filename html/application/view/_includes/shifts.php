@@ -6,7 +6,7 @@
     <h3  class="entete ui horizontal divider"><strong>Services suivants</strong></h3>
     <div class="louve-creneau">
     <?php
-    $shifts = $GLOBALS['User']->getNextShifts();
+    $shifts = $user->getNextShifts();
     if (null == $shifts)
         echo ("<h3>Vous n'êtes inscrit a aucun service suivant.</h3>");              
     else

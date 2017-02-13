@@ -51,7 +51,6 @@ class OdooProxy
     // Récupération des prochains créneaux de l'utilsateur (basé sur son email)
     public function getUserNextShifts($mail)
     {
-        
         // En dév local on renvoie des valeurs bidons
         if (ENVIRONMENT === 'dev') {
             return (new FakeOdoo())->nextShifts();
@@ -83,43 +82,39 @@ class OdooProxy
         $result = $raw_values->value()->scalarval();
         $returnedShifts = array();
         //echo(count($result)); 
-        for($i = 0; $i < count($result) AND $i < 3; $i++)
-        {
+        for($i = 0; $i < count($result) AND $i < 3; $i++) {
         
-        $nextTime = $result[$i]->me['struct']['date_begin']->me['string'];
-        list($dd, $day, $month, $year, $hour, $minutes) = formatDate($nextTime);
-        
-        //todo a virer des qu on sait comment virer les faux shifts d odoo
-        if ($hour!="23")
-        {
-        $shift = new Shift();
-        $shift->date =  $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
-        //todo boucler sur les coordinateurs prevoir qu il va y en avoir plusieurs
-        //die(count($result[$i]->me['struct']['user_id']));
-        //for($i = 0; $i < count($result[$i]->me['struct']['user_ids']); $i++)
-        //{
-        try{
-            if (!empty($result[$i]->me['struct']['user_ids'][0]->me['int']))
-            $shift->addCoordinator($result[$i]->me['struct']['user_ids'][0]->me['int']);
-            } 
-        catch(Exception $e){
+            $nextTime = $result[$i]->me['struct']['date_begin']->me['string'];
+            list($dd, $day, $month, $year, $hour, $minutes) = formatDate($nextTime);
 
+            //todo a virer des qu on sait comment virer les faux shifts d odoo
+            if ($hour!="23") {
+                $shift = new Shift();
+                $shift->date =  $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
+                //todo boucler sur les coordinateurs prevoir qu il va y en avoir plusieurs
+                //die(count($result[$i]->me['struct']['user_id']));
+                //for($i = 0; $i < count($result[$i]->me['struct']['user_ids']); $i++)
+                //{
+                try {
+                    if (!empty($result[$i]->me['struct']['user_ids'][0]->me['int']))
+                        $shift->addCoordinator($result[$i]->me['struct']['user_ids'][0]->me['int']);
+                } catch(Exception $e){
+
+                }
+                try{
+                    if (!empty($result[$i]->me['struct']['user_ids'][1]->me['int']))
+                    $shift->addCoordinator($result[$i]->me['struct']['user_ids'][1]->me['int']);
+                } catch(Exception $e){
+
+                }
+
+                //$shift->addCoordinator($result[$i]->me['struct']['user_ids'][1]->me['int']);
+                //}
+                //$shift->coordinator_id = $shifts[$i]->me['struct']['user_id'][0]->me['int'];
+                //echo(var_dump($shifts[$i]));
+                //$returnedShifts[count( $result)] = $shift;
+                array_push($returnedShifts ,$shift);
             }
-         try{
-            if (!empty($result[$i]->me['struct']['user_ids'][1]->me['int']))             
-            $shift->addCoordinator($result[$i]->me['struct']['user_ids'][1]->me['int']);
-            } 
-        catch(Exception $e){
-
-            }
-
-        //$shift->addCoordinator($result[$i]->me['struct']['user_ids'][1]->me['int']);
-        //}
-        //$shift->coordinator_id = $shifts[$i]->me['struct']['user_id'][0]->me['int'];
-        //echo(var_dump($shifts[$i]));
-        //$returnedShifts[count( $result)] = $shift;
-        array_push($returnedShifts ,$shift);
-        }
         }
         //die(print_r(json_encode($returnedShifts ),true));
         //die(var_dump(self::getCoordinatorInfo("7284")));
@@ -139,8 +134,7 @@ class OdooProxy
         $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
         $client->request_charset_encoding = 'UTF-8';
         $client->setSSLVerifyPeer(0);
-
-       
+        
         // On récupère les références des lignes qui nous intéressent dans la table "res.partner"
         $user_entries = self::getUserEntriesInTable($client, $odoo_table, $mail);
 

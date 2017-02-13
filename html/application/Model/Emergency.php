@@ -30,6 +30,10 @@ class Emergency extends BaseDBModel
         ];
     }
 //retourne toutes les urgence courantes
+
+    /**
+     *  @return object
+     */
    public function getCurrents()
     {
         if (!$this->fake) {
