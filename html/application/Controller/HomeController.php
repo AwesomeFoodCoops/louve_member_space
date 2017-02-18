@@ -13,7 +13,7 @@ namespace Louve\Controller;
 
 use Louve\Model\Event;
 use Louve\Model\Emergency;
-
+use Louve\Model\Shift;
 
 class HomeController
 {
@@ -28,6 +28,8 @@ class HomeController
         $event = new Event();
         // Nécessaire pour la pastille "Urgences": accès au modèle d'urgence
         $emergency = new Emergency();
+
+        $myshift = new Shift();
 
         // Require des différents templates nécessaires à l'affichage de la page d'accueil
         require APP . 'view/_templates/header.php';
@@ -59,6 +61,14 @@ class HomeController
         require APP . 'view/_templates/footer.php';
     }
 
+    // Page de listing des évènements de La Louve, sous forme d'un calendrier Google.
+    public function calendar()
+    {
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/home/calendar.php';
+        require APP . 'view/_templates/footer.php';
+    }
+
     // Page de détail sur la situation du membre vis-à-vis de la Louve: statut, retard c'éneauc, etc...
     public function participation()
     {
@@ -66,7 +76,7 @@ class HomeController
         // Pour éviter les 'require' de templates imbriqués, la classe container est ajoutée directement
         echo "<div class=container>";
         require APP . 'view/_includes/shifts.php';
-        require APP . 'view/home/_includes/my_coordinator.php';
+        //require APP . 'view/home/_includes/my_coordinator.php';
         require APP . 'view/home/_includes/members_office.php';
         echo "</div>";
         require APP . 'view/_templates/footer.php';

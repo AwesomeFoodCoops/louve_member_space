@@ -1,40 +1,48 @@
 <div class="container">
-    <div class="col-xs-12 col-sm-6">
-    <h3  class="entete ui horizontal divider"><strong>Mon prochain service</strong></h3>
-    <div class="louve-creneau">
-    <?php
-
-    $shifts = $GLOBALS['User']->getNextShifts();
-    if ( isset($shifts[0]) && null !== $shifts[0])
-    {
-        $nexttime = $shifts[0];
-        echo ('<h3> '. $nexttime .'</h3>');
-    }
-    else {
-        echo ("<h3>Vous n'êtes inscrit a aucun service futur.</h3>");
-    }
-    ?>
-
-    <p> Une absence prévue? </p>
-    <button class="btn btn-default"><span class="glyphicon glyphicon-earphone"></span> Contactez vos coordinateurs</button>
-    </div>
-</div>
+<div class="row">
+   
 
 <div class="col-xs-12 col-sm-6">
     <h3  class="entete ui horizontal divider"><strong>Services suivants</strong></h3>
     <div class="louve-creneau">
     <?php
+    $shifts = $GLOBALS['User']->getNextShifts();
     if (null == $shifts)
-        echo ('<strong>Erreur : </strong> Prochain service indisponibles actuellement. Veuillez réessayer plus tard ou contacter le bureau des membres.');
+        echo ("<h3>Vous n'êtes inscrit a aucun service suivant.</h3>");              
     else
     {
         for($i = 0; $i < count($shifts) AND $i < 3; $i++)
         {
-            $shift = $shifts[$i];
-            echo ('<h3> '. $shift . '</h3>');
+		$myshift = $shifts[$i];
+        $nexttime = $myshift->date;
+		 
+        echo ('<h3> '. $nexttime .'</h3>');
+		echo ('<h3> Coordinateurs</h3>');
+            for($j = 0; $j < count($myshift->coordinators) ; $j++)
+            {
+
+		    echo ($myshift->coordinators[$j]->firstname . " " . $myshift->coordinators[$j]->lastname  . "<br>");
+		    echo ('<a href="mailto:' . $myshift->coordinators[$j]->mail . '">' . $myshift->coordinators[$j]->mail );
+            echo ("</a><br>");
+		    echo ("<a href='tel:" . $myshift->coordinators[$j]->phone  . "'>" . $myshift->coordinators[$j]->phone  . "</a><br>");
+            }
         }
     }
     ?>
     </div>
+</div>
+
+ <div class="col-xs-12 col-sm-6">
+    <h3  class="entete ui horizontal divider"><strong>Une absence prévue?</strong></h3>
+    <div class="louve-creneau">
+    <p>Echanger mon service   </p>
+    <a href="<?php echo URL . 'forum/category/5'?>">
+    <button class="btn btn-default"><span class="glyphicon glyphicon-comment"></span> Consultez le forum</button>
+    </a>
+    </div>
+</div>
+
+
+
 </div>
 </div>

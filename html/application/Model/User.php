@@ -4,6 +4,7 @@ namespace Louve\Model;
 
 use Louve\Core\OdooProxy;
 use Louve\Core\BaseDBModel;
+use Louve\Model\Shift;
 use PDO;
 
 
@@ -42,6 +43,7 @@ class User
         self::getAdminStatus();
     }
 
+
     // Essaie de se connecter au LDAP et de récupérer des infos sur l'utilisateur
     public function bindLdap($password)
     {
@@ -64,7 +66,9 @@ class User
         if ($proxy->connect() === true)
         {
             // Si la connexion réussit, on récupère les prochains shifts de l'utilisateur
-            $this->nextShifts = formatShifts($proxy->getUserNextShifts($this->mail));
+            //$this->nextShifts = formatShifts($proxy->getUserNextShifts($this->mail));
+            $this->nextShifts = $proxy->getUserNextShifts($this->mail);
+            
             // TODO_LATER: gérer les erreurs qui peuvent survenir
             $infos = formatUserInfo($proxy->getUserInfo($this->mail));
             // On recopie simplement les infos récupérées dans les attributs de User
@@ -93,7 +97,6 @@ class User
             if ($query->rowCount() > 0)
                $this->admin=true;
         }
-        error_log('COUNT:'.$query->rowCount());
     }
 
     public function hasData() { return $this->hasData; }
@@ -169,5 +172,24 @@ class User
             }
         }
         return $display;
+    }
+
+    public function getCurrentWeek() {
+        $calendar = array();
+        $letters = array("A", "B", "C", "D");
+        for ($counter = 1; $counter <= 53; $counter++) {
+            if ($counter == 1) {
+                $calendar[$counter] = next($letters);
+            } else {
+                if (current($letters) == "D") {
+                    reset($letters);
+                    $calendar[$counter] = current($letters);
+                } else {
+                    $calendar[$counter] = next($letters);
+                }
+            }
+        }
+
+        return $calendar[(int) date("W")];
     }
 }

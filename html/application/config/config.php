@@ -11,6 +11,8 @@
  * Useful to show every little problem during development, but only show hard errors in production
  */
 
+date_default_timezone_set('Europe/Paris');
+
 // En développement reporter toutes les erreurs
 if (php_sapi_name() === 'cli-server') {
     define('ENVIRONMENT', 'dev');
@@ -26,7 +28,21 @@ else {
 
 
 // Charge la config "secrète": mots de passe, logins
-require APP . 'config/secret.php';
+$credentials = APP . 'config/secret.php';
+if (file_exists($credentials)) {
+    require $credentials;
+} else {
+    define('DB_USER', '');
+    define('DB_PASS', '');
+
+    define('ODOO_DB_USER', '');
+    define('ODOO_DB_PASSWORD', '');
+    define('ODOO_DB_NAME', '');
+    define('ODOO_SERVER_URL', '');
+
+    define('LDAP_SERVER', '');
+    define('LDAP_BASE_DN', '');
+}
 
 /**
  * Configuration for: URL
@@ -79,3 +95,6 @@ define('DB_CHARSET', 'utf8');
  * Configuration for: LDAP
  */
 // Tout est dans le fichier de conf secret
+
+// Grab this from Google Calendar's settings.
+define('GOOGLE_CALENDAR_ID', 'r3d4f9vip901c4ovao8ibvfats@group.calendar.google.com');

@@ -132,10 +132,11 @@ address{
 }
 
 .navbar-brand > img:hover {
-    -ms-transform: rotate(-20deg);
-    -webkit-transform: rotate(-20deg);
-    transform: rotate(-20deg);
-    transition: transform .3s ease-in-out;
+    -webkit-transform: rotate(-10deg) translate(5px,-5px) scale(1.1) skewX(-6deg);
+    -moz-transform: rotate(-10deg) translate(5px,-5px) scale(1.1) skewX(-6deg);
+    -ms-transform: rotate(-10deg) translate(5px,-5px) scale(1.1) skewX(-6deg);
+    -o-transform: rotate(-10deg) translate(5px,-5px) scale(1.1) skewX(-6deg); 
+    transform: rotate(-10deg) translate(5px,-5px) scale(1.1) skewX(-6deg);
 }
 
 .navbar-brand > img {
@@ -144,4 +145,23 @@ address{
 body{
 padding-top:60px;
 
+}
+@media (max-width:768px)
+{	
+body{
+padding-top:120px;
+
+}
+}
+
+#current_week {
+    font-size: 90px;
+    font-weight: bold;
+}
+
+#subtitle {
+    margin: 5px 0 0 0;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #848484;
 }

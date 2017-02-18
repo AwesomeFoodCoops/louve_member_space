@@ -13,10 +13,10 @@ $display = $user->getStatusDisplay();
             if( !isset($user) ){
                 echo ('<p>Données temporairement indisponible</p>');
             } else {
-                echo ('<p> Bonjour '. $user->getFirstname() . ' ' . $user->getLastname() .'.<p>');
-                echo ('<p> Votre numéro de téléphone est '. $user->getPhone() .' . <p>');
-                echo ('<p> Votre e-mail est '. $user->getEmail() .'. <p>');
-                echo ('<p> Votre LouveID est '. $user->getId() .'. <p>');
+                echo ('<h4> Bonjour '. $user->getFirstname() . ' ' . $user->getLastname() .'.</h4>');
+                echo ('<p><strong>Votre numéro de téléphone :</strong> '. $user->getPhone() .' . <p>');
+                echo ('<p> <strong>Votre e-mail de contact :</strong> '. $user->getEmail() .'. <p>');
+                echo ('<p> <strong>Votre numéro de membre : </strong> '. $user->getId() .'. <p>');
                 echo ('<p><strong>'.$display['alert_msg'].'</strong> '.$display['full_msg'].'</p>');
                 echo ('<p> <br/><strong>Pour modifier ces informations contactez le bureau des membres. </strong><p>');
 		echo ('<a href="' . URL . '/selfservice">

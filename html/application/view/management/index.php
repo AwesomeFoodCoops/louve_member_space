@@ -5,7 +5,7 @@
         <div class="louve-creneau">
             <h3><strong>Ajouter un document</strong></h3>
             <p> Les documents ajoutés ici sont insérés dans l'espace membre. </p>
-            <a href="<?php echo URL . 'management/adddocument'; ?>">
+            <a href="<?php echo URL . 'management/managedocument'; ?>">
                 <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Ajouter </button>
             </a>
         </div>
@@ -23,15 +23,6 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-12 col-sm-6">
-        <div class="louve-creneau">
-            <h3><strong>Ajouter une assemblée générale</strong></h3>
-            <p> Permet d'informer les membres de la prochaine AG</p>
-            <a href="<?php echo URL . 'management/addmeeting'; ?>">
-                <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Ajouter </button>
-			</a>
-        </div>
-    </div>
 
     <div class="col-xs-12 col-sm-6">
         <div class="louve-creneau">

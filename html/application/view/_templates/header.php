@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>La louve - mon espace</title>
+        <title>La Louve &rsaquo; Mon Espace</title>
         <link href="<?php echo URL; ?>css/bootstrap.min.css" rel="stylesheet" type='text/css'>
         <link href="<?php echo URL; ?>css/louve-styles.css" rel="stylesheet" type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,900,300' rel='stylesheet' type='text/css'>
@@ -9,7 +9,7 @@
          +> faire un import uniquement pour ces pages -->
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>css/easyui.css">
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>css/icon.css">
-        <!-- 
+        <!--
         Lien vers les differentes favicons
         -->
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -47,17 +47,18 @@
         </div>
 
         <div class="nav navbar-nav collapse navbar-collapse" id="louvenav">
-            <li><a href="<?php echo URL . 'home/participation/'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MA PARTICIPATION</a></li>
-			<li><a href="<?php echo URL . 'home/services/'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> SERVICES</a></li>
-            <li><a href="https://membres.cooplalouve.fr/forum" target="_blank"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
-            <?php 
-			if($GLOBALS['User']->isAdmin())
-					echo(' <li><a href="'.URL . 'management"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
+            <li><a href="<?php echo URL . 'home/participation'; ?>"><span class="glyphicon glyphicon-time" style="color:grey"></span> MES SERVICES</a></li>
+            <li><a href="<?php echo URL . 'home/services'; ?>"><span class="glyphicon glyphicon-ok" style="color:grey"></span> OUTILS</a></li>
+            <li><a href="<?php echo URL . 'forum'; ?>"><span class="glyphicon glyphicon-earphone" style="color:grey"></span> FORUM</a></li>
+            <li><a href="<?php echo URL . 'home/calendar'; ?>"><span class="glyphicon glyphicon-calendar" style="color: grey;"></span> CALENDRIER</a></li>
+            <?php
+            if($GLOBALS['User']->isAdmin())
+                    echo(' <li><a href="'.URL . 'management"><span class="glyphicon glyphicon-plus" style="color:grey"></span> GESTION </a></li>');
             if ($GLOBALS['hasEmergency']) {
                 $emergencyStyle = "color:lightcoral";
-				echo '<li><a href="' . URL . 'emergency/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
+                echo '<li><a href="' . URL . 'emergency/" style="' . $emergencyStyle . ';"><span class="glyphicon glyphicon-alert urgences"></span> URGENCES</a></li>';
             }
-          
+
         ?>
         </div>
         <ul class="nav navbar-inverse navbar-nav navbar-right">
