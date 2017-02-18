@@ -4,8 +4,7 @@
     <div class="louve-creneau">
     <?php
 
-    $shifts = $GLOBALS['User']->getNextShifts();
-
+    $shifts = $user->getNextShifts();
 	
     if ( isset($shifts[0]) && null !== $shifts[0])
     {
@@ -35,7 +34,7 @@
         <h3 class="entete ui horizontal divider"><strong>Semaine</strong><div id="subtitle">en cours</h3><div></h3>
         <div class="louve-creneau">
             <div id="current_week">
-                <?php echo $GLOBALS['User']->getCurrentWeek(); ?>
+                <?php echo $user->getCurrentWeek(); ?>
             </div>
             <a href="pdfs/CalendrierABCD.pdf" target="_blank">Calendrier ABCD</a>
         </div>

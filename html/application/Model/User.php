@@ -5,6 +5,8 @@ namespace Louve\Model;
 use Louve\Core\OdooProxy;
 use Louve\Core\BaseDBModel;
 use Louve\Model\Shift;
+use Louve\Model\Session;
+use Louve\Model\Statecooperative;
 use PDO;
 
 
@@ -21,50 +23,177 @@ include_once(APP . 'helpers/odoo_formatting.php');
  */
 class User
 {
-    private $login = null;
-    private $mail = null;
-    private $nextShifts = null;              // Prochains créneaux
-    private $firstname = null;
-    private $lastname = null;
-    private $admin = false;
-    private $id = 0;
-    private $street = null;
-    private $phone = null;
-    private $shift_type = null;
-    private $cooperative_state = null;       // Statut coopérateur: à jour ? retard, etc...
+    /**
+     * @var Singleton
+     * @access private
+     * @static
+     */
+    private static $_instance = null;
+
+    /**
+     *  id
+     *  @var integer
+     */
+    protected $id;
+
+    /**
+     *  login
+     *  @var string
+     */
+    protected $login;
+
+    /**
+     *  mail
+     *  @var string
+     */
+    protected $mail;
+
+    /**
+     *  Session
+     *  @var \Louve\Model\Session
+     */
+    protected $session;
+
+    /**
+     *  Prochains créneaux
+     *  @var string
+     */
+    protected $nextShifts;
+
+    /**
+     *  First name
+     *  @var string
+     */
+    protected $firstname;
+
+    /**
+     *  Last name
+     *  @var string
+     */
+    protected $lastname;
+
+    /**
+     *  Admin
+     *  @var bool
+     */
+    protected $admin = false;
+
+    /**
+     *  Street
+     *  @var int
+     */
+    protected $street;
+
+    /**
+     *  Phone
+     *  @var null
+     */
+    protected $phone;
+
+    /**
+     *  Shift
+     *  @var
+     */
+    protected $shift_type;
+
+    /**
+     *  cooperative_state Statut coopérateur: à jour ? retard, etc...
+     *  @var string
+     */
+    protected $cooperative_state;
 
     // Est-ce que les données depuis Odoo / BDD locale ont été récupérées ?
     // TODO_LATER: remplacer par un timestamp et rafraichir les données si timestamp trop vieux
-    private $hasData = false;
+    /**
+     *  @var datetime
+     */
+    protected $hasData;
 
-    public function __construct($login) {
-        $this->login = $login;
-        //~ parent::__construct();
-        self::getAdminStatus();
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+ 	    $this->session = new Session();
+        //recharge les infos de la session
+        //TODO check hasData timestamp
+        if ($this->isLogged()) {
+            //on mets en session l'objet user, autant le récupérer
+
+            $that = & $this;
+            $that = unserialize($this->session->getSerializedUser());
+
+            //POURQUOI je ne peux pas copier ?! directement this ??!!
+            $this->id = $that->id;
+            $this->login = $that->login;
+            $this->mail = $that->mail;
+            $this->nextShifts = $that->nextShifts;
+            $this->firstname = $that->firstname;
+            $this->lastname = $that->lastname;
+            $this->admin = $that->admin;
+            $this->street = $that->street;
+            $this->phone = $that->phone;
+            $this->shift_type = $that->shift_type;
+            $this->cooperative_state = $that->shift_type;
+            $this->hasData = $that->hasData;
+
+            /* echo '<pre>';
+            var_dump($that);
+
+
+            var_dump($this);
+            echo '</pre>';*/
+            //die;
+            //~ parent::__construct();
+            //$this->getAdminStatus();
+        } else {
+            //echo 'NOT LOGGED';
+        }
     }
 
+    /**
+     *  isLogged
+     *  @return bool
+     */
+    public function isLogged()
+    {
+	    return $this->session->isLogged();
+    }
 
     // Essaie de se connecter au LDAP et de récupérer des infos sur l'utilisateur
     public function bindLdap($password)
     {
-        $ldapResult = bindLdapUser($this->login, $password);
-        if (isset($ldapResult)) {
-            list($this->firstname, $this->lastname, $this->id, $this->mail) = $ldapResult;
+        // En dev, on utilise les credentials login='login' / password='password'
+        if (ENVIRONMENT === 'dev' AND $this->login === 'login' AND $password === 'password') {
+            $this->firstname = 'dev';
+            $this->lastname = 'php';
+            $this->id = 1;
+            $this->mail = 'dev.php@lalouve.fr';
+            $this->setAdmin();
+            $this->admin = 1;
             return true;
+        } else {
+            $ldapResult = bindLdapUser($this->login, $password);
+            if (isset($ldapResult)) {
+                list($this->firstname, $this->lastname, $this->id, $this->mail) = $ldapResult;
+                $this->setAdmin();
+                return true;
+            }
         }
+
         return false;
     }
 
     // Récupération des données du membre depuis Odoo et la base locale
     public function getData()
     {
-        if(!isset($this->mail)){
+        if (!isset($this->mail)) {
             error_log("Mail not set while trying to connect Odoo!" . $this->login);
             return;
         }
         $proxy = new OdooProxy();
-        if ($proxy->connect() === true)
-        {
+
+        if ($proxy->connect() === true)  {
             // Si la connexion réussit, on récupère les prochains shifts de l'utilisateur
             //$this->nextShifts = formatShifts($proxy->getUserNextShifts($this->mail));
             $this->nextShifts = $proxy->getUserNextShifts($this->mail);
@@ -72,17 +201,19 @@ class User
             // TODO_LATER: gérer les erreurs qui peuvent survenir
             $infos = formatUserInfo($proxy->getUserInfo($this->mail));
             // On recopie simplement les infos récupérées dans les attributs de User
-            $this->street = isset($infos['street']) ? $infos['street'] : null;
+            $this->setStreet(isset($infos['street']) ? $infos['street'] : null);
             $this->phone = isset($infos['mobile']) ? $infos['mobile'] : null;
             $this->shift_type = isset($infos['shift_type']) ? $infos['shift_type'] : null;
             $this->cooperative_state = isset($infos['cooperative_state']) ? $infos['cooperative_state'] : null;
             $hasData = true;
-        }
-        else {
+        } else {
             error_log("Odoo connection error for user " . $this->login);
         }
     }
 
+    /**
+     *
+     */
     public function getAdminStatus()
     {
         // TODO_NOW: lire le statut admin dans LDAP ?
@@ -99,20 +230,243 @@ class User
         }
     }
 
-    public function hasData() { return $this->hasData; }
-    public function isAdmin() { return $this->admin; }
+    /**
+     *  getAdmin
+     *  @return bool
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     *     setAdmin
+     */
+    public function setAdmin()
+    {
+        // TODO_NOW: lire le statut admin dans LDAP ?
+        $db = new BaseDBModel;
+
+        //test si l user est Admin
+        if (!$db->fake) {
+            $sql = "SELECT mail FROM admins where mail='$this->login'";
+            $query = $db->db->prepare($sql);
+            $query->bindParam(':mail', $this->mail);
+            $query->execute();
+            if ($query->rowCount() > 0)
+                $this->admin=true;
+        }
+        return $this;
+    }
+
+    /**
+     *  setLogin
+     *  @param $login
+     *  @return $this
+     */
+    public function setLogin($login)
+    {
+	    $this->login = $login;
+        return $this;
+    }
+
+    /**
+     * @param $login
+     * @return null|string
+     */
+    public function getLogin($login)
+    {
+	    return $this->login;
+    }
+
+    /**
+     *  setStreet
+     *  @param $street
+     *  @return $this
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+        return $this;
+    }
+
+    /**
+     *  getStreet
+     *  @return string
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     *  setPhone
+     *  @param $phone
+     *  @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     *  getStreet
+     *  @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     *
+     *  @return datetime
+     */
+    public function hasData()
+    {
+        return $this->hasData;
+    }
+
+    /**
+     *  isAdmin
+     *  @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->admin;
+    }
 
     // TODO_NOW: faire un helper commun qui renvoie une chaîne "info non dispo" si élément pas setté
-    public function getFirstName() { return $this->firstname; }
-    public function getLastname() { return $this->lastname; }
-    public function getId() { return $this->id; }
-    public function getEmail() { return $this->mail; }
-    public function getPhone() { return $this->phone; }
-    public function getNextShifts() { return $this->nextShifts; }
+    // HMMM helper a mettre cote tpl pas dans les getter / setter 
+    /**
+     *  getFirstName
+     *  @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     *  setFirstname
+     *  @param $firstname
+     *  @return $thi
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+        return $this;
+    }
+
+    /**
+     *  setLastname
+     *  @param $lastname
+     *  @return $thi
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+    /**
+     *  getLastname
+     *  @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     *  setId
+     *  @param $id
+     *  @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     *  getId
+     *  @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     *  getEmail
+     *  @return string
+     */
+    public function getEmail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     *  @param $email
+     *  @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->mail = $email;
+        return $this;
+    }
+
+    /**
+     *  getCooperativeState
+     *  @return string
+     */
+    public function getCooperativeState()
+    {
+        return $this->cooperative_state;
+    }
+
+    /**
+     *  setCooperativeState
+     *  @param $cooperativeState
+     *  @return $this
+     */
+    public function setCooperativeState($cooperativeState)
+    {
+        $this->cooperative_state = $cooperativeState;
+        return $this;
+    }
+    
+    /**
+     *  getNextShifts
+     *  @return string
+     */
+    public function getNextShifts()
+    {
+        return $this->nextShifts;
+    }
+
+    /**
+     *  setNextShifts
+     *  @param $nextShifts
+     *  @return $this
+     */
+    public function setNextShifts($nextShifts)
+    {
+        $this->nextShifts = $nextShifts;
+        return $this;
+    }
 
     // Renvoie les paramètres d'affichage du statut dans un object:
     // la class Bootstrap d'alerte, une alerte courte et le message de détail
-    public function getStatusDisplay() {
+
+    /**
+     *  getStatusDisplay
+     *  @return array
+     */
+    public function getStatusDisplay()
+    {
         // Objet d'affichage à renvoyé qui va être rempli en fontion du statut
         $display = [
             'class' => '',
@@ -125,55 +479,22 @@ class User
             $display['class'] = 'alert-warning';
             $display['alert_msg'] = "T'es dingue mec";
             $display['full_msg'] = "Prends des vacances";
+        } else { // Sinon on se base sur 'cooperative_state'
+
+            $statecooperative = new Statecooperative($this->cooperative_state);
+
+            $display['class'] = $statecooperative->getClass();
+            $display['alert_msg'] = $statecooperative->getAlertsg();
+            $display['full_msg'] = $statecooperative->getFullmsg();
+
+            return $display;
         }
-        // Sinon on se base sur 'cooperative_state'
-        else {
-            $cooperative_state = $this->cooperative_state;
-            if (!isset($cooperative_state)) {
-                $display['class'] = 'alert-warning';
-                $display['alert_msg'] = 'Erreur';
-                $display['full_msg'] = 'Un problème technique nous empêche actuellement de connaitre votre status. Réessayez plus tard ou contactez le bureau des membres.';
-            }
-            // TODO_LATER: faire plus élégant que cette suite de conditions moches ?
-            else if ($cooperative_state === 'up_to_date') {
-                $display['class'] = 'alert-success';
-                $display['alert_msg'] = 'Bravo!';
-                $display['full_msg'] = "Vous êtes à jour";
-            }
-            else if ($cooperative_state === 'alert') {
-                $display['class'] = 'alert-warning';
-                $display['alert_msg'] = 'Attention';
-                $display['full_msg'] = 'Vous avez des services en retard';
-            }
-            else if ($cooperative_state === 'suspended') {
-                $display['class'] = 'alert-danger';
-                $display['alert_msg'] = 'Alerte';
-                $display['full_msg'] = 'Vous avez été suspendu, merci de contacter le bureau des membres';
-            }
-            else if ($cooperative_state === 'delay') {
-                $display['class'] = 'alert-danger';
-                $display['alert_msg'] = 'Alerte';
-                $display['full_msg'] = 'Votre participation est temportairement gelée';
-            }
-            else if ($cooperative_state === 'unpayed') {
-                $display['class'] = 'alert-danger';
-                $display['alert_msg'] = 'Alerte';
-                $display['full_msg'] = 'Vous avez un paiement en retard, vous êtes momentanément suspendu, merci de contacter le bureau des membres.';
-            }
-            else if ($cooperative_state === 'blocked') {
-                $display['class'] = 'alert-danger';
-                $display['alert_msg'] = 'Alerte';
-                $display['full_msg'] = 'Vous avez été bloqué, merci de contacter le bureau des membres.';
-            }
-            else if ($cooperative_state === 'unsuscribed') {
-                $display['class'] = 'alert-danger';
-                $display['alert_msg'] = 'Alerte';
-                $display['full_msg'] = 'Vous avez été désinscrit, merci de contacter le bureau des membres.';
-            }
-        }
-        return $display;
     }
 
+    /**
+     *  getCurrentWeek
+     *  @return mixed
+     */
     public function getCurrentWeek() {
         $calendar = array();
         $letters = array("A", "B", "C", "D");
@@ -192,4 +513,20 @@ class User
 
         return $calendar[(int) date("W")];
     }
+
+    /**
+     * Méthode qui crée l'unique instance de la classe
+     * si elle n'existe pas encore puis la retourne.
+     *
+     * @param void
+     * @return Singleton
+     */
+    public static function getInstance() 
+    {
+        if(is_null(self::$_instance)) {
+            self::$_instance = new Singleton();
+        }
+        return self::$_instance;
+    }
+
 }

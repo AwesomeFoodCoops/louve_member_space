@@ -1,5 +1,5 @@
 <?php
-    $display = $GLOBALS['User']->getStatusDisplay();
+    $display = $user->getStatusDisplay();
 ?>
 <div class="alert <?php echo $display['class']; ?> fade in text-centered">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
