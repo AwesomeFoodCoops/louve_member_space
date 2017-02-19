@@ -25,7 +25,7 @@ class Statecooperative
 
     /**
      *  fullmsg
-     *  @var
+     *  @var string
      */
     protected $fullmsg;
 
@@ -72,11 +72,12 @@ class Statecooperative
     public function __construct($state)
     {
         switch ($state) {
-            default: //STATE_WARNING
+	    case self::STATE_WARNING:
                     $class = 'alert-warning';
                     $alertmsg = 'Erreur';
                     $fullmsg = 'Un problème technique nous empêche actuellement de connaitre votre status. Réessayez plus tard ou contactez le bureau des membres.';
                 break;
+	    default:
             case self::STATE_UP_TO_DATE:
                     $class = 'alert-success';
                     $alertmsg = 'Bravo!';
@@ -114,7 +115,7 @@ class Statecooperative
                 break;
         }
         $this->setClass($class)
-            ->setAlertsg($alertmsg)
+            ->setAlertmsg($alertmsg)
             ->setFullmsg($fullmsg);
     }
 
@@ -139,10 +140,10 @@ class Statecooperative
     }
 
     /**
-     *  getAlertsg
+     *  getAlertsmg
      *  @return string
      */
-    public function getAlertsg()
+    public function getAlertmsg()
     {
         return $this->alertmsg;
     }
@@ -152,9 +153,9 @@ class Statecooperative
      *  @param $alertmsg
      *  @return $this
      */
-    public function setAlertsg($alertmsg)
+    public function setAlertmsg($alertmsg)
     {
-        $this->class = $alertmsg;
+        $this->alertmsg = $alertmsg;
         return $this;
     }
 
