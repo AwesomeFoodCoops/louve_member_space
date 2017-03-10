@@ -19,6 +19,15 @@ class ErrorController
      */
     public function index()
     {
+        $user = new User();
+        // Nécessaire pour la pastille "prochaine AG": accès au modèle d'assemblée générale
+        $event = new Event();
+        // Nécessaire pour la pastille "Urgences": accès au modèle d'urgence
+        $emergency = new Emergency();
+        //chargement des shift => surement à déplacer dans user
+        $myshift = new Shift();
+
+
         // load views
         require APP . 'view/_templates/header.php';
         // TODO_NOW: personnaliser le message d'erreur (mettre mailing liste de devs ?)

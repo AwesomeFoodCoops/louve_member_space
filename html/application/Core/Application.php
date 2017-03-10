@@ -4,7 +4,9 @@ namespace Louve\Core;
 
 use Louve\Model\User;
 use Louve\Model\Meeting;
+use Louve\Model\Session;
 use Louve\Model\Emergency;
+use Louve\Model\Token;
 
 class Application
 {
@@ -17,13 +19,57 @@ class Application
     /** @var array URL parameters */
     private $url_params = array();
 
-    /**
+     /**
      * "Start" the application:
      * Analyze the URL elements and calls the according controller/method or the fallback
      */
     public function __construct()
     {
-        // create array with URL parts in $url
+        session_start();
+	    // create array with URL parts in $url
+        $this->splitUrl();
+        // check for controller: no controller given ? then load start-page
+        if (!$this->url_controller ) {
+            $page = new \Louve\Controller\HomeController();
+            $page->index();
+        } elseif (file_exists(APP . 'Controller/' . ucfirst($this->url_controller) . 'Controller.php')) {
+            // here we did check for controller: does such a controller exist ?
+            // if so, then load this file and create this controller
+            // like \Mini\Controller\CarController
+            $controller = "\\Louve\\Controller\\" . ucfirst($this->url_controller) . 'Controller';
+            $this->url_controller = new $controller();
+            // check for method: does such a method exist in the controller ?
+            if (method_exists($this->url_controller, $this->url_action)) {
+                if (!empty($this->url_params)) {
+                    // Call the method and pass arguments to it
+                    call_user_func_array(array($this->url_controller, $this->url_action), $this->url_params);
+                } else {
+                    // If no parameters are given, just call the method without parameters, like $this->home->method();
+                    $this->url_controller->{$this->url_action}();
+                }
+            } else {
+                if (strlen($this->url_action) == 0) {
+                    // no action defined: call the default index() method of a selected controller
+                    $this->url_controller->index();
+                } else {
+                    header('location: ' . URL . 'error');
+                }
+            }
+        } else {
+            header('location: ' . URL . 'error');
+        }
+    }
+
+
+    /**
+     * "Start" the application:
+     * Analyze the URL elements and calls the according controller/method or the fallback
+     */
+    public function __construct2()
+    {
+        error_log(__METHOD__);
+
+	// create array with URL parts in $url
         // Parsing de l'url pour récupérer l'objet et sa méthode
         $this->splitUrl();
 
@@ -31,13 +77,19 @@ class Application
         session_start();
 
         // L'utilisateur est-il loggué ? (loggué = on a sérialisé son user dans la session)
+        // @TODO eviter les chargement de session un peu partout => modele User
+	//if ($user->isConnected()) {
         if (!isset($_SESSION['SerializedUser']))
         {
             $page = new \Louve\Controller\LoginController();
 
+		error_log(print_r($_POST, true));
+	    $user->login = $_POST['login'];
+	    $user->password = $_POST['password'];
+
             // Est-ce qu'il s'agit d'un POST pour essayer de se connecter ?
             if ((isset($_POST['login'])) AND (isset($_POST['password']))) {
-                $page->postCredentials($_POST['login'], $_POST['password']);
+                $page->postCredentials($_POST['login'], $_POST['password'], $_POST['token']);
             }
             else {
                 // Page de login
@@ -68,14 +120,14 @@ class Application
             } elseif (file_exists(APP . 'Controller/' . ucfirst($this->url_controller) . 'Controller.php')) {
                 // here we did check for controller: does such a controller exist ?
 
-                // if so, then load this file and create this controller
+                // i so, then load this file and create this controller
                 // like \Louve\Controller\CarController
-				$shortcontroller = ucfirst($this->url_controller);
-				$controller = "\\Louve\\Controller\\" . $shortcontroller . 'Controller';
+		$shortcontroller = ucfirst($this->url_controller);
+		$controller = "\\Louve\\Controller\\" . $shortcontroller . 'Controller';
                 $this->url_controller = new $controller();
 
-				// Cas particulier: les pages de Gestion ne sont accessibles que par les admin
-				if ($shortcontroller == 'Management' AND !$user->isAdmin())
+		// Cas particulier: les pages de Gestion ne sont accessibles que par les admin
+		if ($shortcontroller == 'Management' AND !$user->isAdmin())
 				{
 				    // TODO_LATER: fournir un message d'erreur
 					header('location: ' . URL . 'error');
