@@ -1,6 +1,5 @@
 <?php
-if( $GLOBALS['hasEmergency'])
-{
+if($emergency->isActive()) {
     $currentEmergency = $emergency->getCurrent();
 ?>
 <div class="alert alert-danger fade in text-centered">

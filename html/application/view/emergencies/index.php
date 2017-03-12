@@ -5,7 +5,6 @@
     $currentsEmergency = $emergency->getCurrents();
 
 
-   
     foreach ( $currentsEmergency as $currentEmergency) :
 
 ?>
