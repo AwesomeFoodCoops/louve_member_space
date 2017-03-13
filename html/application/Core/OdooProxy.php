@@ -88,7 +88,7 @@ class OdooProxy
             list($dd, $day, $month, $year, $hour, $minutes) = formatDate($nextTime);
 
             //todo a virer des qu on sait comment virer les faux shifts d odoo
-            if ($hour!="23") {
+            if ($hour!="23" || $hour!="22") {
                 $shift = new Shift();
                 $shift->date =  $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
                 //todo boucler sur les coordinateurs prevoir qu il va y en avoir plusieurs
