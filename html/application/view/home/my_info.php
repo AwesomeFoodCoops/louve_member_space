@@ -1,6 +1,5 @@
 <?php
 
-$user = $GLOBALS['User'];
 $display = $user->getStatusDisplay();
 
 ?>
