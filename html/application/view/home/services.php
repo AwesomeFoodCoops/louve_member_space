@@ -5,11 +5,9 @@
                 <h3><strong>Consulter les services volants</strong></h3>
                 <p> Vous êtes en équipe volante et souhaitez savoir quels sont les services disponibles pour vous inscrire ? Consultez les ici avant de contacter le bureau des membres. </p>
                <button class="btn btn-default disabled" style="border-color: red; color: red;"><span class="glyphicon glyphicon-apple"></span> Prochainement ici.</button>
-                <!--
                 <a href="<?php echo URL . 'shift/ftopshifts/'; ?>">
                 <button class="btn btn-default" style="border-color : green; color: green;" ><span class="glyphicon glyphicon-ok"></span>Je regarde les services.</button>  
                 </a>
-                -->
             </div>
         </div>
         <div class="col-xs-12 col-sm-6">
