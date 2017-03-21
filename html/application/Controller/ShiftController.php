@@ -14,7 +14,8 @@ namespace Louve\Controller;
 
 use Louve\Core\OdooProxy;
 use Louve\Model\Session;
-
+use Louve\Model\User;
+use Louve\Model\Emergency;
 // Un import 'use function Mini\Core\formatFtopShifts;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!
 // Donc on met les fonctions dans un fichier à part eton importe avec un require à l'ancienne
@@ -32,10 +33,12 @@ class ShiftController
     // Page d'affichage des shifts volants
     public function ftopShifts()
     {
+        $user = new User();
+        $emergency = new Emergency();
         // Récupération des shifts volants
         $ftopShiftDisplays = null;
         // TODO_LATER: proxy odoo qui appelle est lié à l'utilisateur = moche
-        $proxy = new OdooProxy($GLOBALS['User']->mail);
+        $proxy = new OdooProxy();
         $connectionStatus = $proxy->connect();
         if ($connectionStatus === true)
         {
@@ -50,5 +53,6 @@ class ShiftController
         require APP . 'view/_templates/header.php';
         require APP . 'view/shift/ftop.php';
         require APP . 'view/_templates/footer.php';
+        
     }
 }
