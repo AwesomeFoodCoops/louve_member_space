@@ -17,9 +17,9 @@ function formatUserInfo($userInfo)
 function formatDate($date)
 {
     // Mise dans la bonne timezone
-    $localizedDate = new DateTime($date.' +00');
-    //$localizedDate->setTimezone(new DateTimeZone('Europe/Paris'));
-    $localizedDate->setTimezone(new DateTimeZone('Europe/Berlin'));
+    $localizedDate = new DateTime($date.' +00', new DateTimeZone('Europe/Paris'));
+    $localizedDate->setTimezone(new DateTimeZone('Europe/Paris'));
+    //$localizedDate->setTimezone(new DateTimeZone('Europe/Berlin'));
     $localizedDate = $localizedDate->format('Y-m-d H:i:s');
     list ($date, $time) = explode (" ", $localizedDate);
     list($year, $month, $day) = explode("-", $date);
