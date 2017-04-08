@@ -107,12 +107,7 @@ class OdooProxy
                 } catch(Exception $e){
 
                 }   
-		try{                      
-		    if (!empty($result[$i]->me['struct']['user_ids'][2]->me['int']))                     
-		    $shift->addCoordinator($result[$i]->me['struct']['user_ids'][1]->me['int']);                 } 
-		    catch(Exception $e){                 
-		    } 		
-    
+
                 //$shift->addCoordinator($result[$i]->me['struct']['user_ids'][1]->me['int']);
                 //}
                 //$shift->coordinator_id = $shifts[$i]->me['struct']['user_id'][0]->me['int'];
