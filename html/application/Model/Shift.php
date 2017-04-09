@@ -6,7 +6,7 @@ namespace Louve\Model;
 use Louve\Core\OdooProxy;
 use Louve\Core\BaseDBModel;
 use Louve\Model\Coordinator;
-
+use Louve\Model\User;
 
 // Un import 'use function Mini\Core\formatShifts;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!
@@ -62,5 +62,17 @@ class Shift
             // Si la connexion réussit, on récupère le coordinateur du shift
             $this->coordinators[count($this->coordinators)] = $coordinateur;
         }
+    }
+
+        // souscription à un ftop shift
+    public function subscribe($date_begin, $shift_id, $shift_ticket_id)
+    {
+     
+      $user = new User();
+   
+      $proxy = new OdooProxy();
+      $values = $proxy->createFtopShiftRegistration($user->getIdOdoo(),$date_begin, $shift_id, $shift_ticket_id);
+      return $values;
+ 
     }
 }

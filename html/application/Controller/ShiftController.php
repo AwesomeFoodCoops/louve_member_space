@@ -16,6 +16,7 @@ use Louve\Core\OdooProxy;
 use Louve\Model\Session;
 use Louve\Model\User;
 use Louve\Model\Emergency;
+use Louve\Model\Shift;
 // Un import 'use function Mini\Core\formatFtopShifts;' devrait marcher en théorie mais
 // Pas avec Mini3, le projet sur lequel on s'est basé !!
 // Donc on met les fonctions dans un fichier à part eton importe avec un require à l'ancienne
@@ -53,6 +54,16 @@ class ShiftController
         require APP . 'view/_templates/header.php';
         require APP . 'view/shift/ftop.php';
         require APP . 'view/_templates/footer.php';
+        require APP . 'view/shift/scriptftop.php';
         
+    }
+    public function subscribeFtopShift()
+    {
+        $shift = new Shift();
+        
+        $result = $shift->subscribe(
+            $_REQUEST['date_begin'], $_REQUEST['shift_id'], $_REQUEST['shift_ticket_id']
+        );
+        echo json_encode($result);
     }
 }

@@ -36,6 +36,13 @@ class User
      */
     protected $id;
 
+
+    /**
+     *  idOdoo
+     *  @var integer
+     */
+    protected $idOdoo;
+
     /**
      *  login
      *  @var string
@@ -136,6 +143,7 @@ class User
             $this->shift_type = $that->shift_type;
             $this->cooperative_state = $that->shift_type;
             $this->hasData = $that->hasData;
+            $this->idOdoo = $that->idOdoo;
 
 		if (isset($_GET['debug'])) {
              echo '<pre>';
@@ -209,6 +217,7 @@ class User
             $infos = formatUserInfo($proxy->getUserInfo($this->mail));
             // On recopie simplement les infos récupérées dans les attributs de User
             $this->setStreet(isset($infos['street']) ? $infos['street'] : null);
+            $this->idOdoo = isset($infos['id']) ? $infos['id'] : null;
             $this->phone = isset($infos['mobile']) ? $infos['mobile'] : null;
             $this->shift_type = isset($infos['shift_type']) ? $infos['shift_type'] : null;
             $this->cooperative_state = isset($infos['cooperative_state']) ? $infos['cooperative_state'] : null;
@@ -404,6 +413,26 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     *  setIdOdoo
+     *  @param $idOdoo
+     *  @return $this
+     */
+    public function setIdOdoo($id)
+    {
+        $this->idOdoo = $id;
+        return $this;
+    }
+
+    /**
+     *  getIdOdoo
+     *  @return mixed
+     */
+    public function getIdOdoo()
+    {
+        return $this->idOdoo;
     }
 
     /**

@@ -12,6 +12,7 @@ $display = $user->getStatusDisplay();
             if( !isset($user) ){
                 echo ('<p>Données temporairement indisponible</p>');
             } else {
+               
                 echo ('<h4> Bonjour '. $user->getFirstname() . ' ' . $user->getLastname() .'.</h4>');
                 echo ('<p><strong>Votre numéro de téléphone :</strong> '. $user->getPhone() .' . <p>');
                 echo ('<p> <strong>Votre e-mail de contact :</strong> '. $user->getEmail() .'. <p>');

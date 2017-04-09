@@ -256,6 +256,9 @@ class OdooProxy
             new Value("seats_available", "string"),
             new Value("date_begin", "string"),
             new Value("shift_type", "string"),
+            new Value("shift_id", "string"),
+            new Value("shift_ticket_id", "string"),
+            
         );
 
         // Requête des champs
@@ -409,4 +412,65 @@ class OdooProxy
         // matche celui de la ligne
         return $uids_list;
     }
+
+    //inscription à un shift volant
+public function createFtopShiftRegistration($partner_id,$shift_ticket_begin_date,$shift_id,$shift_ticket_id)
+{
+    //return($partner_id.':'.$shift_ticket_begin_date.':'.$shift_id.':'.$shift_ticket_id);
+    
+        $odoo_table = 'shift.registration';
+        $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
+        $client->request_charset_encoding = 'UTF-8';
+        $client->setSSLVerifyPeer(0);
+
+        $val  = array (
+            new Value(
+                array(new Value('partner_id' , "string"),
+                      new Value('=',"string"),
+                      new Value($partner_id,"string")
+                ),"array"
+            ),
+            new Value(
+                array(new Value('date_begin' , "string"),
+                      new Value('=',"string"),
+                      new Value($shift_ticket_begin_date,"string")
+                ),"array"
+            ),
+             new Value(
+                array(new Value('shift_id' , "string"),
+                      new Value('=',"string"),
+                      new Value($shift_id,"string")
+                ),"array"
+            ),
+             new Value(
+                array(new Value('shift_ticket_id' , "string"),
+                      new Value('=',"string"),
+                      new Value($shift_ticket_id,"string")
+                ),"array"
+            ),
+            new Value(
+                array(new Value('status' , "string"),
+                      new Value('=',"string"),
+                      new Value("draft","string")
+                ),"array"
+            ), 
+        );
+
+            
+       $msg = new Request(
+            'execute', array(
+                new Value(ODOO_DB_NAME, 'string'),
+                new Value($this->connectionUid, 'int'),
+                new Value(ODOO_DB_PASSWORD, 'string'),
+                new Value($odoo_table, 'string'),
+                new Value('create', 'string'),
+                new Value($val, 'array')
+            )
+          
+        );
+       $response = $client->send($msg);
+       return $response;
+          
+}
+
 }
