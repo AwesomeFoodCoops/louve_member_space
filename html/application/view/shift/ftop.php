@@ -6,11 +6,10 @@
                 <table class = "table">
                 <thead>
                 <tr>
-                    
+                    <th>Service</th>
                     <th>Date</th>
                     <th>Heure de début</th>
                     <th>Places disponibles</th>
-                    <th>Inscription</th>
                 </tr>
                 </thead>
                 <tbody>
