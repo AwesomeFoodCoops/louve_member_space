@@ -423,39 +423,13 @@ public function createFtopShiftRegistration($partner_id,$shift_ticket_begin_date
         $client->request_charset_encoding = 'UTF-8';
         $client->setSSLVerifyPeer(0);
 
-        $val  = array (
-            new Value(
-                array(new Value('partner_id' , "string"),
-                      new Value('=',"string"),
-                      new Value($partner_id,"string")
-                ),"array"
-            ),
-            new Value(
-                array(new Value('date_begin' , "string"),
-                      new Value('=',"string"),
-                      new Value($shift_ticket_begin_date,"string")
-                ),"array"
-            ),
-             new Value(
-                array(new Value('shift_id' , "string"),
-                      new Value('=',"string"),
-                      new Value($shift_id,"string")
-                ),"array"
-            ),
-             new Value(
-                array(new Value('shift_ticket_id' , "string"),
-                      new Value('=',"string"),
-                      new Value($shift_ticket_id,"string")
-                ),"array"
-            ),
-            new Value(
-                array(new Value('status' , "string"),
-                      new Value('=',"string"),
-                      new Value("draft","string")
-                ),"array"
-            ), 
+        $val  = array(
+            'partner_id' => new Value($partner_id, "int"),
+            'date_begin' => new Value($shift_ticket_begin_date, "string"),
+            'shift_id' => new Value($shift_id, "int"),
+            'shift_ticket_id' => new Value($shift_ticket_id, "int"),
+            'state' => new Value("draft", "string")
         );
-
             
        $msg = new Request(
             'execute', array(
@@ -464,7 +438,7 @@ public function createFtopShiftRegistration($partner_id,$shift_ticket_begin_date
                 new Value(ODOO_DB_PASSWORD, 'string'),
                 new Value($odoo_table, 'string'),
                 new Value('create', 'string'),
-                new Value($val, 'array')
+                new Value($val, 'struct')
             )
           
         );
