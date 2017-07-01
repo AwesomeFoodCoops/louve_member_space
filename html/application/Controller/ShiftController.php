@@ -60,10 +60,55 @@ class ShiftController
     public function subscribeFtopShift()
     {
         $shift = new Shift();
-        
+        $proxy = new OdooProxy();
+        $connectionStatus = $proxy->connect();
         $result = $shift->subscribe(
             $_REQUEST['date_begin'], $_REQUEST['shift_id'], $_REQUEST['shift_ticket_id']
         );
         echo json_encode($result);
+    }
+
+    public function getdraftftopshift()
+    {
+        $shift = new Shift();
+        
+        $user = new User();
+      
+         $shifts = null;
+
+        $proxy = new OdooProxy();
+        $connectionStatus = $proxy->connect();
+        if ($connectionStatus === true)
+        {
+            // Si la connexion réussit, on récupère les prochains shifts volants
+            //$shifts = $proxy->getDraftFtopShiftRegistration($user->getIdOdoo());
+            $shifts = $proxy->getFtopShiftsRegistred($user->getEmail());
+        }
+
+
+    //die(var_dump($shifts));
+    $tabShift= array();
+    for($i = 0; $i < count($shifts) ; $i++)
+    {
+        
+
+        $nextTime = $shifts[$i]->me['struct']['date_begin']->me['string'];
+        $state = $shifts[$i]->me['struct']['state']->me['string'];
+        list($dd, $day, $month, $year, $hour, $minutes) = formatDate($nextTime);
+        
+        //todo a virer des qu on sait comment virer les faux shifts d odoo
+        if (($hour!="22"||$hour!="23")&&($state!="open"))
+        {
+        $shift = new Shift();
+        $shift->date =  $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' : ' . $hour . 'H' . $minutes;
+        $shift->id = null;
+        $shift->shift_id = null;
+        $shift->shift_ticket_id = null;
+        //$shift->coordinator_id = $shifts[$i]->me['struct']['user_id'][0]->me['int'];
+        //echo(var_dump($shifts[$i]));
+        $tabShift[$i] = $shift;
+        }
+    }
+          echo json_encode($tabShift);
     }
 }
