@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            <div class="louve-creneau">
-                <h3><strong>Consulter les services volants</strong></h3>
-                <p> Vous êtes en équipe volante et souhaitez savoir quels sont les services disponibles pour vous inscrire ? Consultez les ici avant de contacter le bureau des membres. </p>
+                        <div class="louve-creneau">
+                <h3><strong>Programmer un service volant</strong></h3>
+                <p>Si vous êtes membre de l’équipe volante, passez par ici pour voir les services disponibles et programmer le vôtre. L’annulation d’un service se fait uniquement par contact direct avec le bureau des membres.</p>
 
                 <a href="<?php echo URL . 'shift/ftopshifts/'; ?>">
                 <button class="btn btn-default" style="border-color : green; color: green;" ><span class="glyphicon glyphicon-ok"></span>Je regarde les services.</button>  
