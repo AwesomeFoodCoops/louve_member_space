@@ -27,6 +27,14 @@ class Shift
     public $date = null;
 
     /**
+     *  @var null
+     */
+    public $id = null;
+    public $shift_id = null;
+    public $shift_ticket_id = null;
+
+
+    /**
      *  liste des coordinators
      *  @var array
      */
@@ -71,7 +79,21 @@ class Shift
       $user = new User();
    
       $proxy = new OdooProxy();
+      
+      $connectionStatus = $proxy->connect();
       $values = $proxy->createFtopShiftRegistration($user->getIdOdoo(),$date_begin, $shift_id, $shift_ticket_id);
+      return $values;
+ 
+    }
+
+    public function getDraft()
+    {
+     
+      $user = new User();
+      $values = null;
+      $proxy = new OdooProxy();
+      $connectionStatus = $proxy->connect();
+      $values = $proxy->getDraftFtopShiftRegistration($user->getIdOdoo());
       return $values;
  
     }
