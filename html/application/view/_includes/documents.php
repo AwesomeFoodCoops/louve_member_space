@@ -30,6 +30,15 @@
 			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
 				<br/>Statuts de la coopérative</a></p>
 		</div>
+
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="https://docs.google.com/document/d/1RXdTmg8aFcEuv3UrD0LbnbT0LDLj7LAYuq3YCS9S0I4/edit" target="_blank">
+			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
+				<br/>AG et comité Ordre du Jour</a></p>
+		</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/modelePARKSLOPE.pdf" target="_blank">
+			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
+				<br/>Le Modèle Park Slope</a></p>
+		</div>
         </div>
     </div>
     </div>
