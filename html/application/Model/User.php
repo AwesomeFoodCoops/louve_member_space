@@ -121,7 +121,7 @@ class User
      */
     public function __construct()
     {
- 	$this->session = new Session();
+ 	    $this->session = new Session();
         //recharge les infos de la session
         //TODO check hasData timestamp
         if ($this->isLogged()) {
@@ -144,18 +144,7 @@ class User
             $this->cooperative_state = $that->shift_type;
             $this->hasData = $that->hasData;
             $this->idOdoo = $that->idOdoo;
-
-		if (isset($_GET['debug'])) {
-             echo '<pre>';
-            var_dump($that);
-
-
-            var_dump($this);
-            echo '</pre>';
-}
-            //die;
-            //~ parent::__construct();
-            //$this->getAdminStatus();
+            
         } else {
             //echo 'NOT LOGGED';
         }
@@ -170,6 +159,16 @@ class User
 	    return $this->session->isLogged();
     }
 
+    /**
+     *  renew session
+     *  @return bool
+     */
+    public function renew()
+    {
+        $this->getData();
+        $this->session->setUser($this);
+    }
+
     // Essaie de se connecter au LDAP et de récupérer des infos sur l'utilisateur
     public function bindLdap($password)
     {
@@ -180,7 +179,7 @@ class User
             $this->id = 1;
             $this->mail = 'dev.php@lalouve.fr';
             $this->setAdmin();
-	    $this->getData();
+	        $this->getData();
             $this->admin = 1;
             return true;
         } else {
@@ -188,7 +187,7 @@ class User
             if (isset($ldapResult)) {
                 list($this->firstname, $this->lastname, $this->id, $this->mail) = $ldapResult;
                 $this->setAdmin();
-		$this->getData();
+		        $this->getData();
                 return true;
             }
         }
@@ -204,15 +203,11 @@ class User
             return;
         }
         $proxy = new OdooProxy();
-//echo 'PROXY';
-//die;
+
         if ($proxy->connect() === true)  {
             // Si la connexion réussit, on récupère les prochains shifts de l'utilisateur
-            //$this->nextShifts = formatShifts($proxy->getUserNextShifts($this->mail));
+
             $this->nextShifts = $proxy->getUserNextShifts($this->mail);
-//echo '<pre>';
-//	    var_dump($this->nextShifts);
-//die;            
             // TODO_LATER: gérer les erreurs qui peuvent survenir
             $infos = formatUserInfo($proxy->getUserInfo($this->mail));
             // On recopie simplement les infos récupérées dans les attributs de User
@@ -417,7 +412,7 @@ class User
 
     /**
      *  setIdOdoo
-     *  @param $idOdoo
+     *  @param $id
      *  @return $this
      */
     public function setIdOdoo($id)

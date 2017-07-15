@@ -59,12 +59,15 @@ class ShiftController
     }
     public function subscribeFtopShift()
     {
+        $user = new User();
         $shift = new Shift();
         $proxy = new OdooProxy();
         $connectionStatus = $proxy->connect();
         $result = $shift->subscribe(
             $_REQUEST['date_begin'], $_REQUEST['shift_id'], $_REQUEST['shift_ticket_id']
         );
+
+        $user->renew();
         echo json_encode($result);
     }
 
