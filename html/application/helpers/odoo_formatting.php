@@ -83,11 +83,17 @@ function formatFtopShifts($shifts)
 {
     $result = array();
     $ftopIndex = 0;
+    
     for($i = 0; $i < count($shifts); $i++) {
+       //die(var_dump($shifts[$i]->me['struct']['shift_id']->me['array'][0][0]));
+       //die(var_dump($shifts[$i]));
+       //die(var_dump($shifts[2]->me['struct']['shift_id']->me['array'][0]->me['int']));
+       //die(var_dump($shifts[$i]->me['struct']['id']->me['int']));
         $shift_type = $shifts[$i]->me['struct']['shift_type']->me['string'];
         $available_seats = $shifts[$i]->me['struct']['seats_available']->me['int'];
         $name = $shifts[$i]->me['struct']['name']->me['string'];
-
+        $shift_id = $shifts[$i]->me['struct']['shift_id']->me['array'][0]->me['int'];
+        $shift_ticket_id = $shifts[$i]->me['struct']['id']->me['int'];
         // List only shifts which are kind 'volant' (id=2) and for which there are more than 1 available seats
         // TODO_NOW: !!! Clarify with ERP team which value should be used : "name" or "shift_type"!!!
         if ($available_seats <= 0 OR $name != "Volant") {
@@ -96,8 +102,9 @@ function formatFtopShifts($shifts)
         $time = $shifts[$i]->me['struct']['date_begin']->me['string'];
         list($dd, $day, $month, $year, $hour, $minutes) = formatDate($time);
         $result[$ftopIndex] = (
-            '<tr><td>' . $name . '</td><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' .
-            $hour . 'H' . $minutes . '</td><td>' . $available_seats . '</td></tr>'
+            '<tr><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' .
+            $hour . 'H' . $minutes . '</td><td>' . $available_seats . '</td><td>'.
+            '<input type="button" class="subscribeftop" name="inscription" value="inscription" data-date_begin="' . $time .'" data-date_begin_formated="' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' à ' . $hour . 'H' . $minutes . '" data-shift_id="' . $shift_id . '" data-shift_ticket_id="' . $shift_ticket_id . '"></td></tr>'
         );
         $ftopIndex++;
     }
