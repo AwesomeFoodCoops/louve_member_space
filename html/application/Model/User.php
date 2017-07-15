@@ -167,6 +167,7 @@ class User
     {
         $this->getData();
         $this->session->setUser($this);
+        return $this;
     }
 
     // Essaie de se connecter au LDAP et de récupérer des infos sur l'utilisateur
