@@ -153,13 +153,14 @@ class OdooProxy
             new Value("email", "string"),
             new Value("shift_type", "string"),
             new Value("cooperative_state", "string"),
+            new Value("final_ftop_point", "string"),
         );
 
         // Requête de ces champs sur les lignes sélectionnées
         $raw_values = self::getEntriesValues($client, $odoo_table, $user_entries, $field_list);
 
         $result = $raw_values->value()->scalarval();
-
+        //die(var_dump($result));
         // On a une liste mais logiquement on est juste censé avoir une et une seule ligne
         // pour l'utilisateur
         return $result[0];
@@ -214,6 +215,10 @@ class OdooProxy
         $client->setSSLVerifyPeer(0);
         $t = time();
         $date = Date::iso8601Encode($t);
+        $d = substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2).'T18:00:00';
+        $t=strtotime($d . ' +1 day');
+        $date = Date::iso8601Encode($t);
+        
         $domain_filter = array (
             new Value(
                 array(new Value('name' , "string"),
@@ -419,9 +424,6 @@ class OdooProxy
     //inscription à un shift volant
 public function createFtopShiftRegistration($partner_id,$shift_ticket_begin_date,$shift_id,$shift_ticket_id)
 {
-//echo("Params :<br>");
-//echo("partnerid:".$partner_id.",shift_ticket_begin_date:".$shift_ticket_begin_date."shift_id:".$shift_id."shift_ticket_id".$shift_ticket_id);
-
     
         $odoo_table = 'shift.registration';
         $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
@@ -429,58 +431,15 @@ public function createFtopShiftRegistration($partner_id,$shift_ticket_begin_date
         $client->setSSLVerifyPeer(0);
 
 
-        //$val  = array (
-          
-
-          //'user_ids'
-                /*
-            new Value(
-
-                array(new Value('partner_id' , "string"),
-                      new Value('=',"string"),
-                      new Value($partner_id,"string")
-                ),"array"
-                
-            ),
-  
-         
-           
-            new Value(
-                array(new Value('date_begin' , "string"),
-                      new Value('=',"string"),
-                      new Value($shift_ticket_begin_date,"string")
-                ),"array"
-            ),
-        
-            
-
-             new Value(
-                array(new Value('shift_id' , "string"),
-                      new Value('=',"string"),
-                      new Value($shift_id,"string")
-                ),"array"
-            ),
-             new Value(
-                array(new Value('shift_ticket_id' , "string"),
-                      new Value('=',"string"),
-                      new Value($shift_ticket_id,"string")
-                ),"array"
-            ),
-            new Value(
-                array(new Value('state' , "string"),
-                      new Value('=',"string"),
-                      new Value("draft","string")
-                ),"array"
-            ), 
-            
-        );
-*/
         $val  = array(
             'partner_id' => new Value($partner_id, "int"),
             'date_begin' => new Value($shift_ticket_begin_date, "string"),
             'shift_id' => new Value($shift_id, "int"),
-            'shift_ticket_id' => new Value($shift_ticket_id, "int"),
+            'shift_ticket_id' => new Value($shift_ticket_id, "int")
+            /*inscription directe
+            ,
             'state' => new Value("draft", "string")
+            */
         );
             
        $msg = new Request(
@@ -500,81 +459,7 @@ public function createFtopShiftRegistration($partner_id,$shift_ticket_begin_date
           
 }
 
-    public function getFtopShiftsRegistred($mail)
-    {
-        // TODO_NOW En dév local renvoyer des infos bidons
-        if (ENVIRONMENT === 'dev') {
-            return;
-        }
-
-        
-        $odoo_table = "shift.registration";
-        $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
-        $client->request_charset_encoding = 'UTF-8';
-        $client->setSSLVerifyPeer(0);
-
-        $domain_filter = array (
-       
-            new Value(
-                 
-                array(new Value('email' , "string"),
-                      new Value('=',"string"),
-                      new Value($mail,"string")
-                ),"array"
-            ),
-      /*
-            new Value(
-                array(new Value('state' , "string"),
-                      new Value('=',"string"),
-                      new Value("draft","string")
-                ),"array"
-            ), 
-*/
-            
-        );
-
-        $msg = new Request(
-            'execute', array(
-                new Value(ODOO_DB_NAME, 'string'),
-                new Value($this->connectionUid, 'int'),
-                new Value(ODOO_DB_PASSWORD, 'string'),
-                new Value($odoo_table, 'string'),
-                new Value('search', 'string'),
-                new Value($domain_filter, 'array')
-            )
-        );
-
-        $response = $client->send($msg);
-       //die(var_dump($response));
-
-try{
-        $uids = $response->value()->scalarval();
-        $uids_list = array();
-
-        // Liste des IDs de shift volant
-        for($i = 0; $i < count($uids); $i++){
-            $uids_list[]= new Value($uids[$i]->me['int'], 'int');
-        }
-
-        // Définition des champs qu'on va vouloir récupérer dans ces lignes
-        $field_list = array(
-            new Value("partner_id", "string"),
-            new Value("state", "string"),
-            new Value("date_begin", "string"),
-            new Value("state", "string"),
-            
-        );
-
-        // Requête des champs
-        $raw_values = self::getEntriesValues($client, $odoo_table, $uids_list, $field_list);
-
-        $result = $raw_values->value()->scalarval();
-        //die(var_dump($result));
-        return $result;
-        }
-        catch (Exception $e){
-            return;
-        }
-    }
+   
+    
 
 }
