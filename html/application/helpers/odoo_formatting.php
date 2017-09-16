@@ -10,6 +10,7 @@ function formatUserInfo($userInfo)
         "shift_type" => $userInfo->me['struct']['shift_type']->me['string'],
         "cooperative_state" => $userInfo->me['struct']['cooperative_state']->me['string'],
         "id" => $userInfo->me['struct']['id']->me['int'],
+        "final_ftop_point" => $userInfo->me['struct']['final_ftop_point']->me['int'],
     ];
 
     //~ TODO replace by return xml_decode($userInfo);
