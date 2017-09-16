@@ -215,8 +215,16 @@ class OdooProxy
         $client->setSSLVerifyPeer(0);
         $t = time();
         $date = Date::iso8601Encode($t);
-        $d = substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2).'T18:00:00';
-        $t=strtotime($d . ' +1 day');
+        
+        if (intval(substr($date,9,2))>=18 ) {
+        $d = substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2).'T00:00:00';
+        $t=strtotime($d . ' +2 day');
+        }
+        else
+        {
+            $d = substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2).'T00:00:00';
+            $t=strtotime($d . ' +1 day');   
+        }
         $date = Date::iso8601Encode($t);
         
         $domain_filter = array (
