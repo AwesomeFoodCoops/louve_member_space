@@ -103,6 +103,13 @@ class User
      */
     protected $shift_type;
 
+
+    /**
+     *  compteur volant
+     *  @var
+     */
+    protected $final_ftop_point;
+
     /**
      *  cooperative_state Statut coopérateur: à jour ? retard, etc...
      *  @var string
@@ -141,9 +148,10 @@ class User
             $this->street = $that->street;
             $this->phone = $that->phone;
             $this->shift_type = $that->shift_type;
-            $this->cooperative_state = $that->shift_type;
+            $this->cooperative_state = $that->cooperative_state;
             $this->hasData = $that->hasData;
             $this->idOdoo = $that->idOdoo;
+            $this->final_ftop_point = $that->final_ftop_point;
             
         } else {
             //echo 'NOT LOGGED';
@@ -210,14 +218,19 @@ class User
 
             $this->nextShifts = $proxy->getUserNextShifts($this->mail);
             // TODO_LATER: gérer les erreurs qui peuvent survenir
+            
+            
             $infos = formatUserInfo($proxy->getUserInfo($this->mail));
+            //die(var_dump($infos['cooperative_state']));
             // On recopie simplement les infos récupérées dans les attributs de User
             $this->setStreet(isset($infos['street']) ? $infos['street'] : null);
+            $this->setFinal_ftop_point(isset($infos['final_ftop_point']) ? $infos['final_ftop_point'] : 0);
             $this->idOdoo = isset($infos['id']) ? $infos['id'] : null;
             $this->phone = isset($infos['mobile']) ? $infos['mobile'] : null;
             $this->shift_type = isset($infos['shift_type']) ? $infos['shift_type'] : null;
             $this->cooperative_state = isset($infos['cooperative_state']) ? $infos['cooperative_state'] : null;
             $this->hasData = true;
+            
         } else {
             error_log("Odoo connection error for user " . $this->login);
         }
@@ -323,7 +336,7 @@ class User
     }
 
     /**
-     *  getStreet
+     *  getPhone
      *  @return string
      */
     public function getPhone()
@@ -490,6 +503,26 @@ class User
         return $this;
     }
 
+        /**
+     *  setFinal_ftop_point
+     *  @param $final_ftop_point
+     *  @return $this
+     */
+    public function setFinal_ftop_point($final_ftop_point)
+    {
+        $this->final_ftop_point= $final_ftop_point;
+        return $this;
+    }
+
+    /**
+     *  getFinal_ftop_point
+     *  @return string
+     */
+    public function getFinal_ftop_point()
+    {
+        return $this->final_ftop_point;
+    }
+
     // Renvoie les paramètres d'affichage du statut dans un object:
     // la class Bootstrap d'alerte, une alerte courte et le message de détail
 
@@ -499,6 +532,8 @@ class User
      */
     public function getStatusDisplay()
     {
+        
+        
         //echo 'Statecooperative';die;
 	// Objet d'affichage à renvoyé qui va être rempli en fontion du statut
         $display = [
@@ -513,7 +548,7 @@ class User
             $display['alert_msg'] = "T'es dingue mec";
             $display['full_msg'] = "Prends des vacances";
         } else { // Sinon on se base sur 'cooperative_state'
-
+            
             $statecooperative = new Statecooperative($this->cooperative_state);
 
             $display['class'] = $statecooperative->getClass();

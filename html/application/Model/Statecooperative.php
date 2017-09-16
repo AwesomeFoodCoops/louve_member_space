@@ -71,6 +71,7 @@ class Statecooperative
 
     public function __construct($state)
     {
+       
         switch ($state) {
 	    case self::STATE_WARNING:
                     $class = 'alert-warning';
