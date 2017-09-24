@@ -39,6 +39,10 @@
 			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
 				<br/>Le Modèle Park Slope</a></p>
 		</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/Manuel_membres_La_louve.pdf" target="_blank">
+			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
+				<br/>Manuel des membres</a></p>
+		</div>
         </div>
     </div>
     </div>
