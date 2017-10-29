@@ -4,7 +4,7 @@
         <div class="louve-creneau">
 	    <h3><strong> Rendez-vous au magasin <strong/></h3>
             <h4>mardi : 13h30 - 16h</h4>
-            <h4>mercredi - vendredi : 13h30 - 20h</h4>
+            <h4>du mercredi au vendredi : 13h30 - 20h</h4>
             <h4>samedi : 10 - 16h</h4>
         </div>
     </div>
