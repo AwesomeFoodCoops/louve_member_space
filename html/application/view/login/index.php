@@ -31,7 +31,7 @@
         <p>
             <?php if (isset($error_msg)) {echo $error_msg;} ?>
         </p>
-        <input type="text" id="inputID" name="login" class="form-control" placeholder="Entrez votre identifiant Louve" required autofocus>
+        <input type="text" id="inputID" name="login" class="form-control" placeholder="Entrez votre adresse mail" required autofocus>
         <p></p>
         <label for="inputPassword" class="sr-only">Mot de passe</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required>
