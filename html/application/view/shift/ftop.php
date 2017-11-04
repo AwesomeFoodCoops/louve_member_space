@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="row">
-
+  
+<!--
     <div class="row">
         <div class="col-lg-12">
             <h3 class=" ui horizontal divider"><strong>Mes infos</strong></h3>
@@ -15,6 +15,8 @@
             </div>
         </div>
     </div>
+-->
+      <div class="row">
     <div class="col-xs-12">
         <h3  class="entete ui horizontal divider"><strong>Services volants disponibles</strong></h3>
             <div class="louve-creneau">
