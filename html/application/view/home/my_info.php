@@ -18,7 +18,7 @@ $display = $user->getStatusDisplay();
                 echo ('<p> <strong>Votre e-mail de contact :</strong> '. $user->getEmail() .' </p>');
                 echo ('<p> <strong>Votre numéro de membre :</strong> '. $user->getId() .' </p>');
                
-                //echo ('<p><strong>Compteur vacations :</strong> '. $user->getFinal_ftop_point() .'</p>');
+                echo ('<p><strong>Compteur pour l&acute;équipe volante :</strong> '. $user->getFinal_ftop_point() .'</p>');
                 echo ('<p><strong>'.$display['alert_msg'].'</strong> '.$display['full_msg'].'</p>');
                 echo ('<p> <br/><strong>Pour modifier ces informations contactez le bureau des membres. </strong><p>');
 		echo ('<a href="' . URL . '/selfservice">
