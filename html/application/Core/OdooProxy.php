@@ -443,11 +443,9 @@ public function createFtopShiftRegistration($partner_id,$shift_ticket_begin_date
             'partner_id' => new Value($partner_id, "int"),
             'date_begin' => new Value($shift_ticket_begin_date, "string"),
             'shift_id' => new Value($shift_id, "int"),
-            'shift_ticket_id' => new Value($shift_ticket_id, "int")
-            /*inscription directe
-            ,
-            'state' => new Value("draft", "string")
-            */
+            'shift_ticket_id' => new Value($shift_ticket_id, "int"),
+            'state' => new Value("open", "string")
+            
         );
             
        $msg = new Request(
