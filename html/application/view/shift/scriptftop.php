@@ -13,6 +13,8 @@ $.getJSON("/shift/subscribeftopshift/", data, function (result) {
 if(result.errno=="-1")
 {
 alert('Vous ètes déjà inscrit sur ce service ou vous avez dépassé votre quota quotidien de service');
+var arr=result.raw_data.split('<value><string>')[1].split('</string></value>')[0].replace('None','');
+alert("Message du bureau des membres :\n"+arr);
 }
 else
 {
