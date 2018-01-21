@@ -30,5 +30,25 @@
 		
         </div>
     </div>
+
+
+
     </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3  class="entete ui horizontal divider"><strong>La Louve recrute</strong></h3>
+            <div class="louve-box">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/OFFREEMPLOI_Comptable.pdf" target="_blank">
+                <p  ><img src="img/team.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
+                    <br/>Comptable</a></p>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" ><a href="pdfs/OFFREEMPLOI_Charge_appro.pdf" target="_blank">
+                <p  ><img src="img/team.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
+                    <br/>Chargé-e d’approvisionnement</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
