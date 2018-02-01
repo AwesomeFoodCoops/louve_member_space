@@ -34,6 +34,7 @@
 
 
     </div>
+<!--
     <div class="row">
         <div class="col-xs-12">
             <h3  class="entete ui horizontal divider"><strong>La Louve recrute</strong></h3>
@@ -49,6 +50,6 @@
             </div>
         </div>
     </div>
-
+-->
 
 </div>
