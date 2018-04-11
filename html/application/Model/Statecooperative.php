@@ -87,7 +87,7 @@ class Statecooperative
             case self::STATE_ALERT:
                     $class = 'alert-warning';
                     $alertmsg = 'Attention';
-                    $fullmsg = 'Vous avez des services en retard';
+                    $fullmsg = 'Vous avez un ou plusieurs rattrapages à faire';
                 break;
             case self::STATE_SUSPENDED:
                     $class = 'alert-danger';
@@ -97,7 +97,8 @@ class Statecooperative
             case self::STATE_DELAY:
                     $class = 'alert-danger';
                     $alertmsg = 'Alerte';
-                    $fullmsg = 'Votre participation est temportairement gelée';
+                    $fullmsg = 'Vous avez un ou plusieurs rattrapages à faire';
+                    //$fullmsg = 'Votre participation est temportairement gelée';
                 break;
             case self::STATE_UNPAYED:
                     $class = 'alert-danger';
