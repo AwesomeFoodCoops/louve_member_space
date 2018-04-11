@@ -113,7 +113,7 @@ class Statecooperative
             case self::STATE_UNSUSCRIBED:
                     $class = 'alert-danger';
                     $alertmsg = 'Alerte';
-                    $fullmsg = 'Vous avez été désinscrit, merci de contacter le bureau des membres.';
+                    $fullmsg = 'Vous avez été désinscrit de votre équipe, merci de contacter le bureau des membres.';
                 break;
         }
         $this->setClass($class)
