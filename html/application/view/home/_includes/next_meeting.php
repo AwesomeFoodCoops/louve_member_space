@@ -24,7 +24,7 @@
             <h4>du mercredi au vendredi : 13h30 - 20h</h4>
             <h4>samedi : 10 - 16h</h4>			
 	    <h4> <button type="button" class="btn btn-default btn-sm">
-		    <a href="tel:0186959190"><span class="glyphicon glyphicon-earphone"></span> 01 86 95 91 90</a>
+		    <a href="tel:0186959190"><span class="glyphicon glyphicon-earphone"></span> 01 86 95 91 90</a> <a href="tel:0625395650"><span class="glyphicon glyphicon-earphone"></span> 06 25 39 56 50</a>
         </button>
 		</h4>
 		
