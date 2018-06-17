@@ -57,9 +57,9 @@
 	}
 	else if ($day == 'Sun')
 	{
-		$debut = "08:30:00";
-		$imminente = "11:30:00";
-		$fin = "12:30:00";
+		$debut = "09:00:00";
+		$imminente = "12:00:00";
+		$fin = "13:00:00";
 
 		if (time() >= strtotime($debut) && time() <= strtotime($fin)) {
 			if (time() >= strtotime($imminente))
@@ -70,7 +70,7 @@
 		else{
 			echo '<h3 style="color : red">Actuellement fermé</h3>';
 		}
-		echo '<h4>Le magasin est ouvert le dimanche de 8h30 à 12h00.</h4>';
+		echo '<h4>Le magasin est ouvert le dimanche de 9h00 à 13h00.</h4>';
 		/*if ($hrs < 8 OR $hrs > 13)
 			echo '<h3 style="color : red">Actuellement fermé</h3>';
 		else if ($hrs == 8 AND $min < 30)
