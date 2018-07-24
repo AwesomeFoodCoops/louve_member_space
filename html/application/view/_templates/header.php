@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>La Louve &rsaquo; Mon Espace</title>
+        <meta http-equiv="refresh" content="600"> 
         <link href="<?php echo URL; ?>css/bootstrap.min.css" rel="stylesheet" type='text/css'>
         <link href="<?php echo URL; ?>css/louve-styles.css" rel="stylesheet" type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,900,300' rel='stylesheet' type='text/css'>
