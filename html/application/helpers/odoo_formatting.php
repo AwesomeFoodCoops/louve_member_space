@@ -84,7 +84,10 @@ function formatFtopShifts($shifts)
 {
     $result = array();
     $ftopIndex = 0;
+
     
+    usort($shifts, "cmpDate");
+    //die(var_dump($shifts));
     for($i = 0; $i < count($shifts); $i++) {
        //die(var_dump($shifts[$i]->me['struct']['shift_id']->me['array'][0][0]));
        //die(var_dump($shifts[$i]));
@@ -102,12 +105,20 @@ function formatFtopShifts($shifts)
         }
         $time = $shifts[$i]->me['struct']['date_begin']->me['string'];
         list($dd, $day, $month, $year, $hour, $minutes) = formatDate($time);
+        
         $result[$ftopIndex] = (
             '<tr><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' .
             $hour . 'H' . $minutes . '</td><td>' . $available_seats . '</td><td>'.
             '<input type="button" class="subscribeftop" name="inscription" value="inscription" data-date_begin="' . $time .'" data-date_begin_formated="' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' à ' . $hour . 'H' . $minutes . '" data-shift_id="' . $shift_id . '" data-shift_ticket_id="' . $shift_ticket_id . '"></td></tr>'
         );
+        
+        
+
         $ftopIndex++;
     }
     return $result;
+}
+function cmpDate($a, $b)
+{
+    return strcmp($a->me['struct']['date_begin']->me['string'], $b->me['struct']['date_begin']->me['string']);
 }
