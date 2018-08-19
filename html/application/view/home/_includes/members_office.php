@@ -28,8 +28,8 @@
                 </div>
                 <div class="col-md-4 col-xs-12">
                     <h3>Dimanche</h3>
-                    <p>  <button type="button" class="btn btn-default active">7h15-10h15</button></p>
-                    <p>  <button type="button" class="btn btn-default active">10h00-13h00</button></p>
+                    <p>  <button type="button" class="btn btn-default active">8h30-11h30</button></p>
+                    <p>  <button type="button" class="btn btn-default active">11h15-14h15</button></p>
                 </div>
             </div>
         </div>
