@@ -136,7 +136,7 @@ class User
 
             $that = & $this;
             $that = unserialize($this->session->getSerializedUser());
-
+            //die($that->shift_type);
             //POURQUOI je ne peux pas copier ?! directement this ??!!
             $this->id = $that->id;
             $this->login = $that->login;
@@ -221,15 +221,17 @@ class User
             
             
             $infos = formatUserInfo($proxy->getUserInfo($this->mail));
-            //die(var_dump($infos['cooperative_state']));
+            
             // On recopie simplement les infos récupérées dans les attributs de User
             $this->setStreet(isset($infos['street']) ? $infos['street'] : null);
             $this->setFinal_ftop_point(isset($infos['final_ftop_point']) ? $infos['final_ftop_point'] : 0);
             $this->idOdoo = isset($infos['id']) ? $infos['id'] : null;
             $this->phone = isset($infos['mobile']) ? $infos['mobile'] : null;
             $this->shift_type = isset($infos['shift_type']) ? $infos['shift_type'] : null;
+            // standard ou ftop
             $this->cooperative_state = isset($infos['cooperative_state']) ? $infos['cooperative_state'] : null;
             $this->hasData = true;
+            
             
         } else {
             error_log("Odoo connection error for user " . $this->login);
@@ -322,6 +324,14 @@ class User
     public function getStreet()
     {
         return $this->street;
+    }
+    /**
+     *  getShiftType
+     *  @return string
+     */
+    public function getShiftType()
+    {
+        return $this->shift_type;
     }
 
     /**
