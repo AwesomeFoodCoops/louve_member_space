@@ -29,7 +29,7 @@ $display = $user->getStatusDisplay();
         <?php
           }
                 else{
-                    echo ('Programmer un service volant');
+                    //echo ('Programmer un service volant');
                 
                 ?>
         <div class="col-xs-12 col-sm-6">
