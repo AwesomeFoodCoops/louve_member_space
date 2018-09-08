@@ -1,6 +1,8 @@
 <?php
 
 use Louve\Model\Shift;
+//use Louve\Model\Session;
+
 // Transforme un résultat de l'api Odoo dans un format moins dégueu :)
 function formatUserInfo($userInfo)
 {
@@ -53,6 +55,7 @@ function formatDate($date)
 // TODO_LATER: beaucoup de choses à améliorer ici
 function formatShifts($shifts)
 {
+
     //die(var_dump($shifts));
     $result = array();
     for($i = 0; $i < count($shifts) AND $i < 3; $i++)
@@ -80,8 +83,10 @@ function formatShifts($shifts)
 
 // Formattage des shifts volants
 // TODO: à refactoriser avec la fonction au dessus
-function formatFtopShifts($shifts)
+function formatFtopShifts($shifts,$shift_type_user)
 {
+    
+
     $result = array();
     $ftopIndex = 0;
 
@@ -105,12 +110,29 @@ function formatFtopShifts($shifts)
         }
         $time = $shifts[$i]->me['struct']['date_begin']->me['string'];
         list($dd, $day, $month, $year, $hour, $minutes) = formatDate($time);
-        
+        //08 aoùt 2018
+        $weekdiff = datediffInWeeks('2018-08-02 00:00:00',$time) % 4;
+        /*        
+        echo("time:");
+        echo($time);
+        echo("weekdiff:");
+        echo($weekdiff);
+        echo("/shift:");
+        echo($shift_type_user);
+        echo("<br>");
+        */
+
+        if($weekdiff!=0 or $shift_type_user!='standard')
+        {
         $result[$ftopIndex] = (
             '<tr><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' .
             $hour . 'H' . $minutes . '</td><td>' . $available_seats . '</td><td>'.
             '<input type="button" class="subscribeftop" name="inscription" value="inscription" data-date_begin="' . $time .'" data-date_begin_formated="' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' à ' . $hour . 'H' . $minutes . '" data-shift_id="' . $shift_id . '" data-shift_ticket_id="' . $shift_ticket_id . '"></td></tr>'
         );
+        }
+        else{
+            $result[$ftopIndex] = '';
+        }
         
         
 
@@ -121,4 +143,12 @@ function formatFtopShifts($shifts)
 function cmpDate($a, $b)
 {
     return strcmp($a->me['struct']['date_begin']->me['string'], $b->me['struct']['date_begin']->me['string']);
+}
+
+function datediffInWeeks($date1, $date2)
+{
+    if($date1 > $date2) return datediffInWeeks($date2, $date1);
+    $first = DateTime::createFromFormat('Y-m-d H:i:s', $date1);
+    $second = DateTime::createFromFormat('Y-m-d H:i:s', $date2);
+    return floor($first->diff($second)->days/7);
 }
