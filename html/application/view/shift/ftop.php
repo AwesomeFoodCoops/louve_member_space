@@ -9,7 +9,7 @@
             if( !isset($user) ){
                 echo ('<p>Données temporairement indisponible</p>');
             } else {
-                echo ('<p><strong>Compteur pour l&acute;équipe volante :</strong> '. $user->getFinal_ftop_point() .'</p>');
+                echo ('<p><strong>Compteur vacations :</strong> '. $user->getFinal_ftop_point() .'</p>');
             }
             ?>
             </div>
@@ -18,7 +18,7 @@
 
       <div class="row">
     <div class="col-xs-12">
-        <h3  class="entete ui horizontal divider"><strong>Services volants disponibles</strong></h3>
+        <h3  class="entete ui horizontal divider"><strong>Services disponibles</strong></h3>
             <div class="louve-creneau">
                 <div class = "table-responsive">
                 <table class = "table">
