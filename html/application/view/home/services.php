@@ -1,5 +1,37 @@
+<?php
+
+$display = $user->getStatusDisplay();
+
+?>
 <div class="container">
     <div class="row">
+    <?php
+                //echo ($user->getShiftType());
+                if( $user->getShiftType()=='standard' ){
+                    //echo ('Programmer un service');
+              
+                ?>
+        <div class="col-xs-12 col-sm-6">
+                        <div class="louve-creneau">
+                <h3><strong>
+                Programmer un service anticipé
+
+                </strong></h3>
+                <p>Si vous êtes membre d’une équipe ABCD, vous pouvez programmer des services anticipés en passant par ici. <br>
+                Accumuler des services anticipés est le seul moyen pour les membres des équipes ABCD de faire des “services en avance” pour demander ensuite un congé anticipé --période de 8 semaines minimum pendant laquelle vous n’avez pas besoin de faire vos services tout en gardant le doit de faire vos courses. <br>
+                Merci de consulter les manuel de membres pour les détails.</p>
+
+                <a href="<?php echo URL . 'shift/ftopshifts/'; ?>">
+                <button class="btn btn-default" style="border-color : green; color: green;" ><span class="glyphicon glyphicon-ok"></span>Je regarde les services.</button>  
+                </a>
+            </div>
+        </div>
+        <?php
+          }
+                else{
+                    echo ('Programmer un service volant');
+                
+                ?>
         <div class="col-xs-12 col-sm-6">
                         <div class="louve-creneau">
                 <h3><strong>Programmer un service volant</strong></h3>
@@ -10,6 +42,9 @@
                 </a>
             </div>
         </div>
+        <?php
+          }
+          ?>
         <div class="col-xs-12 col-sm-6">
             <div class="louve-creneau">
                 <h3><strong>Echanger son service</strong></h3>
