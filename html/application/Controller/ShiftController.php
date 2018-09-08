@@ -44,7 +44,7 @@ class ShiftController
         if ($connectionStatus === true)
         {
             // Si la connexion réussit, on récupère les prochains shifts volants
-            $ftopShiftDisplays = formatFtopShifts($proxy->getFtopShifts());
+            $ftopShiftDisplays = formatFtopShifts($proxy->getFtopShifts(),$user->getShiftType());
         }
         else
         {
