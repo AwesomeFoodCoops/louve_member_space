@@ -33,6 +33,10 @@
 			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
 				<br/>Guide de sécurité incendie</a></p>
 		</div>
+		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="https://vimeo.com/273920980" target="_blank">
+			<p  ><img src="img/picto_video.jpg" style="width:80px;" alt="doc" class="img-responsive img-center" />
+				<br/>Visite de sécurité incendie</a></p>
+		</div>
 		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/statutsLouve.pdf" target="_blank">
 			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
 				<br/>Statuts de la coopérative</a></p>
