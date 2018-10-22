@@ -17,7 +17,7 @@ $display = $user->getStatusDisplay();
                 Programmer un service anticipé
 
                 </strong></h3>
-                <p>Si vous êtes membre d’une équipe ABCD, vous pouvez programmer des services anticipés en passant par ici. <br>
+                <p>Si vous êtes membre d’une équipe ABCD, <strong>et si vous prévoyez manquer au moins 2 services consécutifs</strong>, vous pouvez programmer des services anticipés en passant par ici. <br>
                 Accumuler des services anticipés est le seul moyen pour les membres des équipes ABCD de faire des “services en avance” pour demander ensuite un congé anticipé --période de 8 semaines minimum pendant laquelle vous n’avez pas besoin de faire vos services tout en gardant le doit de faire vos courses. <br>
                 Merci de consulter les manuel de membres pour les détails.</p>
 
