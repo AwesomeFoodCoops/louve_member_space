@@ -32,12 +32,13 @@
 
 <div>
     <div class="col-xs-12 col-sm-2">
-        <h3 class="entete ui horizontal divider"><strong>Semaine</strong><div id="subtitle">en cours</h3><div></h3>
+        <h3 class="entete ui horizontal divider"><strong>Semaine</strong><div id="subtitle"><strong>en cours</strong></h3><div></h3>
         <div class="louve-creneau">
             <div id="current_week">
                 <?php echo $user->getCurrentWeek(); ?>
             </div>
-            <a href="pdfs/CalendrierABCD.pdf" target="_blank">Calendrier ABCD</a>
+            <a href="pdfs/CalendrierABCD.pdf" target="_blank">Calendrier 2018</a><br>
+	    <a href="pdfs/Calendrier2019.pdf" target="_blank">Calendrier 2019</a>
         </div>
     </div>
 </div>
