@@ -23,7 +23,7 @@ class Event extends BaseDBModel
         // valeur bidon en local
         return (object) [
             "info" => "Pas d'AG le 20/10! On se fait une grosse bouffe!",
-            "lien" => 'https://facebook.com',
+            "lien" => 'https://cooplalouve.fr',
             "type" => "ag",
             "titre" => "info AG",
             "date" => "2016-11-18"
@@ -42,7 +42,7 @@ class Event extends BaseDBModel
         // valeur bidon en local
         return (object) [
             "info" => "Pas d'AG le 20/10! On se fait une grosse bouffe!",
-            "lien" => 'https://facebook.com',
+            "lien" => 'https://cooplalouve.fr',
             "type" => "ag",
             "titre" => "info AG",
             "date" => "2016-11-18"
@@ -78,7 +78,7 @@ class Event extends BaseDBModel
                 "id" => "1",
                 "info" => "Y'a le feu de partout",
                 "date" => "2016-11-05",
-                "lien" => "https://facebook.com",
+                "lien" => "https://cooplalouve.fr",
                 "type" => "ag",
                 "titre" => "AG",
                 "date" => "2016-11-18"
@@ -113,7 +113,7 @@ class Event extends BaseDBModel
             "info" => "Y'a le feu de partout",
             "date" => "2016-11-05",
             "insertion" => "2016-11-06 12:58:03",
-            "lien" => "https://facebook.com",
+            "lien" => "https://cooplalouve.fr",
             "titre" => "AAAaarrg!",
             "datefin" => "2016-11-11",
             "niveau" => "3"
@@ -147,7 +147,7 @@ class Event extends BaseDBModel
             "info" => "Y'a le feu de partout",
             "date" => "2016-11-05",
             "insertion" => "2016-11-06 12:58:03",
-            "lien" => "https://facebook.com",
+            "lien" => "https://cooplalouve.fr",
             "titre" => "AAAaarrg!",
             "datefin" => "2016-11-11",
             "niveau" => "3"

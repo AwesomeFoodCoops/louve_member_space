@@ -40,7 +40,7 @@ class Document extends BaseDBModel
         return [
             [
                 "id" => "1",
-                "lien" => "https://facebook.com",
+                "lien" => "https://cooplalouve.fr",
                 "icone" => "general",
                 "categorie" => "general",
                 "titre" => "AG",
@@ -73,7 +73,7 @@ class Document extends BaseDBModel
         // valeur bidon en local
         return [
                 "id" => "1",
-                "lien" => "https://facebook.com",
+                "lien" => "https://cooplalouve.fr",
                 "icone" => "general",
                 "categorie" => "general",
                 "titre" => "AG",
@@ -107,7 +107,7 @@ class Document extends BaseDBModel
         // valeur bidon en local
         return [
                 "id" => "1",
-                "lien" => "https://facebook.com",
+                "lien" => "https://cooplalouve.fr",
                 "icone" => "general",
                 "categorie" => "general",
                 "titre" => "AG",

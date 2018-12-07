@@ -23,7 +23,7 @@ class Meeting extends BaseDBModel
         // valeur bidon en local
         return (object) [
             "infos" => "Pas d'AG le 20/10! On se fait une grosse bouffe!",
-            "lien" => 'https://facebook.com',
+            "lien" => 'https://cooplalouve.fr',
         ];
     }
 }
