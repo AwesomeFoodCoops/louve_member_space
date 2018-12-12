@@ -122,7 +122,8 @@ function formatFtopShifts($shifts,$shift_type_user)
         echo("<br>");
         */
 
-        if($weekdiff!=0 or $shift_type_user!='standard')
+        //if($weekdiff!=0 or $shift_type_user!='standard')
+        if( 1==1 )
         {
         $result[$ftopIndex] = (
             '<tr><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' .
