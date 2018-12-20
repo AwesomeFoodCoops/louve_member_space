@@ -32,13 +32,12 @@
 
 <div>
     <div class="col-xs-12 col-sm-2">
-        <h3 class="entete ui horizontal divider"><strong>Semaine</strong><div id="subtitle"><strong>en cours</strong></h3><div></h3>
+        <h3 class="entete ui horizontal divider"><strong>Semaine</strong><div id="subtitle">en cours</h3><div></h3>
         <div class="louve-creneau">
             <div id="current_week">
                 <?php echo $user->getCurrentWeek(); ?>
             </div>
-            <a href="pdfs/CalendrierABCD.pdf" target="_blank">Calendrier 2018</a><br>
-	    <a href="pdfs/Calendrier2019.pdf" target="_blank">Calendrier 2019</a>
+            <a href="pdfs/CalendrierABCD.pdf" target="_blank">Calendrier ABCD</a>
         </div>
     </div>
 </div>
@@ -47,6 +46,25 @@
     <h3  class="entete ui horizontal divider"><strong>Le magasin</strong></h3>
     <div class="louve-creneau">
     <?php
+
+
+
+$date =  mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
+
+if ( $date==strtotime("01/01/2019") ||  $date==strtotime("01/01/2019") )
+{
+    echo '<h3 style="color : red">Actuellement fermé</h3>';
+	echo '<h4>Le magasin est fermé aujourd\'hui. A demain.</h4>';
+}
+else if ( $date==strtotime("24/12/2018") ||  $date==strtotime("31/12/2018"))
+{
+    echo '<h4>Le magasin est ouvert aujourd&acute;hui de 9h00 à 13h30.</h4>';
+}
+else {
+
+
+
+
 
 	$day = date('D');
 	$min = date('i');
@@ -112,6 +130,7 @@
 			*/
 		echo '<h4>Le magasin est ouvert aujourd\'hui de 9h à 21h.</h4>';
 	}
+}
 	//echo '<a href="http://www.openstreetmap.org/node/4437524492#map=16/48.8944/2.3530" ><button class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> 116 Rue des Poissonniers, 75018 Paris</button></a>';
 	echo '<p> Ces horaires sont susceptibles de varier lors de certains évènements. Consultez les urgences pour en savoir plus.</p>';
 		
