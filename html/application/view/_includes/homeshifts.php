@@ -47,16 +47,19 @@
     <div class="louve-creneau">
     <?php
 
+$date = date('d')."/".date('m')."/".date('Y');
 
+//echo( ( $date=="24/12/2018" ||  $date=="31/12/2018"));
 
-$date =  mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
+//$date =  mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
 
-if ( $date==strtotime("01/01/2019") ||  $date==strtotime("01/01/2019") )
+if ( $date=="01/01/2019" ||  $date=="25/12/2018" )
 {
+	
     echo '<h3 style="color : red">Actuellement fermé</h3>';
 	echo '<h4>Le magasin est fermé aujourd\'hui. A demain.</h4>';
 }
-else if ( $date==strtotime("24/12/2018") ||  $date==strtotime("31/12/2018"))
+else if ( $date=="24/12/2018" ||  $date=="31/12/2018")
 {
     echo '<h4>Le magasin est ouvert aujourd&acute;hui de 9h00 à 13h30.</h4>';
 }
