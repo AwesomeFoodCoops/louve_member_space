@@ -37,7 +37,7 @@
             <div id="current_week">
                 <?php echo $user->getCurrentWeek(); ?>
             </div>
-            <a href="pdfs/CalendrierABCD.pdf" target="_blank">Calendrier 2018</a><br>
+           
 	    <a href="pdfs/Calendrier2019.pdf" target="_blank">Calendrier 2019</a>
         </div>
     </div>
