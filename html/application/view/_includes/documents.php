@@ -13,11 +13,6 @@
 			<p  ><img src="img/team.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
 				<br/>Pour les coordinateurs</a></p>
 		</div>
-		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
-			<a href="pdfs/Statuts_et_presence.pdf" target="_blank"><p  >
-				<img src="img/time.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
-				<br/>Système de présence</a></p>
-		</div>
 		
 		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/FPexemple.pdf" target="_blank">
 			<p  ><img src="img/sheet.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
@@ -50,10 +45,7 @@
 				<br/>Le Modèle Park Slope</a></p>
 		</div>
 
-		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ><a href="pdfs/venir_a_la_louve.pdf" target="_blank">
-			<p  ><img src="img/bus.png" style="width:80px;" alt="doc" class="img-responsive img-center" />
-				<br/>Venir au Supermarché</a></p>
-		</div>
+
 
         </div>
     </div>
