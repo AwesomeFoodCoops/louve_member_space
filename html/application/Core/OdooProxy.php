@@ -216,7 +216,7 @@ class OdooProxy
         $t = time();
         $date = Date::iso8601Encode($t);
         
-        if (intval(substr($date,9,2))>=18 ) {
+        if (intval(substr($date,9,2))>=19 ) {
         $d = substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2).'T00:00:00';
         $t=strtotime($d . ' +2 day');
         }
