@@ -38,7 +38,7 @@
                 <?php echo $user->getCurrentWeek(); ?>
             </div>
            
-	    <a href="pdfs/Calendrier2020.pdf" target="_blank">Calendrier 2019</a>
+	    <a href="pdfs/Calendrier2020.pdf" target="_blank">Calendrier 2020</a>
         </div>
     </div>
 </div>
