@@ -105,7 +105,10 @@ function formatFtopShifts($shifts,$shift_type_user)
         $shift_ticket_id = $shifts[$i]->me['struct']['id']->me['int'];
         // List only shifts which are kind 'volant' (id=2) and for which there are more than 1 available seats
         // TODO_NOW: !!! Clarify with ERP team which value should be used : "name" or "shift_type"!!!
-        if ($available_seats <= 0 OR $name != "Volant") {
+        //if ($available_seats <= 0 OR $name != "Volant") {
+        //    continue;
+        //}
+        if ($available_seats <= 0 ) {
             continue;
         }
         $time = $shifts[$i]->me['struct']['date_begin']->me['string'];
