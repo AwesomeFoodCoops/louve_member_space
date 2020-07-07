@@ -1,6 +1,7 @@
 <?php
 
 use Louve\Model\Shift;
+use Louve\Core\OdooProxy;
 //use Louve\Model\Session;
 
 // Transforme un résultat de l'api Odoo dans un format moins dégueu :)
@@ -106,8 +107,11 @@ function formatFtopShifts($shifts,$shift_type_user)
         // List only shifts which are kind 'volant' (id=2) and for which there are more than 1 available seats
         // TODO_NOW: !!! Clarify with ERP team which value should be used : "name" or "shift_type"!!!
         //if ($available_seats <= 0 OR $name != "Volant") {
+        // http://gestion-dev.cooplalouve.fr/web?&debug=#id=16788&view_type=form&model=shift.ticket
         //    continue;
         //}
+        $skills = "";
+
         if ($available_seats <= 0 ) {
             continue;
         }
@@ -127,10 +131,29 @@ function formatFtopShifts($shifts,$shift_type_user)
 
         if($weekdiff!=0 or $shift_type_user!='standard')
         {
+            
+            for($j = 0; $j < count($shifts[$i]->me['struct']['required_skill_ids']->me['array']); $j++) {
+                //echo($shifts[$i]->me['struct']['required_skill_ids']->me['array'][$j]->me['int']);
+
+                
+                $proxy = new OdooProxy();
+                $connectionStatus = $proxy->connect();
+                //die(var_dump($proxy->getSkillById($shifts[$i]->me['struct']['required_skill_ids']->me['array'][$j]->me['int'])));
+                //die($proxy->getSkillById($shifts[$i]->me['struct']['required_skill_ids']->me['array'][$j]->me['int'])[0]['name']->me['string']);
+                
+                //die($proxy->getSkillById($shifts[$i]->me['struct']['required_skill_ids']->me['array'][$j]->me['int'])->me['string']);
+
+                //echo($proxy->getSkillById($shifts[$i]->me['struct']['required_skill_ids']->me['array'][$j]->me['int'])[0])->me['string'];
+                $skills = $skills . $proxy->getSkillById($shifts[$i]->me['struct']['required_skill_ids']->me['array'][$j]->me['int'])[0]['name']->me['string'] . "<br>";
+            }    
+        
+
+
         $result[$ftopIndex] = (
             '<tr><td>' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . '</td><td>' .
             $hour . 'H' . $minutes . '</td><td>' . $available_seats . '</td><td>'.
-            '<input type="button" class="subscribeftop" name="inscription" value="inscription" data-date_begin="' . $time .'" data-date_begin_formated="' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' à ' . $hour . 'H' . $minutes . '" data-shift_id="' . $shift_id . '" data-shift_ticket_id="' . $shift_ticket_id . '"></td></tr>'
+            '<input type="button" class="subscribeftop" name="inscription" value="inscription" data-date_begin="' . $time .'" data-date_begin_formated="' . $dd . ' ' . $day . ' ' . $month . ' ' . $year . ' à ' . $hour . 'H' . $minutes . '" data-shift_id="' . $shift_id . '" data-shift_ticket_id="' . $shift_ticket_id . '"></td></tr>'.
+            '<tr><td class="skill" colspan=4><i>' . $skills . '</i></td></tr>' 
         );
         }
         else{

@@ -48,3 +48,10 @@
 
     </div>
 </div>
+<style>
+.skill {
+    
+    border-top: 0 !important;
+
+}
+</style>

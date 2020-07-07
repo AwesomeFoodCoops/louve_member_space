@@ -241,6 +241,7 @@ class OdooProxy
                       new Value($date,"string")
                 ),"array"
             ),
+
             
         );
 
@@ -274,13 +275,14 @@ class OdooProxy
             new Value("shift_type", "string"),
             new Value("shift_id", "string"),
             new Value("shift_ticket_id", "string"),
-            
+            new Value("required_skill_ids", "string"),
         );
 
         // Requête des champs
         $raw_values = self::getEntriesValues($client, $odoo_table, $uids_list, $field_list);
 
         $result = $raw_values->value()->scalarval();
+        //die(var_dump($result));
         return $result;
     }
 
@@ -464,6 +466,35 @@ public function createFtopShiftRegistration($partner_id,$shift_ticket_begin_date
        return $response;
           
 }
+
+
+    // Récupération des shifts volants
+    public function getSkillById($id)
+    {
+        $odoo_table = 'hr.skill';
+        $client = new Client(ODOO_SERVER_URL . "/xmlrpc/object");
+        $client->request_charset_encoding = 'UTF-8';
+        $client->setSSLVerifyPeer(0);
+
+        // TODO_NOW En dév local renvoyer des infos bidons
+        $uids_list = array();
+
+        
+            $uids_list[]= new Value($id, 'int');
+        
+
+        // Définition des champs qu'on va vouloir récupérer dans ces lignes
+        $field_list = array(
+            new Value("name", "string"),
+        );
+
+        // Requête des champs
+        $raw_values = self::getEntriesValues($client, $odoo_table, $uids_list, $field_list);
+
+        $result = $raw_values->value()->scalarval();
+        //die(var_dump($result));
+        return $result;
+    }
 
    
     
