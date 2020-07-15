@@ -129,7 +129,8 @@ function formatFtopShifts($shifts,$shift_type_user)
         echo("<br>");
         */
 
-        if($weekdiff!=0 or $shift_type_user!='standard')
+        //if($weekdiff!=0 or $shift_type_user!='standard')
+        if(true)
         {
             
             for($j = 0; $j < count($shifts[$i]->me['struct']['required_skill_ids']->me['array']); $j++) {
