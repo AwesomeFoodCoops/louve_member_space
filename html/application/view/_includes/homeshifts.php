@@ -142,15 +142,7 @@ else {
 	    <p><strong>Nouveaux horaires d'ouverture</strong></p>
 	    <p>Lundi : fermé<br>
 
-Mardi : 9h-20h<br>
-
-Mercredi : 9h-20h<br>
-
-Jeudi : 9h-20h<br>
-
-Vendredi : 9h-20h<br>
-
-Samedi : 9h-19h<br>
+Mardi au Samedi : 9h00 à 21h00<br>
 
 		    Dim. : 9h-13h</p>
     </div>
