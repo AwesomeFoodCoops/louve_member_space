@@ -575,12 +575,12 @@ class User
      */
     public function getCurrentWeek() {
         $calendar = array();
-        $letters = array("A", "B", "C", "D");
+        $letters = array("A", "B", "C", "D", "E", "F", "G", "H");
         for ($counter = 1; $counter <= 53; $counter++) {
             if ($counter == 1) {
                 $calendar[$counter] = next($letters);
             } else {
-                if (current($letters) == "D") {
+                if (current($letters) == "H") {
                     reset($letters);
                     $calendar[$counter] = current($letters);
                 } else {
