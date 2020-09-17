@@ -26,7 +26,7 @@ class Emergency extends BaseDBModel
         return (object) [
             "titre" => "AAAaarrg!",
             "info" => "Y'a le feu de partout",
-            "lien" => 'https://facebook.com',
+            "lien" => 'https://cooplalouve.fr',
         ];
     }
 //retourne toutes les urgence courantes
@@ -48,7 +48,7 @@ class Emergency extends BaseDBModel
         return (object) [
             "titre" => "AAAaarrg!",
             "info" => "Y'a le feu de partout",
-            "lien" => 'https://facebook.com',
+            "lien" => 'https://cooplalouve.fr',
         ];
     }
 
@@ -83,7 +83,7 @@ class Emergency extends BaseDBModel
                 "info" => "Y'a le feu de partout",
                 "date" => "2016-11-05",
                 "insertion" => "2016-11-06 12:58:03",
-                "lien" => "https://facebook.com",
+                "lien" => "https://cooplalouve.fr",
                 "titre" => "AAAaarrg!",
                 "datefin" => "2016-11-11",
                 "niveau" => "3"
@@ -118,7 +118,7 @@ class Emergency extends BaseDBModel
             "info" => "Y'a le feu de partout",
             "date" => "2016-11-05",
             "insertion" => "2016-11-06 12:58:03",
-            "lien" => "https://facebook.com",
+            "lien" => "https://cooplalouve.fr",
             "titre" => "AAAaarrg!",
             "datefin" => "2016-11-11",
             "niveau" => "3"
@@ -153,7 +153,7 @@ class Emergency extends BaseDBModel
             "info" => "Y'a le feu de partout",
             "date" => "2016-11-05",
             "insertion" => "2016-11-06 12:58:03",
-            "lien" => "https://facebook.com",
+            "lien" => "https://cooplalouve.fr",
             "titre" => "AAAaarrg!",
             "datefin" => "2016-11-11",
             "niveau" => "3"
