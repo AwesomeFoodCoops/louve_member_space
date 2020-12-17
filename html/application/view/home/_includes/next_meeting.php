@@ -20,15 +20,14 @@
         <h3  class="entete ui horizontal divider"><strong>Bureau des membres</strong></h3>
         <div class="louve-box">
 			<h3><strong>Horaires d’ouverture<strong/></h3>
-				<h4>Le bureau des membres est fermé durant le confinement.</h4>		
-	<!--			
+						
             <h4>mardi : 13h30 - 16h</h4>
-            <h4>du mercredi au vendredi : 13h30 - 20h</h4>
+            <h4>du mercredi au vendredi : 13h30 - 19h30</h4>
             <h4>samedi : 10 - 16h</h4>			
 	    <h4> <button type="button" class="btn btn-default btn-sm">
 		    <a href="tel:0186959190"><span class="glyphicon glyphicon-earphone"></span> 01 86 95 91 90</a>
         </button>
-	-->
+	
 		</h4>
 		
         </div>
