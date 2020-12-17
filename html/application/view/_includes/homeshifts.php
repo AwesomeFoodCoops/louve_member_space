@@ -139,11 +139,11 @@ else {
 	echo '<p> Ces horaires sont susceptibles de varier lors de certains évènements. Consultez les urgences pour en savoir plus.</p>';
 		
     ?>
-	    <p><strong>Nouveaux horaires d'ouverture</strong></p>
+	    <p><strong>Horaires d'ouverture (pendant le couvre-feu)</strong></p>
 	    <p>Lundi : fermé<br>
 
-Mardi au Samedi : 9h00 à 20h00<br>
+Mardi au Samedi : 8h00 à 19h30<br>
 
-		    Dim. : 9h-13h</p>
+		    Dim. : 8h30-13h</p>
     </div>
 </div>
