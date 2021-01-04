@@ -578,7 +578,8 @@ class User
         $letters = array("A", "B", "C", "D", "E", "F", "G", "H");
         for ($counter = 1; $counter <= 53; $counter++) {
             if ($counter == 1) {
-                $calendar[$counter] = next($letters);
+                $calendar[$counter] = end($letters);
+		$calendar[$counter] = prev($letters);    
             } else {
                 if (current($letters) == "H") {
                     reset($letters);
