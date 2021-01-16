@@ -80,9 +80,9 @@ else {
 	}
 	else if ($day == 'Sun')
 	{
-		$debut = "09:00:00";
-		$imminente = "12:00:00";
-		$fin = "13:00:00";
+		$debut = "08:30:00";
+		$imminente = "15:00:00";
+		$fin = "16:00:00";
 
 		if (time() >= strtotime($debut) && time() <= strtotime($fin)) {
 			if (time() >= strtotime($imminente))
@@ -93,7 +93,7 @@ else {
 		else{
 			echo '<h3 style="color : red">Actuellement fermé</h3>';
 		}
-		echo '<h4>Le magasin est ouvert le dimanche de 9h00 à 13h00.</h4>';
+		echo '<h4>Le magasin est ouvert le dimanche de 8h30 à 18h00.</h4>';
 		/*if ($hrs < 8 OR $hrs > 13)
 			echo '<h3 style="color : red">Actuellement fermé</h3>';
 		else if ($hrs == 8 AND $min < 30)
@@ -109,9 +109,9 @@ else {
 	}
 	else
 	{
-		$debut = "09:00:00";
-		$imminente = "20:00:00";
-		$fin = "21:00:00";
+		$debut = "08:00:00";
+		$imminente = "17:00:00";
+		$fin = "18:00:00";
 
 		if (time() >= strtotime($debut) && time() <= strtotime($fin)) {
 			if (time() >= strtotime($imminente))
@@ -132,7 +132,7 @@ else {
 		else 
 			echo '<h3 style="color : green">Actuellement ouvert</h3>';
 			*/
-		echo '<h4>Le magasin est ouvert aujourd\'hui de 9h à 21h.</h4>';
+		echo '<h4>Le magasin est ouvert aujourd\'hui de 8h à 18h.</h4>';
 	}
 }
 	//echo '<a href="http://www.openstreetmap.org/node/4437524492#map=16/48.8944/2.3530" ><button class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> 116 Rue des Poissonniers, 75018 Paris</button></a>';
@@ -142,8 +142,8 @@ else {
 	    <p><strong>Horaires d'ouverture (pendant le couvre-feu)</strong></p>
 	    <p>Lundi : fermé<br>
 
-Mardi au Samedi : 8h00 à 19h30<br>
+Mardi au Samedi : 8h00 à 18h00<br>
 
-		    Dim. : 8h30-13h</p>
+		    Dim. : 8h30-16h</p>
     </div>
 </div>
