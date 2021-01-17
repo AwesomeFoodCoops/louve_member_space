@@ -93,7 +93,7 @@ else {
 		else{
 			echo '<h3 style="color : red">Actuellement fermé</h3>';
 		}
-		echo '<h4>Le magasin est ouvert le dimanche de 8h30 à 18h00.</h4>';
+		echo '<h4>Le magasin est ouvert le dimanche de 8h30 à 16h00.</h4>';
 		/*if ($hrs < 8 OR $hrs > 13)
 			echo '<h3 style="color : red">Actuellement fermé</h3>';
 		else if ($hrs == 8 AND $min < 30)
