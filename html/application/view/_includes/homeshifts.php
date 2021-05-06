@@ -110,8 +110,8 @@ else {
 	else
 	{
 		$debut = "08:00:00";
-		$imminente = "17:00:00";
-		$fin = "18:00:00";
+		$imminente = "18:00:00";
+		$fin = "19:00:00";
 
 		if (time() >= strtotime($debut) && time() <= strtotime($fin)) {
 			if (time() >= strtotime($imminente))
@@ -132,7 +132,7 @@ else {
 		else 
 			echo '<h3 style="color : green">Actuellement ouvert</h3>';
 			*/
-		echo '<h4>Le magasin est ouvert aujourd\'hui de 8h à 18h.</h4>';
+		echo '<h4>Le magasin est ouvert aujourd\'hui de 8h à 19h.</h4>';
 	}
 }
 	//echo '<a href="http://www.openstreetmap.org/node/4437524492#map=16/48.8944/2.3530" ><button class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> 116 Rue des Poissonniers, 75018 Paris</button></a>';
@@ -142,7 +142,7 @@ else {
 	    <p><strong>Horaires d'ouverture (pendant le couvre-feu)</strong></p>
 	    <p>Lundi : fermé<br>
 
-Mardi au Samedi : 8h00 à 18h00<br>
+Mardi au Samedi : 8h00 à 19h00<br>
 
 		    Dim. : 8h30-16h</p>
     </div>
