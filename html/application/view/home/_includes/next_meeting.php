@@ -20,8 +20,7 @@
         <h3  class="entete ui horizontal divider"><strong>Bureau des membres</strong></h3>
         <div class="louve-box">
 		
-		<h3><strong>Actuellement fermé<strong/></h3>
-		<!--
+		
 			<h3><strong>Horaires d’ouverture<strong/></h3>
 						
             <h4>mardi : 13h30 à 16h00</h4>
@@ -32,7 +31,7 @@
         </button>
 	
 		</h4>
-		-->
+		
         </div>
     </div>
 
